@@ -10,7 +10,7 @@ import {
 import { assets } from "../../assets/assets";
 import "./Navbar.css";
 
-const WEBSITE_URL = import.meta.env.VITE_FRONTEND_URL || "http://localhost:5173";
+const WEBSITE_URL = import.meta.env.VITE_FRONTEND_URL || "https://feasto-frontend-qt0n.onrender.com";
 
 const Navbar = ({ setToken }) => {
     const navigate = useNavigate();
