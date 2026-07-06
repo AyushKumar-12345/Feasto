@@ -79,7 +79,7 @@ npm run dev
 Create a `.env` file in the project root.
 
 ```env
-VITE_BACKEND_URL=http://localhost:4000
+VITE_BACKEND_URL=http://feasto-backend-pcbq.onrender.com
 VITE_RAZORPAY_KEY_ID=your_razorpay_key
 ```
 

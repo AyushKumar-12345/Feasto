@@ -14,7 +14,7 @@ const StoreContextProvider = ({ children }) => {
 
     const url =
         import.meta.env.VITE_BACKEND_URL ||
-        "http://localhost:4000";
+        "http://feasto-backend-pcbq.onrender.com";
 
     const authHeader = (token) => ({
         headers: {

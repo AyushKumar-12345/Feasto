@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
     const url =
-        import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
+        import.meta.env.VITE_BACKEND_URL || "http://feasto-backend-pcbq.onrender.com";
 
     const [token, setToken] = useState(localStorage.getItem("token"));
 
