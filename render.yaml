@@ -4,17 +4,17 @@ services:
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
+    redirects:
+      - source: /*
         destination: /index.html
+        type: rewrite
 
   - type: static
     name: feasto-admin-5h3g
     rootDir: admin
     buildCommand: npm install && npm run build
     staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
+    redirects:
+      - source: /*
         destination: /index.html
+        type: rewrite
