@@ -1,0 +1,157 @@
+.page-title {
+    margin-bottom: 22px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+}
+
+.list-table {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.list-table-format {
+    display: grid;
+    grid-template-columns: 80px 2fr 1fr 1fr 80px;
+    align-items: center;
+    gap: 18px;
+    padding: 18px 22px;
+    border-bottom: 1px solid #f2f2f2;
+    transition: background 0.25s ease;
+}
+
+.list-table-format:last-child {
+    border-bottom: none;
+}
+
+.list-table-format:not(.title):hover {
+    background: #fafafa;
+}
+
+.list-table-format.title {
+    background: #fcfcfc;
+    color: #666;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+
+.list-table-format img {
+    width: 64px;
+    height: 64px;
+    border: 1px solid #ececec;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.list-table-format p {
+    margin: 0;
+    color: #444;
+    font-size: 15px;
+    word-break: break-word;
+}
+
+.delete-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 10px;
+    background: #fff5f2;
+    color: tomato;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.delete-btn:hover {
+    background: tomato;
+    color: #fff;
+    transform: scale(1.08);
+}
+
+.empty-list {
+    padding: 50px 20px;
+    color: #888;
+    font-size: 16px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 22px;
+    }
+
+    .list-table {
+        border-radius: 14px;
+    }
+
+    .list-table-format {
+        grid-template-columns: 60px 1fr auto;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .list-table-format.title {
+        display: none;
+    }
+
+    .list-table-format p:nth-child(3),
+    .list-table-format p:nth-child(4) {
+        display: none;
+    }
+
+    .list-table-format img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .delete-btn {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        margin-bottom: 18px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .list-table {
+        border-radius: 12px;
+    }
+
+    .list-table-format {
+        grid-template-columns: 48px 1fr 40px;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .list-table-format img {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+    }
+
+    .list-table-format p {
+        font-size: 14px;
+    }
+
+    .delete-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .delete-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+}

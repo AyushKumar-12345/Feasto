@@ -1,0 +1,50 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+
+# Build Output
+dist/
+dist-ssr/
+build/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Uploads
+uploads/
+
+# Local Configuration
+*.local
+
+# Cache
+.cache/
+.eslintcache
+coverage/
+
+# VS Code
+.vscode/*
+!.vscode/extensions.json
+
+# JetBrains IDEs
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Visual Studio
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

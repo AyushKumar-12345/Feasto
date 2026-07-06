@@ -1,0 +1,129 @@
+.my-orders {
+    margin: 70px 0;
+}
+
+.my-orders h2 {
+    margin-bottom: 30px;
+    color: #222;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.my-orders .container {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.my-orders-order {
+    display: grid;
+    grid-template-columns: 70px 2.8fr 1.2fr 1.3fr;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #ececec;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.my-orders-order:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.08);
+}
+
+.order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.order-food {
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+    line-height: 1.6;
+}
+
+.order-details p {
+    color: #666;
+    font-size: 14px;
+}
+
+.order-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+.my-orders-order button {
+    justify-self: end;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 12px;
+    background: tomato;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(255, 99, 71, 0.25);
+}
+
+.my-orders-order button:hover {
+    background: #e5533d;
+    transform: translateY(-2px);
+}
+
+.empty-orders {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 90px 20px;
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    text-align: center;
+}
+
+.empty-orders svg {
+    color: tomato;
+    margin-bottom: 20px;
+}
+
+.empty-orders h3 {
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.empty-orders p {
+    color: #666;
+    max-width: 350px;
+    line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+    .my-orders-order {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 18px;
+    }
+
+    .order-details {
+        align-items: center;
+    }
+
+    .order-status {
+        justify-content: center;
+    }
+
+    .my-orders-order button {
+        justify-self: center;
+        width: 100%;
+    }
+}

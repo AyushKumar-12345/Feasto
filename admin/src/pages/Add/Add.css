@@ -1,0 +1,229 @@
+.add {
+    width: min(720px, 90%);
+    margin: 40px auto;
+    color: #444;
+}
+
+.add form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 32px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.add p {
+    margin-bottom: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+.add-img-upload {
+    width: fit-content;
+}
+
+.upload-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 260px;
+    height: 180px;
+    overflow: hidden;
+    border: 2px dashed #d8d8d8;
+    border-radius: 16px;
+    background: #fafafa;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-card:hover {
+    border-color: tomato;
+    background: #fff5f2;
+    transform: translateY(-2px);
+}
+
+.upload-card svg {
+    color: tomato;
+}
+
+.upload-card h4 {
+    margin: 0;
+    font-size: 17px;
+    color: #333;
+}
+
+.upload-card span {
+    font-size: 13px;
+    color: #888;
+}
+
+.image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.remove-preview {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    width: 34px;
+    height: 34px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.65);
+    color: #fff;
+    font-size: 22px;
+    line-height: 34px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.remove-preview:hover {
+    background: tomato;
+    transform: scale(1.1);
+}
+
+.add-product-name,
+.add-product-description {
+    width: 100%;
+}
+
+.add-product-name input,
+.add-product-description textarea,
+.add-category-price select,
+.add-category-price input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    font-size: 15px;
+    transition: all 0.25s ease;
+}
+
+.add-product-name input:hover,
+.add-product-description textarea:hover,
+.add-category-price select:hover,
+.add-category-price input:hover {
+    border-color: #bfbfbf;
+}
+
+.add-product-name input:focus,
+.add-product-description textarea:focus,
+.add-category-price select:focus,
+.add-category-price input:focus {
+    outline: none;
+    border-color: tomato;
+    box-shadow: 0 0 0 4px rgba(255, 99, 71, 0.12);
+}
+
+.add-product-description textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.add-category-price {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.add-category,
+.add-price {
+    flex: 1;
+    min-width: 180px;
+}
+
+.add-btn {
+    width: 180px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: tomato;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 18px rgba(255, 99, 71, 0.25);
+}
+
+.add-btn:hover:not(:disabled) {
+    background: #e5533d;
+    transform: translateY(-2px);
+}
+
+.add-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+    .add {
+        width: 95%;
+        margin: 24px auto;
+    }
+
+    .add form {
+        padding: 24px;
+    }
+
+    .add-img-upload {
+        width: 100%;
+    }
+
+    .upload-card {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+        height: 180px;
+    }
+
+    .add-category-price {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .add-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .add {
+        width: 100%;
+        padding: 0 12px;
+        margin: 20px auto;
+    }
+
+    .add form {
+        padding: 18px;
+        gap: 20px;
+        border-radius: 14px;
+    }
+
+    .upload-card {
+        height: 170px;
+    }
+
+    .add-product-name input,
+    .add-product-description textarea,
+    .add-category-price select,
+    .add-category-price input {
+        padding: 12px 14px;
+        font-size: 14px;
+    }
+
+    .add-btn {
+        padding: 13px;
+        font-size: 14px;
+    }
+}
