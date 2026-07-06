@@ -1,0 +1,20 @@
+services:
+  - type: static
+    name: feasto-frontend-yd60
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+  - type: static
+    name: feasto-admin-5h3g
+    rootDir: admin
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
