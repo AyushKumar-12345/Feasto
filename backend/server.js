@@ -15,9 +15,12 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const app = express();
 const port = process.env.PORT || 4000;
 
+// Hardcoded production URLs along with fallback environment variables
 const allowedOrigins = [
     "http://localhost:5173",
     "http://localhost:5174",
+    "https://feasto-frontend-qt0n.onrender.com",
+    "https://feasto-admin-567d.onrender.com",
     process.env.FRONTEND_URL,
     process.env.ADMIN_URL,
 ].filter(Boolean);
@@ -28,7 +31,7 @@ app.use(
             if (!origin || allowedOrigins.includes(origin)) {
                 callback(null, true);
             } else {
-                callback(new Error("Not allowed by CORS"));
+                callback(new Error(`Not allowed by CORS: ${origin}`));
             }
         },
         credentials: true,
