@@ -1,6 +1,6 @@
 # 🍔 Feasto Frontend
 
-The frontend of **Feasto**, a modern food delivery web application built using **React** and **Vite**. It provides a smooth and responsive user experience, allowing users to browse food items, manage their cart, place orders, complete secure online payments, and track their orders.
+The frontend of **Feasto**, a modern food delivery web application built using **React** and **Vite**. It delivers a fast, responsive, and intuitive user experience, allowing users to explore food items, manage their cart, complete secure online payments, and track their orders in real time.
 
 ---
 
@@ -14,17 +14,18 @@ The frontend of **Feasto**, a modern food delivery web application built using *
 - Shopping Cart Management
 - Secure Checkout Flow
 - Razorpay Payment Integration
-- Order History
+- Order History & Order Tracking
+- Profile Picture Upload
 - Responsive Design
 - Toast Notifications
-- Profile Picture Upload
-- Smooth Scrolling & Modern UI
+- Smooth Scrolling
+- Modern UI
 
 ---
 
 ## 🛠 Tech Stack
 
-- React 19
+- React 18
 - Vite
 - React Router DOM
 - Axios
@@ -53,20 +54,20 @@ src/
 
 ## 🚀 Getting Started
 
-### Clone the repository
+### Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd frontend
+git clone <your-github-repository-url>
+cd feasto-frontend
 ```
 
-### Install dependencies
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Start development server
+### Start Development Server
 
 ```bash
 npm run dev
@@ -79,13 +80,23 @@ npm run dev
 Create a `.env` file in the project root.
 
 ```env
-VITE_BACKEND_URL=http://feasto-backend-pcbq.onrender.com
+VITE_BACKEND_URL=https://feasto-backend-pcbq.onrender.com
 VITE_RAZORPAY_KEY_ID=your_razorpay_key
 ```
 
 ---
 
-## 📦 Build for Production
+## 🌐 Live Demo
+
+- **Frontend:** https://feasto-frontend-qt0n.onrender.com
+- **Admin Dashboard:** https://feasto-admin-567d.onrender.com
+- **Backend API:** https://feasto-backend-pcbq.onrender.com
+
+---
+
+## 📦 Production Build
+
+Build the application for production.
 
 ```bash
 npm run build
@@ -103,13 +114,13 @@ npm run preview
 
 ## 🔗 Backend
 
-This frontend communicates with the **Feasto Backend** through REST APIs.
+This frontend communicates with the **Feasto Backend** using REST APIs built with **Node.js**, **Express.js**, and **MongoDB**.
 
-Make sure the backend server is running before starting the frontend.
+For local development, ensure the backend server is running before starting the frontend.
 
 ---
 
-## 📱 Main Pages
+## 📱 Pages
 
 - Home
 - Cart
@@ -118,6 +129,39 @@ Make sure the backend server is running before starting the frontend.
 - My Orders
 - Profile
 - Login / Signup
+- About Us
+- Privacy Policy
+
+---
+
+## 📸 Screenshots
+
+Add screenshots of the following pages after deployment:
+
+- Home
+- Cart
+- Checkout
+- My Orders
+- Profile
+
+---
+
+## 🚀 Future Improvements
+
+- Progressive Web App (PWA)
+- Wishlist
+- Dark Mode
+- Email Notifications
+- Push Notifications
+- Real-time Delivery Tracking
+
+---
+
+## 👨‍💻 Author
+
+**Ayush Kumar**
+
+Built as a full-stack MERN portfolio project showcasing modern web development practices, responsive UI design, secure authentication, online payment integration, and RESTful API communication.
 
 ---
 

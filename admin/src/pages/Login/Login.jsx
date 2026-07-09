@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -6,9 +6,7 @@ import "./Login.css";
 
 const Login = ({ url, setToken }) => {
     const navigate = useNavigate();
-
     const [loading, setLoading] = useState(false);
-
     const [data, setData] = useState({
         email: "",
         password: "",
@@ -23,10 +21,8 @@ const Login = ({ url, setToken }) => {
 
     const onSubmitHandler = async (event) => {
         event.preventDefault();
-
         try {
             setLoading(true);
-
             const response = await axios.post(
                 `${url}/api/admin/login`,
                 {

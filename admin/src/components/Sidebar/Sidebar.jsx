@@ -1,11 +1,11 @@
 import React from "react";
-import "./Sidebar.css";
 import { NavLink } from "react-router-dom";
 import {
     CirclePlus,
     UtensilsCrossed,
     ShoppingBag,
 } from "lucide-react";
+import "./Sidebar.css";
 
 const Sidebar = () => {
     return (

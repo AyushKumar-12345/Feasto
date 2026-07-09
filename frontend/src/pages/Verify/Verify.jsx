@@ -19,73 +19,111 @@ const Verify = () => {
 
     const [status, setStatus] = useState("verifying");
 
-    const verifyPayment = async () => {
-        try {
-            const response = await axios.post(
-                `${url}/api/order/verify`,
-                {
-                    success,
-                    orderId,
-                    razorpay_order_id,
-                    razorpay_payment_id,
-                    razorpay_signature,
+    useEffect(() => {
+        const verifyPayment = async () => {
+            try {
+                const response = await axios.post(
+                    `${url}/api/order/verify`,
+                    {
+                        success,
+                        orderId,
+                        razorpay_order_id,
+                        razorpay_payment_id,
+                        razorpay_signature,
+                    }
+                );
+
+                if (response.data.success) {
+                    setStatus("success");
+
+                    setTimeout(() => {
+                        navigate("/myorders", {
+                            replace: true,
+                        });
+                    }, 1800);
+                } else {
+                    setStatus("failed");
+
+                    setTimeout(() => {
+                        navigate("/", {
+                            replace: true,
+                        });
+                    }, 1800);
                 }
-            );
+            } catch (error) {
+                console.error(error);
 
-            if (response.data.success) {
-                setStatus("success");
-
-                setTimeout(() => {
-                    navigate("/myorders", { replace: true });
-                }, 1800);
-            } else {
                 setStatus("failed");
 
                 setTimeout(() => {
-                    navigate("/", { replace: true });
+                    navigate("/", {
+                        replace: true,
+                    });
                 }, 1800);
             }
-        } catch (error) {
-            console.error(error);
-            setStatus("failed");
+        };
 
-            setTimeout(() => {
-                navigate("/", { replace: true });
-            }, 1800);
-        }
-    };
-
-    useEffect(() => {
         if (orderId && success !== null) {
             verifyPayment();
         } else {
-            navigate("/", { replace: true });
+            navigate("/", {
+                replace: true,
+            });
         }
-    }, [orderId, success]);
+    }, [
+        orderId,
+        success,
+        razorpay_order_id,
+        razorpay_payment_id,
+        razorpay_signature,
+        url,
+        navigate,
+    ]);
 
     return (
         <section className="verify-page">
             {status === "verifying" && (
                 <div className="verify-card">
                     <div className="verify-spinner"></div>
+
                     <h2>Verifying Payment...</h2>
-                    <p>Please wait while we confirm your transaction.</p>
+
+                    <p>
+                        Please wait while we confirm your
+                        transaction.
+                    </p>
                 </div>
             )}
 
             {status === "success" && (
                 <div className="verify-card status-success">
-                    <CircleCheckBig size={56} className="status-icon" />
+                    <CircleCheckBig
+                        size={56}
+                        className="status-icon"
+                    />
+
                     <h2>Payment Successful</h2>
-                    <p>Your order has been placed successfully.</p>
+
+                    <p>
+                        Your order has been placed
+                        successfully.
+                    </p>
                 </div>
             )}
 
             {status === "failed" && (
                 <div className="verify-card status-failed">
-                    <CircleX size={56} className="status-icon" />
+                    <CircleX
+                        size={56}
+                        className="status-icon"
+                    />
+
                     <h2>Payment Failed</h2>
-                    <p>Something went wrong while verifying your payment.</p>
+
+                    <p>
+                        Something went wrong while
+                        verifying your payment.
+                    </p>
                 </div>
             )}
         </section>

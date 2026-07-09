@@ -56,7 +56,7 @@ const Add = ({ url }) => {
             const formData = new FormData();
             formData.append("name", data.name.trim());
             formData.append("description", data.description.trim());
-            formData.append("price", Number(data.price));
+            formData.append("price", Math.max(0, Number(data.price)));
             formData.append("category", data.category);
             formData.append("image", image);
 

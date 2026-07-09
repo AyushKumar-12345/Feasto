@@ -1,12 +1,12 @@
 # 🍔 Feasto – Full Stack Food Delivery Platform
 
-Feasto is a modern full-stack food delivery platform inspired by applications like **Zomato** and **Swiggy**. It enables users to browse food items, manage their cart, place orders, complete secure online payments, and track their orders. The platform also includes a dedicated admin dashboard for managing food items and customer orders.
+Feasto is a modern full-stack food delivery platform inspired by applications like **Zomato** and **Swiggy**. It allows users to browse food items, manage their cart, place orders, complete secure online payments, and track their orders. The platform also includes a dedicated admin dashboard for managing food items and customer orders.
 
 ---
 
-## 🚀 Features
+# 🚀 Features
 
-### 👤 User Features
+## 👤 User Features
 
 - User Registration & Login (JWT Authentication)
 - Browse Food Menu
@@ -14,30 +14,31 @@ Feasto is a modern full-stack food delivery platform inspired by applications li
 - Filter Food by Category
 - Add & Remove Items from Cart
 - Shopping Cart Management
-- Place Food Orders
-- Secure Online Payments using Razorpay
-- View Order History
-- Upload Profile Picture
-- Responsive User Interface
+- Secure Checkout
+- Razorpay Payment Integration
+- Order History
+- Order Status Tracking
+- Profile Picture Upload
+- Responsive UI
+- Toast Notifications
 
-### 🛠️ Admin Features
+## 🛠️ Admin Features
 
-- Secure Admin Login
-- Add New Food Items
-- Upload Images using Cloudinary
-- View All Food Items
+- Secure Admin Dashboard
+- Add Food Items
 - Delete Food Items
+- Image Upload with Cloudinary
 - View Customer Orders
 - Update Order Status
-- Order Management Dashboard
+- Restaurant Order Management
 
 ---
 
-## 🛠️ Tech Stack
+# 🛠 Tech Stack
 
-### Frontend
+## Frontend
 
-- React 19
+- React 18
 - Vite
 - React Router DOM
 - Axios
@@ -45,7 +46,7 @@ Feasto is a modern full-stack food delivery platform inspired by applications li
 - Lucide React
 - CSS3
 
-### Backend
+## Backend
 
 - Node.js
 - Express.js
@@ -56,16 +57,32 @@ Feasto is a modern full-stack food delivery platform inspired by applications li
 - Cloudinary
 - Multer
 
-### Deployment
+## Deployment
 
-- Frontend – Render
-- Admin Dashboard – Render
-- Backend API – Render
-- Database – MongoDB Atlas
+- Frontend — Render
+- Admin Dashboard — Render
+- Backend API — Render
+- Database — MongoDB Atlas
 
 ---
 
-## 📁 Project Structure
+# 🌐 Live Demo
+
+### Frontend
+
+https://feasto-frontend-qt0n.onrender.com
+
+### Admin Dashboard
+
+https://feasto-admin-567d.onrender.com
+
+### Backend API
+
+https://feasto-backend-pcbq.onrender.com
+
+---
+
+# 📁 Project Structure
 
 ```text
 Feasto/
@@ -78,57 +95,44 @@ Feasto/
 
 ---
 
-## ⚙️ Local Setup
+# ⚙️ Local Setup
 
-### Clone Repository
+## Clone Repository
 
 ```bash
 git clone https://github.com/your-username/Feasto.git
-
 cd Feasto
 ```
 
----
-
-### Frontend
+## Frontend
 
 ```bash
 cd frontend
-
 npm install
-
 npm run dev
 ```
 
----
-
-### Backend
+## Backend
 
 ```bash
 cd backend
-
 npm install
-
 npm run server
 ```
 
----
-
-### Admin Panel
+## Admin Dashboard
 
 ```bash
 cd admin
-
 npm install
-
 npm run dev
 ```
 
 ---
 
-## 🔑 Environment Variables
+# 🔑 Environment Variables
 
-### Backend (.env)
+## Backend (.env)
 
 ```env
 PORT=4000
@@ -147,59 +151,65 @@ CLOUDINARY_API_KEY=your_cloudinary_api_key
 CLOUDINARY_SECRET_KEY=your_cloudinary_secret_key
 ```
 
-### Frontend (.env)
+## Frontend (.env)
 
 ```env
-VITE_BACKEND_URL=http://feasto-backend-pcbq.onrender.com
+VITE_BACKEND_URL=https://feasto-backend-pcbq.onrender.com
 VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
 ```
 
-### Admin (.env)
+## Admin (.env)
 
 ```env
-VITE_BACKEND_URL=http://feasto-backend-pcbq.onrender.com
+VITE_BACKEND_URL=https://feasto-backend-pcbq.onrender.com
 ```
 
 ---
 
-## 📸 Screenshots
+# 📸 Screenshots
 
 Add screenshots of:
 
-- Home Page
+- Home
 - Food Menu
+- Search
 - Cart
 - Checkout
-- Payment
+- Razorpay Payment
 - My Orders
-- Profile Page
+- Profile
 - Admin Dashboard
+- Food Management
 - Order Management
 
 ---
 
-## 🌟 Future Improvements
+# 🚀 Future Improvements
 
-- Wishlist Feature
+- Wishlist
 - Coupon & Discount System
 - Live Order Tracking
 - Email Notifications
 - Push Notifications
-- User Address Management
-- Multiple Payment Methods
+- Multiple Delivery Addresses
 - Food Reviews & Ratings
+- Progressive Web App (PWA)
+- Dark Mode
 
 ---
 
-## 📄 License
+# 📄 License
 
-This project was developed for learning, portfolio, and demonstration purposes.
+This project is developed for educational and portfolio purposes.
 
 ---
 
-## 👨‍💻 Author
+# 👨‍💻 Author
 
 **Ayush Kumar**
 
-- GitHub: https://github.com/AyushKumar-12345
-- LinkedIn: https://www.linkedin.com/in/ayush-kumar-97326636a/
+GitHub:
+https://github.com/AyushKumar-12345
+
+LinkedIn:
+https://www.linkedin.com/in/ayush-kumar-97326636a/

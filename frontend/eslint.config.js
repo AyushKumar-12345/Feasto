@@ -4,18 +4,21 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
-    { ignores: ["dist"] },
+    {
+        ignores: ["dist"],
+    },
 
     {
         files: ["**/*.{js,jsx}"],
 
         languageOptions: {
-            ecmaVersion: 2020,
+            ecmaVersion: "latest",
+            sourceType: "module",
             globals: globals.browser,
             parserOptions: {
-                ecmaVersion: "latest",
-                ecmaFeatures: { jsx: true },
-                sourceType: "module",
+                ecmaFeatures: {
+                    jsx: true,
+                },
             },
         },
 
@@ -38,7 +41,9 @@ export default [
 
             "react-refresh/only-export-components": [
                 "warn",
-                { allowConstantExport: true },
+                {
+                    allowConstantExport: true,
+                },
             ],
         },
     },
