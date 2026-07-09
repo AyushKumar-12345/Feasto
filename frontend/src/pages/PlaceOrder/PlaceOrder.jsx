@@ -4,6 +4,7 @@ import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { ArrowLeft, CreditCard } from "lucide-react";
 
 const PlaceOrder = () => {
     const {
@@ -65,7 +66,7 @@ const PlaceOrder = () => {
                 address: data.street,
             },
             theme: {
-                color: "#ff6347",
+                color: "#ff4321",
             },
             handler: async (response) => {
                 navigate(
@@ -139,137 +140,152 @@ const PlaceOrder = () => {
     }, [token, subtotal, navigate]);
 
     return (
-        <form onSubmit={placeOrder} className="place-order">
-            <div className="place-order-left">
-                <h2 className="title">Delivery Information</h2>
-
-                <div className="multi-fields">
-                    <input
-                        required
-                        type="text"
-                        name="firstName"
-                        placeholder="First Name"
-                        value={data.firstName}
-                        onChange={onChangeHandler}
-                        disabled={loading}
-                    />
-                    <input
-                        required
-                        type="text"
-                        name="lastName"
-                        placeholder="Last Name"
-                        value={data.lastName}
-                        onChange={onChangeHandler}
-                        disabled={loading}
-                    />
-                </div>
-
-                <input
-                    required
-                    type="email"
-                    name="email"
-                    placeholder="Email Address"
-                    value={data.email}
-                    onChange={onChangeHandler}
-                    disabled={loading}
-                />
-
-                <input
-                    required
-                    type="text"
-                    name="street"
-                    placeholder="Street Address"
-                    value={data.street}
-                    onChange={onChangeHandler}
-                    disabled={loading}
-                />
-
-                <div className="multi-fields">
-                    <input
-                        required
-                        type="text"
-                        name="city"
-                        placeholder="City"
-                        value={data.city}
-                        onChange={onChangeHandler}
-                        disabled={loading}
-                    />
-                    <input
-                        required
-                        type="text"
-                        name="state"
-                        placeholder="State"
-                        value={data.state}
-                        onChange={onChangeHandler}
-                        disabled={loading}
-                    />
-                </div>
-
-                <div className="multi-fields">
-                    <input
-                        required
-                        type="text"
-                        name="zipCode"
-                        placeholder="Zip Code"
-                        value={data.zipCode}
-                        onChange={onChangeHandler}
-                        disabled={loading}
-                    />
-                    <input
-                        required
-                        type="text"
-                        name="country"
-                        placeholder="Country"
-                        value={data.country}
-                        onChange={onChangeHandler}
-                        disabled={loading}
-                    />
-                </div>
-
-                <input
-                    required
-                    type="tel"
-                    name="phone"
-                    placeholder="Phone Number"
-                    value={data.phone}
-                    onChange={onChangeHandler}
-                    disabled={loading}
-                />
+        <section className="place-order-wrapper">
+            <div className="order-navigation-header">
+                <button 
+                    type="button" 
+                    className="back-nav-btn" 
+                    onClick={() => navigate(-1)}
+                    aria-label="Go back"
+                >
+                    <ArrowLeft size={18} />
+                    <span>Back to Cart</span>
+                </button>
             </div>
 
-            <div className="place-order-right">
-                <div className="cart-total">
-                    <h2>Order Summary</h2>
+            <form onSubmit={placeOrder} className="place-order">
+                <div className="place-order-left">
+                    <h2 className="title">Delivery Information</h2>
 
-                    <div>
-                        <div className="cart-total-details">
-                            <p>Subtotal</p>
-                            <p>₹{subtotal}</p>
-                        </div>
-
-                        <hr />
-
-                        <div className="cart-total-details">
-                            <p>Delivery Fee</p>
-                            <p>₹{deliveryFee}</p>
-                        </div>
-
-                        <hr />
-
-                        <div className="cart-total-details">
-                            <strong>Total</strong>
-                            <strong>₹{total}</strong>
-                        </div>
+                    <div className="multi-fields">
+                        <input
+                            required
+                            type="text"
+                            name="firstName"
+                            placeholder="First Name"
+                            value={data.firstName}
+                            onChange={onChangeHandler}
+                            disabled={loading}
+                        />
+                        <input
+                            required
+                            type="text"
+                            name="lastName"
+                            placeholder="Last Name"
+                            value={data.lastName}
+                            onChange={onChangeHandler}
+                            disabled={loading}
+                        />
                     </div>
 
-                    <button type="submit" disabled={loading}>
-                        {loading
-                            ? "Processing Payment..."
-                            : "Proceed to Payment"}
-                    </button>
+                    <input
+                        required
+                        type="email"
+                        name="email"
+                        placeholder="Email Address"
+                        value={data.email}
+                        onChange={onChangeHandler}
+                        disabled={loading}
+                    />
+
+                    <input
+                        required
+                        type="text"
+                        name="street"
+                        placeholder="Street Address"
+                        value={data.street}
+                        onChange={onChangeHandler}
+                        disabled={loading}
+                    />
+
+                    <div className="multi-fields">
+                        <input
+                            required
+                            type="text"
+                            name="city"
+                            placeholder="City"
+                            value={data.city}
+                            onChange={onChangeHandler}
+                            disabled={loading}
+                        />
+                        <input
+                            required
+                            type="text"
+                            name="state"
+                            placeholder="State"
+                            value={data.state}
+                            onChange={onChangeHandler}
+                            disabled={loading}
+                        />
+                    </div>
+
+                    <div className="multi-fields">
+                        <input
+                            required
+                            type="text"
+                            name="zipCode"
+                            placeholder="Zip Code"
+                            value={data.zipCode}
+                            onChange={onChangeHandler}
+                            disabled={loading}
+                        />
+                        <input
+                            required
+                            type="text"
+                            name="country"
+                            placeholder="Country"
+                            value={data.country}
+                            onChange={onChangeHandler}
+                            disabled={loading}
+                        />
+                    </div>
+
+                    <input
+                        required
+                        type="tel"
+                        name="phone"
+                        placeholder="Phone Number"
+                        value={data.phone}
+                        onChange={onChangeHandler}
+                        disabled={loading}
+                    />
                 </div>
-            </div>
-        </form>
+
+                <div className="place-order-right">
+                    <div className="cart-total">
+                        <h2>Order Summary</h2>
+
+                        <div className="summary-breakdown">
+                            <div className="cart-total-details">
+                                <p>Subtotal</p>
+                                <p>₹{subtotal}</p>
+                            </div>
+
+                            <hr />
+
+                            <div className="cart-total-details">
+                                <p>Delivery Fee</p>
+                                <p>₹{deliveryFee}</p>
+                            </div>
+
+                            <hr />
+
+                            <div className="cart-total-details total-row">
+                                <b>Total</b>
+                                <b>₹{total}</b>
+                            </div>
+                        </div>
+
+                        <button type="submit" className="payment-btn" disabled={loading}>
+                            <CreditCard size={18} />
+                            <span>
+                                {loading ? "Processing Payment..." : "Proceed to Payment"}
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
     );
 };
 

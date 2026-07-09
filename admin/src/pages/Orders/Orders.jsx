@@ -1,22 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Package, Calendar, CreditCard, Hash, RefreshCw } from "lucide-react";
+import { Package, Calendar, CreditCard, Hash } from "lucide-react";
 import "./Orders.css";
 
 const Orders = ({ url }) => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [refreshing, setRefreshing] = useState(false);
 
-    const fetchAllOrders = async (isRefresh = false) => {
+    const fetchAllOrders = async () => {
         try {
-            if (isRefresh) {
-                setRefreshing(true);
-            } else {
-                setLoading(true);
-            }
-            
+            setLoading(true);
             const token = localStorage.getItem("token");
             const response = await axios.get(
                 `${url}/api/order/list`,
@@ -34,12 +28,10 @@ const Orders = ({ url }) => {
             }
         } catch (error) {
             toast.error(
-                error.response?.data?.message ||
-                    "Failed to fetch orders."
+                error.response?.data?.message || "Failed to fetch orders."
             );
         } finally {
             setLoading(false);
-            setRefreshing(false);
         }
     };
 
@@ -77,14 +69,13 @@ const Orders = ({ url }) => {
                 toast.success(response.data.message);
             } else {
                 toast.error(response.data.message);
-                fetchAllOrders(true);
+                fetchAllOrders();
             }
         } catch (error) {
             toast.error(
-                error.response?.data?.message ||
-                    "Failed to update status."
+                error.response?.data?.message || "Failed to update status."
             );
-            fetchAllOrders(true);
+            fetchAllOrders();
         }
     };
 
@@ -109,17 +100,9 @@ const Orders = ({ url }) => {
     };
 
     return (
-        <div className="order add">
+        <div className="order">
             <div className="order-header-row">
                 <h2 className="page-title">Customer Orders</h2>
-                <button 
-                    className="refresh-btn" 
-                    onClick={() => fetchAllOrders(true)} 
-                    disabled={loading || refreshing}
-                >
-                    <RefreshCw size={16} className={refreshing ? "spinning" : ""} />
-                    <span>{refreshing ? "Refreshing..." : "Refresh"}</span>
-                </button>
             </div>
 
             <div className="order-list">
@@ -189,7 +172,6 @@ const Orders = ({ url }) => {
 
                                 <div className="order-action-panel">
                                     <label>Order Status</label>
-
                                     <select
                                         value={order.status}
                                         onChange={(event) =>
@@ -199,11 +181,9 @@ const Orders = ({ url }) => {
                                         <option value="Food Processing">
                                             Food Processing
                                         </option>
-
                                         <option value="Out for delivery">
                                             Out for delivery
                                         </option>
-
                                         <option value="Delivered">
                                             Delivered
                                         </option>

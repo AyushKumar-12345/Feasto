@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
 
 :root {
-    --primary: tomato;
-    --primary-dark: #e5533d;
-    --text: #222;
-    --text-light: #666;
-    --border: #e5e7eb;
-    --bg: #fafafa;
-    --white: #ffffff;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-    --radius: 18px;
+    --primary: #ff4321;
+    --primary-dark: #e03212;
+    --text: #11142d;
+    --text-light: #4f5162;
+    --border: #e2e4ed;
+    --background: #fafafc;
+    --surface: #ffffff;
+    --shadow: 0 8px 24px rgba(17, 20, 45, 0.02);
+    --radius: 16px;
 }
 
 * {
@@ -20,12 +20,12 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+    scroll-padding-top: 90px;
 }
 
 body {
     min-height: 100vh;
-    background: var(--bg);
+    background: var(--background);
     color: var(--text);
     font-family: "Outfit", sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -34,8 +34,8 @@ body {
 }
 
 ::selection {
-    background: rgba(255, 99, 71, 0.3);
-    color: #111;
+    background: rgba(255, 67, 33, 0.15);
+    color: var(--primary);
 }
 
 a {
@@ -66,56 +66,50 @@ button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
 select:focus-visible {
-    outline: 3px solid rgba(255, 99, 71, 0.35);
+    outline: 3px solid rgba(255, 67, 33, 0.2);
     outline-offset: 2px;
 }
 
+/* Master Layout Wrapper */
 .app {
-    width: min(1280px, 92%);
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Internal Layout Panel Constraint */
+#app-main-content {
+    width: min(1200px, 92%);
     margin: 0 auto;
 }
 
 section {
-    scroll-margin-top: 100px;
+    scroll-margin-top: 90px;
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f4f4f4;
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #d4d4d4;
-    border-radius: 10px;
+    background: #e4e4e4;
+    border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: tomato;
+    background: var(--primary);
 }
 
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(12px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
-    }
-}
-
-@media (max-width: 900px) {
-    .app {
-        width: 94%;
-    }
-}
-
-@media (max-width: 600px) {
-    .app {
-        width: 95%;
     }
 }

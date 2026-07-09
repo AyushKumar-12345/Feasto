@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./Cart.css";
 import { StoreContext } from "../../context/StoreContext";
 import { useNavigate } from "react-router-dom";
-import { Trash2, ShoppingBag } from "lucide-react";
+import { Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
 import { toast } from "react-toastify";
 
 const Cart = () => {
@@ -36,15 +36,27 @@ const Cart = () => {
 
     return (
         <section className="cart">
+            <div className="cart-navigation-header">
+                <button 
+                    type="button" 
+                    className="back-nav-btn" 
+                    onClick={() => navigate(-1)}
+                    aria-label="Go back"
+                >
+                    <ArrowLeft size={18} />
+                    <span>Back</span>
+                </button>
+            </div>
+
             {cartProducts.length === 0 ? (
                 <div className="empty-cart">
-                    <ShoppingBag size={70} />
+                    <ShoppingBag size={64} className="empty-cart-icon" />
                     <h2>Your Cart is Empty</h2>
                     <p>
                         Looks like you haven't added any delicious food yet.
                     </p>
 
-                    <button onClick={() => navigate("/")}>
+                    <button type="button" onClick={() => navigate("/")}>
                         Browse Menu
                     </button>
                 </div>
@@ -78,8 +90,9 @@ const Cart = () => {
                                         type="button"
                                         className="remove-btn"
                                         onClick={() => removeFromCart(item._id)}
+                                        aria-label={`Remove ${item.name} from cart`}
                                     >
-                                        <Trash2 size={18} />
+                                        <Trash2 size={16} />
                                     </button>
                                 </div>
 
@@ -113,7 +126,7 @@ const Cart = () => {
                                 </div>
                             </div>
 
-                            <button className="btn btn-primary" onClick={handleCheckout}>
+                            <button type="button" className="checkout-btn" onClick={handleCheckout}>
                                 Proceed to Checkout
                             </button>
                         </div>
@@ -127,7 +140,7 @@ const Cart = () => {
                                 <button
                                     type="button"
                                     onClick={() =>
-                                        toast.info("Promo code feature coming soon!")
+                                        toast.info("Promo code feature coming soon! 🚀")
                                     }
                                 >
                                     Apply

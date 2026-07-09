@@ -1,37 +1,38 @@
 .food-display {
-    margin: 90px 0;
+    margin: 80px 0;
 }
 
 .food-display-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 35px;
+    margin-bottom: 28px;
     flex-wrap: wrap;
     gap: 12px;
 }
 
 .food-display h2 {
-    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
     font-weight: 700;
-    color: #222;
+    color: var(--text);
     letter-spacing: -0.5px;
+    margin: 0;
 }
 
 .food-count {
-    padding: 8px 16px;
+    padding: 6px 14px;
     border-radius: 999px;
     background: #fff5f2;
-    color: tomato;
-    font-size: 14px;
+    color: var(--primary);
+    font-size: 13px;
     font-weight: 600;
-    border: 1px solid rgba(255, 99, 71, 0.2);
+    border: 1px solid rgba(255, 67, 33, 0.15);
 }
 
 .food-display-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
     align-items: stretch;
 }
 
@@ -40,65 +41,65 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 80px 20px;
-    border: 2px dashed #e5e5e5;
-    border-radius: 24px;
-    background: #fafafa;
+    padding: 60px 20px;
+    border: 1px dashed var(--border);
+    border-radius: 20px;
+    background: var(--surface);
     text-align: center;
+    box-shadow: 0 8px 24px rgba(17, 20, 45, 0.01);
 }
 
 .food-display-empty h3 {
-    font-size: 28px;
-    color: #333;
-    margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
 }
 
 .food-display-empty p {
-    max-width: 420px;
-    color: #777;
-    font-size: 16px;
-    line-height: 1.7;
+    max-width: 380px;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
 }
 
 @media (max-width: 992px) {
     .food-display {
-        margin: 70px 0;
+        margin: 60px 0;
     }
 
     .food-display-list {
-        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-        gap: 24px;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
     }
 }
 
 @media (max-width: 600px) {
     .food-display {
-        margin: 50px 0;
+        margin: 40px 0;
     }
 
     .food-display-header {
         flex-direction: column;
         align-items: flex-start;
+        gap: 8px;
     }
 
     .food-display h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .food-display-list {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 16px;
     }
 
     .food-display-empty {
-        padding: 60px 20px;
+        padding: 44px 16px;
     }
 
     .food-display-empty h3 {
-        font-size: 24px;
-    }
-
-    .food-display-empty p {
-        font-size: 15px;
+        font-size: 18px;
     }
 }

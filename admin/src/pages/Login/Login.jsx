@@ -38,17 +38,14 @@ const Login = ({ url, setToken }) => {
             if (response.data.success) {
                 localStorage.setItem("token", response.data.token);
                 setToken(response.data.token);
-
                 toast.success("Login Successful");
-
                 navigate("/", { replace: true });
             } else {
                 toast.error(response.data.message);
             }
         } catch (error) {
             toast.error(
-                error.response?.data?.message ||
-                    "Login Failed"
+                error.response?.data?.message || "Login Failed"
             );
         } finally {
             setLoading(false);
@@ -57,10 +54,7 @@ const Login = ({ url, setToken }) => {
 
     return (
         <div className="login">
-            <form
-                className="login-container"
-                onSubmit={onSubmitHandler}
-            >
+            <form className="login-container" onSubmit={onSubmitHandler}>
                 <h2>Feasto Admin</h2>
 
                 <input
@@ -83,10 +77,7 @@ const Login = ({ url, setToken }) => {
                     required
                 />
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
+                <button type="submit" disabled={loading}>
                     {loading ? "Logging In..." : "Login"}
                 </button>
             </form>

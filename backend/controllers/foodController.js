@@ -80,10 +80,10 @@ const removeFood = async (req, res) => {
         }
 
         if (food.image) {
-            const match = food.image.match(/\/upload\/(?:v\d+\/)?(.+)\.[^.]+$/);
-
+            const match = food.image.match(/\/upload\/(?:v\d+\/)?([^\.]+)/);
             if (match) {
-                await cloudinary.uploader.destroy(match[1]);
+                const publicId = match[1].split("/").slice(1).join("/");
+                await cloudinary.uploader.destroy(publicId || match[1]);
             }
         }
 

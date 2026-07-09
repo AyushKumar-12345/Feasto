@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./LoginPopup.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
@@ -7,6 +8,7 @@ import { X } from "lucide-react";
 
 const LoginPopup = ({ setShowLogin }) => {
     const { url, setToken } = useContext(StoreContext);
+    const navigate = useNavigate();
 
     const [currState, setCurrState] = useState("Login");
     const [loading, setLoading] = useState(false);
@@ -32,6 +34,11 @@ const LoginPopup = ({ setShowLogin }) => {
             ...prev,
             [name]: value,
         }));
+    };
+
+    const handleNavigation = (path) => {
+        setShowLogin(false);
+        navigate(path);
     };
 
     const onLogin = async (event) => {
@@ -160,7 +167,7 @@ const LoginPopup = ({ setShowLogin }) => {
                             className="popup-link"
                             onClick={() =>
                                 toast.info(
-                                    "Terms of Use page is coming soon!"
+                                    "Terms of Use page is coming soon! 🚀"
                                 )
                             }
                         >
@@ -169,11 +176,7 @@ const LoginPopup = ({ setShowLogin }) => {
                         and{" "}
                         <span
                             className="popup-link"
-                            onClick={() =>
-                                toast.info(
-                                    "Privacy Policy page is coming soon!"
-                                )
-                            }
+                            onClick={() => handleNavigation("/privacy")}
                         >
                             Privacy Policy
                         </span>

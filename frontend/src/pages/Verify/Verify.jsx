@@ -46,6 +46,7 @@ const Verify = () => {
                 }, 1800);
             }
         } catch (error) {
+            console.error(error);
             setStatus("failed");
 
             setTimeout(() => {
@@ -55,44 +56,36 @@ const Verify = () => {
     };
 
     useEffect(() => {
-        let isActive = true;
-
         if (orderId && success !== null) {
             verifyPayment();
         } else {
             navigate("/", { replace: true });
         }
-
-        return () => {
-            isActive = false;
-        };
     }, [orderId, success]);
 
     return (
-        <section className="verify">
+        <section className="verify-page">
             {status === "verifying" && (
                 <div className="verify-card">
-                    <div className="spinner"></div>
+                    <div className="verify-spinner"></div>
                     <h2>Verifying Payment...</h2>
-                    <p>Please wait while we confirm your payment.</p>
+                    <p>Please wait while we confirm your transaction.</p>
                 </div>
             )}
 
             {status === "success" && (
-                <div className="verify-card success">
-                    <CircleCheckBig size={70} />
+                <div className="verify-card status-success">
+                    <CircleCheckBig size={56} className="status-icon" />
                     <h2>Payment Successful</h2>
                     <p>Your order has been placed successfully.</p>
                 </div>
             )}
 
             {status === "failed" && (
-                <div className="verify-card failed">
-                    <CircleX size={70} />
+                <div className="verify-card status-failed">
+                    <CircleX size={56} className="status-icon" />
                     <h2>Payment Failed</h2>
-                    <p>
-                        Something went wrong while verifying your payment.
-                    </p>
+                    <p>Something went wrong while verifying your payment.</p>
                 </div>
             )}
         </section>

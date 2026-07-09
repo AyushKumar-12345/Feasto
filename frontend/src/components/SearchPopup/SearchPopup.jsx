@@ -4,12 +4,15 @@ import React, {
     useMemo,
     useState,
 } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./SearchPopup.css";
 import { StoreContext } from "../../context/StoreContext";
 import { Search, X } from "lucide-react";
 
 const SearchPopup = ({ setShowSearch }) => {
     const { food_list } = useContext(StoreContext);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const [query, setQuery] = useState("");
 
@@ -42,7 +45,7 @@ const SearchPopup = ({ setShowSearch }) => {
     const selectFood = (id) => {
         setShowSearch(false);
 
-        setTimeout(() => {
+        const highlightAndScroll = () => {
             const element = document.getElementById(`food-${id}`);
 
             if (element) {
@@ -61,7 +64,19 @@ const SearchPopup = ({ setShowSearch }) => {
                     element.classList.remove("search-highlight");
                 }, 1500);
             }
-        }, 200);
+        };
+
+        // If user is not on the home page, redirect to home page first
+        if (location.pathname !== "/") {
+            navigate("/");
+            setTimeout(() => {
+                highlightAndScroll();
+            }, 300);
+        } else {
+            setTimeout(() => {
+                highlightAndScroll();
+            }, 200);
+        }
     };
 
     return (
@@ -74,7 +89,7 @@ const SearchPopup = ({ setShowSearch }) => {
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="search-header">
-                    <Search size={22} />
+                    <Search className="search-input-icon" size={20} />
 
                     <input
                         autoFocus
@@ -86,10 +101,11 @@ const SearchPopup = ({ setShowSearch }) => {
 
                     <button
                         type="button"
+                        className="search-close-btn"
                         onClick={() => setShowSearch(false)}
                         aria-label="Close Search"
                     >
-                        <X size={20} />
+                        <X size={18} />
                     </button>
                 </div>
 
@@ -111,7 +127,7 @@ const SearchPopup = ({ setShowSearch }) => {
                             >
                                 <img src={item.image} alt={item.name} />
 
-                                <div>
+                                <div className="search-item-info">
                                     <h4>{item.name}</h4>
                                     <p>{item.category}</p>
                                     <strong>₹{item.price}</strong>

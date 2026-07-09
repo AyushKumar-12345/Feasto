@@ -38,7 +38,7 @@ const ExploreMenu = ({ category, setCategory }) => {
                     }`}
                     onClick={() => handleCategory("All")}
                 >
-                    🍽 Show All
+                    Show All
                 </button>
             </div>
 
@@ -72,8 +72,9 @@ const ExploreMenu = ({ category, setCategory }) => {
                                     : ""
                             }
                         />
-
-                        <p>{item.menu_name}</p>
+                        <p className={category === item.menu_name ? "active-text" : ""}>
+                            {item.menu_name}
+                        </p>
                     </div>
                 ))}
             </div>

@@ -46,11 +46,10 @@ const FoodDisplay = ({ category }) => {
                 </div>
             ) : (
                 <div className="food-display-empty">
-                    <h3>🍽 No dishes found</h3>
-
+                    <h3>No dishes found</h3>
                     <p>
                         We couldn't find any dishes in
-                        this category.
+                        this category right now.
                     </p>
                 </div>
             )}

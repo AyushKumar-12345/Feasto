@@ -60,8 +60,7 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
     console.error(err);
-
-    return res.status(500).json({
+    return res.status(res.statusCode === 200 ? 500 : res.statusCode || 500).json({
         success: false,
         message: err.message || "Internal Server Error",
     });

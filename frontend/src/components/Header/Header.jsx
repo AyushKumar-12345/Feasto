@@ -25,7 +25,7 @@ const Header = () => {
             <div className="header-overlay">
                 <div className="header-content">
                     <span className="header-tag">
-                        🍔 Fast Delivery • Fresh Food
+                        Fast Delivery • Fresh Food
                     </span>
 
                     <h1>
@@ -50,7 +50,7 @@ const Header = () => {
                         </button>
 
                         <span className="header-trust">
-                            ⭐ 1000+ Happy Customers
+                            1000+ Happy Customers
                         </span>
                     </div>
                 </div>

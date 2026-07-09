@@ -67,6 +67,7 @@ const FoodItem = ({
                             onClick={() =>
                                 removeFromCart(id)
                             }
+                            aria-label="Decrease quantity"
                         >
                             <Minus size={18} />
                         </button>
@@ -78,6 +79,7 @@ const FoodItem = ({
                             onClick={() =>
                                 addToCart(id)
                             }
+                            aria-label="Increase quantity"
                         >
                             <Plus size={18} />
                         </button>
@@ -91,11 +93,10 @@ const FoodItem = ({
 
                     <div className="food-item-rating">
                         <Star
-                            size={15}
-                            fill="tomato"
-                            color="tomato"
+                            size={14}
+                            fill="var(--primary)"
+                            color="var(--primary)"
                         />
-
                         <span>{rating}</span>
                     </div>
                 </div>

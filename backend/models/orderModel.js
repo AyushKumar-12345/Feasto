@@ -36,7 +36,7 @@ const orderSchema = new mongoose.Schema(
         },
         paymentMethod: {
             type: String,
-            default: "Cash on Delivery",
+            default: "Razorpay",
             trim: true,
         },
         paymentStatus: {

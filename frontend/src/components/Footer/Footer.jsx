@@ -1,17 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 import { assets } from "../../assets/assets";
-import {
-    FaLinkedin,
-    FaGithub,
-} from "react-icons/fa6";
-import { toast } from "react-toastify";
+import { FaLinkedin, FaGithub } from "react-icons/fa6";
 
 const Footer = () => {
-    const comingSoon = (feature) => {
-        toast.info(`${feature} page is coming soon! 🚀`);
-    };
-
     const scrollTo = (id) => {
         document
             .getElementById(id)
@@ -70,36 +63,24 @@ const Footer = () => {
                     <h2>Company</h2>
 
                     <ul>
-                        <li
-                            onClick={() =>
-                                scrollTo("home")
-                            }
-                        >
+                        <li onClick={() => scrollTo("home")}>
                             Home
                         </li>
 
-                        <li
-                            onClick={() =>
-                                comingSoon("About Us")
-                            }
-                        >
-                            About Us
+                        <li>
+                            <Link to="/about" className="footer-nav-link">
+                                About Us
+                            </Link>
                         </li>
 
-                        <li
-                            onClick={() =>
-                                scrollTo("app-download")
-                            }
-                        >
+                        <li onClick={() => scrollTo("app-download")}>
                             Delivery
                         </li>
 
-                        <li
-                            onClick={() =>
-                                comingSoon("Privacy Policy")
-                            }
-                        >
-                            Privacy Policy
+                        <li>
+                            <Link to="/privacy" className="footer-nav-link">
+                                Privacy Policy
+                            </Link>
                         </li>
                     </ul>
                 </div>

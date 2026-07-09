@@ -11,7 +11,6 @@ const List = ({ url }) => {
     const fetchList = async () => {
         try {
             setLoading(true);
-
             const response = await axios.get(`${url}/api/food/list`);
 
             if (response.data.success) {
@@ -21,8 +20,7 @@ const List = ({ url }) => {
             }
         } catch (error) {
             toast.error(
-                error.response?.data?.message ||
-                    "Failed to fetch foods."
+                error.response?.data?.message || "Failed to fetch foods."
             );
         } finally {
             setLoading(false);
@@ -38,7 +36,6 @@ const List = ({ url }) => {
 
         try {
             const token = localStorage.getItem("token");
-
             const response = await axios.post(
                 `${url}/api/food/remove`,
                 { id: foodId },
@@ -51,17 +48,13 @@ const List = ({ url }) => {
 
             if (response.data.success) {
                 toast.success(response.data.message);
-
-                setList((prev) =>
-                    prev.filter((item) => item._id !== foodId)
-                );
+                setList((prev) => prev.filter((item) => item._id !== foodId));
             } else {
                 toast.error(response.data.message);
             }
         } catch (error) {
             toast.error(
-                error.response?.data?.message ||
-                    "Failed to remove food."
+                error.response?.data?.message || "Failed to remove food."
             );
         }
     };
@@ -71,8 +64,8 @@ const List = ({ url }) => {
     }, []);
 
     return (
-        <div className="list add">
-            <h2 className="page-title">Food Menu</h2>
+        <div className="list">
+            <h2 className="page-title">Food Menu Items</h2>
 
             <div className="list-table">
                 <div className="list-table-format title">
@@ -93,32 +86,27 @@ const List = ({ url }) => {
                     </div>
                 ) : (
                     list.map((item) => (
-                        <div
-                            key={item._id}
-                            className="list-table-format"
-                        >
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                loading="lazy"
-                            />
-
-                            <p>{item.name}</p>
-
-                            <p>{item.category}</p>
-
-                            <p>₹{item.price}</p>
-
-                            <button
-                                type="button"
-                                className="delete-btn"
-                                title="Delete Food"
-                                onClick={() =>
-                                    removeFood(item._id)
-                                }
-                            >
-                                <Trash2 size={18} />
-                            </button>
+                        <div key={item._id} className="list-table-format">
+                            <div className="list-img-container">
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    loading="lazy"
+                                />
+                            </div>
+                            <p className="food-name">{item.name}</p>
+                            <p className="food-category">{item.category}</p>
+                            <p className="food-price">₹{item.price}</p>
+                            <div className="action-cell">
+                                <button
+                                    type="button"
+                                    className="delete-btn"
+                                    title="Delete Food"
+                                    onClick={() => removeFood(item._id)}
+                                >
+                                    <Trash2 size={16} />
+                                </button>
+                            </div>
                         </div>
                     ))
                 )}

@@ -147,10 +147,17 @@ const StoreContextProvider = ({ children }) => {
                 setToken(savedToken);
                 await loadCartData(savedToken);
             }
-        };
+        }
 
         loadData();
     }, []);
+
+    // Clear cart local state immediately on token change (logout handling fallback)
+    useEffect(() => {
+        if (!token) {
+            setCartItems({});
+        }
+    }, [token]);
 
     const contextValue = {
         food_list,

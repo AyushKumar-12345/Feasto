@@ -29,7 +29,7 @@ export default [
             ...reactHooks.configs.recommended.rules,
 
             "no-unused-vars": [
-                "error",
+                "warn",
                 {
                     varsIgnorePattern: "^[A-Z_]",
                     argsIgnorePattern: "^_",

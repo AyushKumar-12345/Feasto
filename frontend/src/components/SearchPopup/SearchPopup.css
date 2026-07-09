@@ -6,19 +6,20 @@
     justify-content: center;
     align-items: flex-start;
     padding-top: 80px;
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(6px);
-    animation: fadeIn 0.25s ease;
+    background: rgba(17, 20, 45, 0.45);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.25s ease-out;
 }
 
 .search-popup-container {
     width: min(600px, 92%);
-    max-height: 75vh;
+    max-height: 70vh;
     display: flex;
     flex-direction: column;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: 0 20px 48px rgba(17, 20, 45, 0.15);
+    border: 1px solid var(--border);
     overflow: hidden;
 }
 
@@ -26,37 +27,46 @@
 .search-header {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 18px 22px;
-    border-bottom: 1px solid #ececec;
+    gap: 12px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
 }
 
-.search-header svg {
-    color: tomato;
+.search-input-icon {
+    color: var(--primary);
 }
 
 .search-header input {
     flex: 1;
     border: none;
     outline: none;
-    font-size: 16px;
+    font-size: 15px;
+    color: var(--text);
     background: transparent;
 }
 
+.search-header input::placeholder {
+    color: var(--text-light);
+    opacity: 0.8;
+}
+
 /* Close button */
-.search-header button {
+.search-close-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     background: transparent;
-    color: #666;
+    color: var(--text-light);
     cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 4px;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
 }
 
-.search-header button:hover {
-    color: tomato;
+.search-close-btn:hover {
+    color: var(--primary);
+    background: #fff5f2;
     transform: rotate(90deg);
 }
 
@@ -65,15 +75,21 @@
     flex: 1;
     overflow-y: auto;
     scroll-behavior: smooth;
+    background: var(--surface);
 }
 
 .search-item {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 14px 22px;
+    gap: 14px;
+    padding: 12px 20px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    border-bottom: 1px solid rgba(17, 20, 45, 0.03);
+    transition: all 0.2s ease-in-out;
+}
+
+.search-item:last-child {
+    border-bottom: none;
 }
 
 .search-item:hover {
@@ -81,41 +97,51 @@
 }
 
 .search-item:focus-visible {
-    outline: 2px solid tomato;
+    outline: 2px solid var(--primary);
     outline-offset: -2px;
 }
 
 .search-item img {
-    width: 65px;
-    height: 65px;
-    border-radius: 12px;
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
     object-fit: cover;
+    border: 1px solid var(--border);
+    background: var(--background);
+}
+
+.search-item-info {
+    display: flex;
+    flex-direction: column;
 }
 
 .search-item h4 {
-    margin: 0 0 4px;
-    color: #222;
-    font-size: 16px;
+    margin: 0;
+    color: var(--text);
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .search-item p {
-    margin: 0;
-    color: #777;
-    font-size: 13px;
+    margin: 2px 0 0;
+    color: var(--text-light);
+    font-size: 12px;
 }
 
 .search-item strong {
     display: block;
     margin-top: 4px;
-    color: tomato;
-    font-size: 15px;
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 700;
 }
 
 /* Empty state */
 .search-message {
-    padding: 35px;
+    padding: 40px;
     text-align: center;
-    color: #888;
+    color: var(--text-light);
+    font-size: 14px;
 }
 
 /* Scrollbar */
@@ -123,13 +149,17 @@
     width: 6px;
 }
 
+.search-results::-webkit-scrollbar-track {
+    background: transparent;
+}
+
 .search-results::-webkit-scrollbar-thumb {
-    background: #d5d5d5;
+    background: #e4e4e4;
     border-radius: 20px;
 }
 
 .search-results::-webkit-scrollbar-thumb:hover {
-    background: tomato;
+    background: var(--primary);
 }
 
 /* Responsive */
@@ -138,20 +168,25 @@
         padding-top: 60px;
     }
 
+    .search-popup-container {
+        max-height: 65vh;
+    }
+
     .search-header {
-        padding: 16px;
+        padding: 14px 16px;
     }
 
     .search-item {
-        padding: 12px 16px;
+        padding: 10px 16px;
+        gap: 12px;
     }
 
     .search-item img {
-        width: 55px;
-        height: 55px;
+        width: 48px;
+        height: 48px;
     }
 
     .search-item h4 {
-        font-size: 15px;
+        font-size: 14px;
     }
 }

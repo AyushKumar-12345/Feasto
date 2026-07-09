@@ -1,11 +1,13 @@
 import React, { useContext, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
-import { Camera, Trash2 } from "lucide-react";
+import { Camera, Trash2, ArrowLeft } from "lucide-react";
 import { toast } from "react-toastify";
 import { StoreContext } from "../../context/StoreContext";
 
 const Profile = () => {
     const fileInputRef = useRef(null);
+    const navigate = useNavigate();
 
     const { profileImage, setProfileImage } = useContext(StoreContext);
 
@@ -17,7 +19,6 @@ const Profile = () => {
 
             img.onload = () => {
                 const canvas = document.createElement("canvas");
-
                 const size = 250;
 
                 canvas.width = size;
@@ -33,9 +34,7 @@ const Profile = () => {
                 ctx.drawImage(img, 0, 0, size, size);
 
                 const compressed = canvas.toDataURL("image/jpeg", 0.8);
-
                 setProfileImage(compressed);
-
                 toast.success("Profile picture updated!");
             };
 
@@ -47,6 +46,18 @@ const Profile = () => {
 
     return (
         <section className="profile-page">
+            <div className="profile-navigation-header">
+                <button 
+                    type="button" 
+                    className="back-nav-btn" 
+                    onClick={() => navigate(-1)}
+                    aria-label="Go back"
+                >
+                    <ArrowLeft size={18} />
+                    <span>Back</span>
+                </button>
+            </div>
+
             <div className="profile-card">
                 <div className="profile-avatar-wrapper">
                     <div
@@ -56,7 +67,7 @@ const Profile = () => {
                         {profileImage ? (
                             <img src={profileImage} alt="Profile" />
                         ) : (
-                            <Camera size={55} />
+                            <Camera size={44} className="avatar-placeholder-icon" />
                         )}
                     </div>
 
@@ -66,7 +77,7 @@ const Profile = () => {
                         onClick={() => fileInputRef.current.click()}
                         title="Change Photo"
                     >
-                        <Camera size={18} />
+                        <Camera size={14} />
                     </button>
                 </div>
 
@@ -89,27 +100,29 @@ const Profile = () => {
                     to personalize your account.
                 </p>
 
-                <button
-                    className="upload-btn"
-                    type="button"
-                    onClick={() => fileInputRef.current.click()}
-                >
-                    {profileImage ? "Change Photo" : "Upload Photo"}
-                </button>
-
-                {profileImage && (
+                <div className="profile-actions">
                     <button
-                        className="delete-btn"
+                        className="upload-btn"
                         type="button"
-                        onClick={() => {
-                            setProfileImage("");
-                            toast.success("Profile picture removed.");
-                        }}
+                        onClick={() => fileInputRef.current.click()}
                     >
-                        <Trash2 size={18} />
-                        Delete Photo
+                        {profileImage ? "Change Photo" : "Upload Photo"}
                     </button>
-                )}
+
+                    {profileImage && (
+                        <button
+                            className="delete-btn"
+                            type="button"
+                            onClick={() => {
+                                setProfileImage("");
+                                toast.success("Profile picture removed.");
+                            }}
+                        >
+                            <Trash2 size={16} />
+                            <span>Delete Photo</span>
+                        </button>
+                    )}
+                </div>
             </div>
         </section>
     );

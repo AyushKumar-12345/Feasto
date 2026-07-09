@@ -158,7 +158,7 @@ const Navbar = ({ setShowLogin }) => {
                     <Link
                         to="/"
                         className={
-                            menu === "home"
+                            menu === "home" && location.pathname === "/"
                                 ? "active"
                                 : ""
                         }
@@ -170,38 +170,71 @@ const Navbar = ({ setShowLogin }) => {
                         Home
                     </Link>
 
-                    <a
-                        href="#explore-menu"
-                        className={
-                            menu === "menu"
-                                ? "active"
-                                : ""
-                        }
-                    >
-                        Menu
-                    </a>
+                    {location.pathname === "/" ? (
+                        <a
+                            href="#explore-menu"
+                            className={menu === "menu" ? "active" : ""}
+                        >
+                            Menu
+                        </a>
+                    ) : (
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                setTimeout(() => {
+                                    document
+                                        .getElementById("explore-menu")
+                                        ?.scrollIntoView({ behavior: "smooth" });
+                                }, 100);
+                            }}
+                        >
+                            Menu
+                        </Link>
+                    )}
 
-                    <a
-                        href="#app-download"
-                        className={
-                            menu === "app"
-                                ? "active"
-                                : ""
-                        }
-                    >
-                        Mobile App
-                    </a>
+                    {location.pathname === "/" ? (
+                        <a
+                            href="#app-download"
+                            className={menu === "app" ? "active" : ""}
+                        >
+                            Mobile App
+                        </a>
+                    ) : (
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                setTimeout(() => {
+                                    document
+                                        .getElementById("app-download")
+                                        ?.scrollIntoView({ behavior: "smooth" });
+                                }, 100);
+                            }}
+                        >
+                            Mobile App
+                        </Link>
+                    )}
 
-                    <a
-                        href="#footer"
-                        className={
-                            menu === "contact"
-                                ? "active"
-                                : ""
-                        }
-                    >
-                        Contact Us
-                    </a>
+                    {location.pathname === "/" ? (
+                        <a
+                            href="#footer"
+                            className={menu === "contact" ? "active" : ""}
+                        >
+                            Contact Us
+                        </a>
+                    ) : (
+                        <Link
+                            to="/"
+                            onClick={() => {
+                                setTimeout(() => {
+                                    document
+                                        .getElementById("footer")
+                                        ?.scrollIntoView({ behavior: "smooth" });
+                                }, 100);
+                            }}
+                        >
+                            Contact Us
+                        </Link>
+                    )}
                 </ul>
 
                 <div className="navbar-right">
@@ -310,9 +343,7 @@ const Navbar = ({ setShowLogin }) => {
 
                                 <hr />
 
-                                <li
-                                    onClick={logout}
-                                >
+                                <li onClick={logout}>
                                     <LogOut
                                         size={18}
                                     />

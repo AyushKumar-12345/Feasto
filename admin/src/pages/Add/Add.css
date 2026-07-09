@@ -1,7 +1,7 @@
 .add {
-    width: min(720px, 90%);
-    margin: 40px auto;
-    color: #444;
+    width: min(720px, 98%);
+    margin: 20px auto;
+    color: #11142d;
 }
 
 .add form {
@@ -9,16 +9,17 @@
     flex-direction: column;
     gap: 24px;
     padding: 32px;
-    background: #fff;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    background: #ffffff;
+    border: 1px solid #eff0f6;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(17, 20, 45, 0.01);
 }
 
 .add p {
-    margin-bottom: 8px;
-    font-size: 15px;
+    margin-bottom: 4px;
+    font-size: 14px;
     font-weight: 600;
-    color: #444;
+    color: #11142d;
 }
 
 .add-img-upload {
@@ -31,36 +32,36 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     width: 260px;
-    height: 180px;
+    height: 170px;
     overflow: hidden;
-    border: 2px dashed #d8d8d8;
-    border-radius: 16px;
+    border: 2px dashed #e4e4e4;
+    border-radius: 12px;
     background: #fafafa;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease-in-out;
 }
 
 .upload-card:hover {
-    border-color: tomato;
-    background: #fff5f2;
-    transform: translateY(-2px);
+    border-color: #ff4321;
+    background: #fffdfb;
+    transform: translateY(-1px);
 }
 
 .upload-card svg {
-    color: tomato;
+    color: #ff4321;
 }
 
 .upload-card h4 {
     margin: 0;
-    font-size: 17px;
-    color: #333;
+    font-size: 15px;
+    color: #11142d;
 }
 
 .upload-card span {
-    font-size: 13px;
-    color: #888;
+    font-size: 12px;
+    color: #808191;
 }
 
 .image-preview {
@@ -74,21 +75,21 @@
     top: 10px;
     right: 10px;
     z-index: 2;
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     border: none;
     border-radius: 50%;
-    background: rgba(0, 0, 0, 0.65);
-    color: #fff;
-    font-size: 22px;
-    line-height: 34px;
+    background: rgba(17, 20, 45, 0.75);
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 32px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
 }
 
 .remove-preview:hover {
-    background: tomato;
-    transform: scale(1.1);
+    background: #ff4321;
+    transform: scale(1.05);
 }
 
 .add-product-name,
@@ -101,38 +102,45 @@
 .add-category-price select,
 .add-category-price input {
     width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #dcdcdc;
+    padding: 12px 16px;
+    border: 1px solid #e4e4e4;
     border-radius: 10px;
     font-size: 15px;
-    transition: all 0.25s ease;
+    color: #11142d;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.add-product-name input::placeholder,
+.add-product-description textarea::placeholder,
+.add-category-price input::placeholder {
+    color: #b5b5be;
 }
 
 .add-product-name input:hover,
 .add-product-description textarea:hover,
 .add-category-price select:hover,
 .add-category-price input:hover {
-    border-color: #bfbfbf;
+    border-color: #d0d0d5;
 }
 
 .add-product-name input:focus,
 .add-product-description textarea:focus,
 .add-category-price select:focus,
 .add-category-price input:focus {
-    outline: none;
-    border-color: tomato;
-    box-shadow: 0 0 0 4px rgba(255, 99, 71, 0.12);
+    border-color: #ff4321;
+    box-shadow: 0 0 0 4px rgba(255, 67, 33, 0.08);
 }
 
 .add-product-description textarea {
-    min-height: 130px;
+    min-height: 120px;
     resize: vertical;
 }
 
 .add-category-price {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px;
+    gap: 20px;
 }
 
 .add-category,
@@ -142,34 +150,34 @@
 }
 
 .add-btn {
-    width: 180px;
-    padding: 14px;
+    width: 160px;
+    padding: 13px;
     border: none;
     border-radius: 10px;
-    background: tomato;
-    color: #fff;
+    background: #ff4321;
+    color: #ffffff;
     font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 18px rgba(255, 99, 71, 0.25);
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 20px rgba(255, 67, 33, 0.15);
 }
 
 .add-btn:hover:not(:disabled) {
-    background: #e5533d;
-    transform: translateY(-2px);
+    background: #e03212;
+    transform: translateY(-1px);
 }
 
 .add-btn:disabled {
-    opacity: 0.65;
+    opacity: 0.5;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 @media (max-width: 768px) {
     .add {
-        width: 95%;
-        margin: 24px auto;
+        margin: 12px auto;
     }
 
     .add form {
@@ -182,14 +190,13 @@
 
     .upload-card {
         width: 100%;
-        max-width: 320px;
-        margin: 0 auto;
-        height: 180px;
+        max-width: 100%;
+        height: 160px;
     }
 
     .add-category-price {
         flex-direction: column;
-        gap: 18px;
+        gap: 20px;
     }
 
     .add-btn {
@@ -198,32 +205,22 @@
 }
 
 @media (max-width: 480px) {
-    .add {
-        width: 100%;
-        padding: 0 12px;
-        margin: 20px auto;
-    }
-
     .add form {
-        padding: 18px;
+        padding: 16px;
         gap: 20px;
-        border-radius: 14px;
-    }
-
-    .upload-card {
-        height: 170px;
+        border-radius: 12px;
     }
 
     .add-product-name input,
     .add-product-description textarea,
     .add-category-price select,
     .add-category-price input {
-        padding: 12px 14px;
+        padding: 11px 14px;
         font-size: 14px;
     }
 
     .add-btn {
-        padding: 13px;
+        padding: 12px;
         font-size: 14px;
     }
 }

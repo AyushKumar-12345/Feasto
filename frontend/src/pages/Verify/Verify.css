@@ -1,52 +1,64 @@
-.verify {
-    min-height: 75vh;
+.verify-page {
+    margin: 40px 0 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    min-height: 50vh;
 }
 
+/* Status Panel Display Card */
 .verify-card {
-    width: min(420px, 100%);
-    padding: 40px 32px;
-    background: #fff;
-    border-radius: 22px;
+    width: 100%;
+    max-width: 440px;
+    padding: 40px 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(17, 20, 45, 0.01);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
-    animation: fadeIn 0.35s ease;
-    will-change: transform, opacity;
+    box-sizing: border-box;
 }
 
 .verify-card h2 {
-    margin: 24px 0 10px;
-    color: #222;
-    font-size: 28px;
+    margin: 20px 0 8px 0;
+    font-size: 20px;
     font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.5px;
 }
 
 .verify-card p {
-    color: #666;
-    line-height: 1.7;
-    font-size: 15px;
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-light);
+    line-height: 1.5;
+    max-width: 300px;
 }
 
-.spinner {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    border: 6px solid #ececec;
-    border-top: 6px solid tomato;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    will-change: transform;
+/* Status Theme Configurations */
+.status-icon {
+    margin-bottom: 4px;
 }
 
-.verify-card.success svg {
+.status-success .status-icon {
     color: #16a34a;
 }
 
-.verify-card.failed svg {
-    color: #ef4444;
+.status-failed .status-icon {
+    color: var(--primary);
+}
+
+/* CSS Verify Loading Spinner */
+.verify-spinner {
+    width: 44px;
+    height: 44px;
+    border: 3.5px solid var(--border);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
@@ -55,18 +67,29 @@
     }
 }
 
+/* Responsive Structural Breakpoints */
 @media (max-width: 600px) {
+    .verify-page {
+        margin: 24px 0 60px;
+    }
+
     .verify-card {
-        padding: 30px 22px;
-        border-radius: 18px;
+        padding: 32px 20px;
+        border-radius: 14px;
     }
 
     .verify-card h2 {
-        font-size: 24px;
+        font-size: 18px;
+        margin-top: 16px;
     }
 
-    .spinner {
-        width: 70px;
-        height: 70px;
+    .verify-card p {
+        font-size: 13px;
+    }
+
+    .verify-spinner {
+        width: 38px;
+        height: 38px;
+        border-width: 3px;
     }
 }

@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 
 import Navbar from "./components/Navbar/Navbar.jsx";
 import Sidebar from "./components/Sidebar/Sidebar.jsx";
+import Footer from "./components/Footer/Footer.jsx";
 
 import Add from "./pages/Add/Add.jsx";
 import List from "./pages/List/List.jsx";
@@ -32,38 +33,40 @@ const App = () => {
                     setToken={setToken}
                 />
             ) : (
-                <>
-                    <Navbar
-                        setToken={setToken}
-                    />
+                <div className="admin-layout">
+                    <Navbar setToken={setToken} />
 
                     <div className="app-content">
                         <Sidebar />
 
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={<Navigate to="/add" replace />}
-                            />
-                            <Route
-                                path="/add"
-                                element={<Add url={url} />}
-                            />
-                            <Route
-                                path="/list"
-                                element={<List url={url} />}
-                            />
-                            <Route
-                                path="/orders"
-                                element={<Orders url={url} />}
-                            />
-                            <Route
-                                path="*"
-                                element={<Navigate to="/add" replace />}
-                            />
-                        </Routes>
+                        <main className="main-content-area">
+                            <Routes>
+                                <Route
+                                    path="/"
+                                    element={<Navigate to="/add" replace />}
+                                />
+                                <Route
+                                    path="/add"
+                                    element={<Add url={url} />}
+                                />
+                                <Route
+                                    path="/list"
+                                    element={<List url={url} />}
+                                />
+                                <Route
+                                    path="/orders"
+                                    element={<Orders url={url} />}
+                                />
+                                <Route
+                                    path="*"
+                                    element={<Navigate to="/add" replace />}
+                                />
+                            </Routes>
+                        </main>
                     </div>
-                </>
+
+                    <Footer />
+                </div>
             )}
         </>
     );

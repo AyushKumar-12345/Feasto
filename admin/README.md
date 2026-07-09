@@ -1,70 +1,26 @@
 # 🍽️ Feasto Admin Dashboard
 
-The **Feasto Admin Dashboard** is the administration panel for the Feasto food delivery platform. It allows administrators to manage food items, monitor customer orders, and update delivery status through a clean and responsive interface.
+The **Feasto Admin Dashboard** is a high-performance, modern administration suite for the Feasto food delivery platform. It enables administrators to manage the restaurant menu, oversee live customer orders, track payments, and update delivery cycles through an optimized, responsive interface.
 
-## Features
+## 🚀 Features
 
-- Add new food items with image upload
-- View all available food items
-- Delete food items
-- View customer orders
-- Update order status
-- Cloudinary image upload
-- Responsive admin dashboard
-- JWT-based admin authentication
+- **Dynamic Menu Management:** Add food items with automatic image compression and real-time category updates.
+- **Inventory Overview:** Track and delete food items instantly across the app.
+- **Live Order Control Panel:** Monitor active customer orders, checkout values, and buyer profile specifics.
+- **Dynamic Logistics Tracking:** Update order fulfillment stages instantly (Processing $\rightarrow$ Out for Delivery $\rightarrow$ Delivered).
+- **Auto-Payment Syncing:** Automatically flags orders as "Paid" once delivery confirmation drops.
+- **Cloudinary Storage Sync:** Fast, optimized remote delivery asset pipelines.
+- **Secure Workspace:** Secure state management powered by JWT-based admin authentication.
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-- React 19
-- Vite
-- React Router DOM
-- Axios
-- React Toastify
-- Lucide React
+- **Frontend Core:** React 19, Vite, React Router DOM v7
+- **Network Pipeline:** Axios (with Bearer Token intercept configurations)
+- **UI Architecture:** Lucide React Icons, Pure CSS Context Layouts
+- **Notifications:** React Toastify
 
-## Installation
+## 💻 Installation & Setup
 
-```bash
-npm install
-```
-
-## Run Development Server
-
-```bash
-npm run dev
-```
-
-## Environment Variables
-
-Create a `.env` file in the project root.
-
-```env
-VITE_BACKEND_URL=http://feasto-backend-pcbq.onrender.com
-```
-
-## Build for Production
-
-```bash
-npm run build
-```
-
-## Preview Production Build
-
-```bash
-npm run preview
-```
-
-## Project Structure
-
-```text
-src/
-├── assets/
-├── components/
-├── pages/
-├── App.jsx
-└── main.jsx
-```
-
-## Author
-
-**Ayush Kumar**
+1. **Install Dependencies:**
+   ```bash
+   npm install

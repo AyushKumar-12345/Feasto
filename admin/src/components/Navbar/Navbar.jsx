@@ -6,6 +6,7 @@ import {
     LogOut,
     Trash2,
     LayoutDashboard,
+    Globe,
 } from "lucide-react";
 import { assets } from "../../assets/assets";
 import "./Navbar.css";
@@ -85,7 +86,6 @@ const Navbar = ({ setToken }) => {
 
     return (
         <header className="navbar">
-            {/* Child 1: Logo */}
             <button
                 type="button"
                 className="logo-btn"
@@ -99,28 +99,26 @@ const Navbar = ({ setToken }) => {
                 />
             </button>
 
-            {/* Child 2: Center Content */}
             <div className="navbar-center">
                 <div className="navbar-title">
                     <LayoutDashboard size={24} className="dashboard-icon" />
                     <div className="title-text">
                         <h2>Feasto Admin Panel</h2>
                         <p>
-                            Control your restaurant from one place —
-                            manage the menu and customer orders.
+                            Control your restaurant from one place — manage the menu and customer orders.
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* Child 3: Right Controls */}
             <div className="navbar-right">
                 <button
                     type="button"
                     className="website-btn"
                     onClick={openWebsite}
                 >
-                    🌐 View Website
+                    <Globe size={16} />
+                    <span>View Website</span>
                 </button>
 
                 <div className="admin-profile" ref={dropdownRef}>

@@ -1,0 +1,36 @@
+.admin-footer {
+    background: #ffffff;
+    border-top: 1px solid #eff0f6;
+    padding: 16px 4%;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.footer-content p {
+    font-size: 13px;
+    color: #808191;
+    margin: 0;
+}
+
+.footer-links span {
+    font-size: 12px;
+    font-weight: 500;
+    color: #b5b5be;
+    background: #f8f8fa;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
