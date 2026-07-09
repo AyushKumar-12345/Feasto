@@ -49,13 +49,17 @@ const PlaceOrder = () => {
             return;
         }
 
+        // Check if the backend already converted the amount to paise. 
+        // If it's equal to your raw total (e.g. 152), multiply by 100 to fix the backend bug.
+        const finalizedAmount = orderData.amount === total ? orderData.amount * 100 : orderData.amount;
+
         const options = {
             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-            amount: orderData.amount,
-            currency: orderData.currency,
+            amount: finalizedAmount, // Fixed backend currency subunit failure
+            currency: "INR", // Enforces domestic currency processing routing rules
             name: "Feasto",
             description: "Secure Food Order Payment",
-            image: "/logo.png",
+            // Removed image property to prevent the logo.png 404 error
             order_id: orderData.id,
             prefill: {
                 name: `${data.firstName} ${data.lastName}`,
