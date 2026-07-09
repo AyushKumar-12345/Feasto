@@ -12,10 +12,7 @@ const Header = () => {
     };
 
     return (
-        <section
-            className="header"
-            id="home"
-        >
+        <section className="header" id="home">
             <img
                 src={assets.header_img}
                 alt="Delicious Food"
@@ -24,10 +21,22 @@ const Header = () => {
 
             <div className="header-overlay">
                 <div className="header-content">
-                    {/* Duplicate text blocks removed because they are pre-rendered into the header_img graphic asset.
-                      We preserve the layout positions and actions seamlessly.
-                    */}
-                    
+                    <span className="header-tag">
+                        Fast Delivery • Fresh Food
+                    </span>
+
+                    <h1>
+                        Discover the Best Food
+                        <br />
+                        Delivered to Your Doorstep
+                    </h1>
+
+                    <p>
+                        From local favorites to premium meals,
+                        Feasto delivers fresh, delicious food
+                        right when you want it.
+                    </p>
+
                     <div className="header-actions">
                         <button
                             type="button"
