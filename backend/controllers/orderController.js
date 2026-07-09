@@ -35,7 +35,7 @@ const placeOrder = async (req, res) => {
         await newOrder.save();
 
         const options = {
-            amount: Number(amount) * 100,
+            amount: Math.round(Number(amount) * 100),
             currency: "INR",
             receipt: newOrder._id.toString(),
         };
