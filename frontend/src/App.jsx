@@ -39,7 +39,8 @@ const App = () => {
 
                 <Navbar setShowLogin={setShowLogin} />
 
-                <main id="app-main-content">
+                {/* Restored back to standard main element to prevent parent alignment layout bugs on the Home banner */}
+                <main>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/cart" element={<Cart />} />

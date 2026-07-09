@@ -53,12 +53,6 @@ input,
 textarea,
 select {
     font: inherit;
-}
-
-button,
-input,
-textarea,
-select {
     outline: none;
 }
 
@@ -70,15 +64,9 @@ select:focus-visible {
     outline-offset: 2px;
 }
 
-/* Master Layout Wrapper */
+/* Restored exact original layout width mechanics to prevent home banner structural collapsing */
 .app {
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* Internal Layout Panel Constraint */
-#app-main-content {
-    width: min(1200px, 92%);
+    width: min(1280px, 92%);
     margin: 0 auto;
 }
 
@@ -111,5 +99,18 @@ section {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Original width fallback breakpoints */
+@media (max-width: 900px) {
+    .app {
+        width: 94%;
+    }
+}
+
+@media (max-width: 600px) {
+    .app {
+        width: 95%;
     }
 }

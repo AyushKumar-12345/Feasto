@@ -23,16 +23,16 @@ const PrivacyPolicy = () => {
 
             <main className="static-page-content">
                 <section className="static-section">
-                    <h3>Data Collection</h3>
+                    <h3>Information We Collect</h3>
                     <p>
-                        We securely collect localized credentials, shipping target coordinates, and preference cookies strictly to elevate order dispatch velocity and personalized interface workflows.
+                        We collect your account details, delivery address, and preferences to make your food ordering experience faster and smoother.
                     </p>
                 </section>
 
                 <section className="static-section">
-                    <h3>Security Standardizations</h3>
+                    <h3>How We Protect Your Data</h3>
                     <p>
-                        Your network records are fully encrypted via JSON Web Token (JWT) verification models and end-to-end communication channels to rule out third-party leaks.
+                        Your account information is securely protected using secure web tokens (JWT) and encrypted network connections to ensure your data stays safe and private.
                     </p>
                 </section>
             </main>
