@@ -14,6 +14,9 @@ import Verify from "./pages/Verify/Verify";
 import MyOrders from "./pages/MyOrders/MyOrders";
 import Profile from "./pages/Profile/Profile";
 
+import AboutUs from "./pages/AboutUs/AboutUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy/PrivacyPolicy";
+
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
@@ -39,7 +42,6 @@ const App = () => {
 
                 <Navbar setShowLogin={setShowLogin} />
 
-                {/* Restored back to standard main element to prevent parent alignment layout bugs on the Home banner */}
                 <main>
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -48,6 +50,9 @@ const App = () => {
                         <Route path="/verify" element={<Verify />} />
                         <Route path="/myorders" element={<MyOrders />} />
                         <Route path="/profile" element={<Profile />} />
+                        
+                        <Route path="/about" element={<AboutUs />} />
+                        <Route path="/privacy" element={<PrivacyPolicy />} />
                     </Routes>
                 </main>
 
