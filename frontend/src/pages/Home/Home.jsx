@@ -10,12 +10,12 @@ const Home = () => {
     const [category, setCategory] = useState("All");
 
     return (
-        <main className="home" id="home-main-view">
+        <div className="home" id="home-main-view">
             <Header />
             <ExploreMenu category={category} setCategory={setCategory} />
             <FoodDisplay category={category} />
             <AppDownload />
-        </main>
+        </div>
     );
 };
 

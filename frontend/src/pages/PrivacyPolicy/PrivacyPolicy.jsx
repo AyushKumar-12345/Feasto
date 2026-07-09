@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import "./StaticPages.css";
+import "../AboutUs/StaticPages.css"; // Fixed relative path to resolve the build crash
 
 const PrivacyPolicy = () => {
     const navigate = useNavigate();

@@ -27,48 +27,21 @@
     inset: 0;
     display: flex;
     align-items: center;
-    /* Fixed typo: changed 100__ to 100% */
     background: linear-gradient(
         90deg,
-        rgba(17, 20, 45, 0.85) 0%,
-        rgba(17, 20, 45, 0.6) 45%,
-        rgba(17, 20, 45, 0.15) 100%
+        rgba(17, 20, 45, 0.45) 0%,
+        rgba(17, 20, 45, 0.2) 45%,
+        transparent 100%
     );
 }
 
 .header-content {
     width: min(620px, 90%);
     margin-left: 6%;
+    /* Pushes your action button down to sit perfectly beneath the text designed onto your banner */
+    padding-top: 140px; 
     color: #ffffff;
     animation: fadeIn 0.6s ease-out;
-}
-
-.header-tag {
-    display: inline-block;
-    padding: 6px 14px;
-    margin-bottom: 16px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(8px);
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-
-.header-content h1 {
-    margin: 0;
-    font-size: clamp(2.2rem, 4.5vw, 4rem);
-    line-height: 1.15;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
-
-.header-content p {
-    max-width: 520px;
-    margin: 20px 0 32px;
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 16px;
-    line-height: 1.6;
 }
 
 .header-actions {
@@ -111,6 +84,7 @@
     color: #ffffff;
     font-size: 14px;
     font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* Responsive Media Breakpoints */
@@ -122,10 +96,7 @@
 
     .header-content {
         margin-left: 5%;
-    }
-
-    .header-content p {
-        font-size: 15px;
+        padding-top: 100px;
     }
 }
 
@@ -138,21 +109,13 @@
     .header-overlay {
         justify-content: center;
         text-align: center;
-        background: linear-gradient(
-            180deg,
-            rgba(17, 20, 45, 0.8) 0%,
-            rgba(17, 20, 45, 0.5) 100%
-        );
+        background: rgba(17, 20, 45, 0.3);
     }
 
     .header-content {
         width: 90%;
         margin: 0;
-    }
-
-    .header-content p {
-        margin: 16px auto 24px;
-        font-size: 14px;
+        padding-top: 160px;
     }
 
     .header-actions {
@@ -170,14 +133,9 @@
         height: 350px;
         margin-top: 16px;
     }
-
-    .header-tag {
-        padding: 5px 12px;
-        font-size: 11px;
-    }
-
-    .header-content p {
-        line-height: 1.5;
+    
+    .header-content {
+        padding-top: 130px;
     }
 
     .header-actions {

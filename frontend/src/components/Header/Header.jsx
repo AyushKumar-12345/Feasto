@@ -24,22 +24,10 @@ const Header = () => {
 
             <div className="header-overlay">
                 <div className="header-content">
-                    <span className="header-tag">
-                        Fast Delivery • Fresh Food
-                    </span>
-
-                    <h1>
-                        Discover the Best Food
-                        <br />
-                        Delivered to Your Doorstep
-                    </h1>
-
-                    <p>
-                        From local favorites to premium meals,
-                        Feasto delivers fresh, delicious food
-                        right when you want it.
-                    </p>
-
+                    {/* Duplicate text blocks removed because they are pre-rendered into the header_img graphic asset.
+                      We preserve the layout positions and actions seamlessly.
+                    */}
+                    
                     <div className="header-actions">
                         <button
                             type="button"
