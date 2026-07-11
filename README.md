@@ -1,42 +1,73 @@
-# 🍔 Feasto – Full Stack Food Delivery Platform
+# 🍔 Feasto – Full Stack MERN Food Delivery Platform
 
-Feasto is a modern full-stack food delivery platform inspired by applications like **Zomato** and **Swiggy**. It allows users to browse food items, manage their cart, place orders, complete secure online payments, and track their orders. The platform also includes a dedicated admin dashboard for managing food items and customer orders.
+![React](https://img.shields.io/badge/React-18-blue?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-success?logo=mongodb)
+![Razorpay](https://img.shields.io/badge/Payment-Razorpay-02042B?logo=razorpay)
+![Cloudinary](https://img.shields.io/badge/Cloudinary-Media-blue?logo=cloudinary)
+![License](https://img.shields.io/badge/License-Portfolio-orange)
 
 ---
 
-# 🚀 Features
+## 📖 Overview
+
+Feasto is a modern **Full Stack MERN Food Delivery Platform** inspired by applications like **Zomato** and **Swiggy**.
+
+The platform allows customers to browse food items, manage their cart, place secure online orders using **Razorpay**, and track order status in real time.
+
+It also includes a dedicated **Admin Dashboard** for managing food items, customer orders, and restaurant operations.
+
+---
+
+## 🌐 Live Demo
+
+### 🍽️ Customer Application
+
+https://feasto-frontend-qt0n.onrender.com
+
+### 🛠️ Admin Dashboard
+
+https://feasto-admin-567d.onrender.com
+
+### ⚙️ Backend API
+
+https://feasto-backend-pcbq.onrender.com
+
+---
+# ✨ Features
 
 ## 👤 User Features
 
-- User Registration & Login (JWT Authentication)
-- Browse Food Menu
-- Search Food Items
-- Filter Food by Category
-- Add & Remove Items from Cart
-- Shopping Cart Management
-- Secure Checkout
-- Razorpay Payment Integration
-- Order History
-- Order Status Tracking
-- Profile Picture Upload
-- Responsive UI
-- Toast Notifications
-
-## 🛠️ Admin Features
-
-- Secure Admin Dashboard
-- Add Food Items
-- Delete Food Items
-- Image Upload with Cloudinary
-- View Customer Orders
-- Update Order Status
-- Restaurant Order Management
+- 🔐 Secure User Authentication (JWT)
+- 🍽️ Browse Food Menu
+- 🔍 Search Food Items
+- 🏷️ Filter Food by Categories
+- 🛒 Add & Remove Items from Cart
+- 💳 Secure Online Payments with Razorpay
+- 📦 Order Placement & Management
+- 📜 Order History
+- 🚚 Real-time Order Status Tracking
+- 👤 User Profile Management
+- 🖼️ Profile Picture Upload
+- 🔔 Toast Notifications
+- 📱 Fully Responsive Design
 
 ---
 
+## 🛠️ Admin Features
+
+- 🔑 Secure Admin Login
+- 🍕 Add New Food Items
+- 🗑️ Delete Food Items
+- ☁️ Cloudinary Image Upload
+- 📦 View Customer Orders
+- 🔄 Update Order Status
+- 📊 Restaurant Order Management Dashboard
+
+---
 # 🛠 Tech Stack
 
-## Frontend
+## 🎨 Frontend
 
 - React 18
 - Vite
@@ -46,7 +77,9 @@ Feasto is a modern full-stack food delivery platform inspired by applications li
 - Lucide React
 - CSS3
 
-## Backend
+---
+
+## ⚙️ Backend
 
 - Node.js
 - Express.js
@@ -57,159 +90,233 @@ Feasto is a modern full-stack food delivery platform inspired by applications li
 - Cloudinary
 - Multer
 
-## Deployment
+---
 
-- Frontend — Render
-- Admin Dashboard — Render
-- Backend API — Render
-- Database — MongoDB Atlas
+## ☁️ Deployment
+
+| Service | Platform |
+|----------|----------|
+| Frontend | Render |
+| Admin Dashboard | Render |
+| Backend API | Render |
+| Database | MongoDB Atlas |
+| Image Storage | Cloudinary |
 
 ---
 
-# 🌐 Live Demo
+## 🧰 Development Tools
 
-### Frontend
-
-https://feasto-frontend-qt0n.onrender.com
-
-### Admin Dashboard
-
-https://feasto-admin-567d.onrender.com
-
-### Backend API
-
-https://feasto-backend-pcbq.onrender.com
+- Visual Studio Code
+- Git & GitHub
+- Postman
+- MongoDB Compass
+- Render
+- npm
 
 ---
-
 # 📁 Project Structure
 
 ```text
-Feasto/
+Feasto
 │
-├── frontend/
-├── backend/
-├── admin/
-└── README.md
+├── frontend/          # Customer-facing React application
+├── backend/           # Express.js REST API
+├── admin/             # Admin dashboard
+├── README.md
+└── .gitignore
 ```
 
 ---
 
 # ⚙️ Local Setup
 
-## Clone Repository
+## 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/Feasto.git
+git clone https://github.com/AyushKumar-12345/Feasto.git
 cd Feasto
 ```
 
-## Frontend
+---
+
+## 2️⃣ Install Dependencies
+
+### Frontend
 
 ```bash
 cd frontend
 npm install
-npm run dev
 ```
 
-## Backend
+### Backend
+
+```bash
+cd ../backend
+npm install
+```
+
+### Admin Dashboard
+
+```bash
+cd ../admin
+npm install
+```
+
+---
+
+## 3️⃣ Run the Project
+
+### Start Backend
 
 ```bash
 cd backend
-npm install
 npm run server
 ```
 
-## Admin Dashboard
+### Start Frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+### Start Admin Dashboard
 
 ```bash
 cd admin
-npm install
 npm run dev
 ```
 
 ---
+# 📸 Application Preview
 
-# 🔑 Environment Variables
+## 🏠 Home Page
 
-## Backend (.env)
-
-```env
-PORT=4000
-
-MONGODB_URI=your_mongodb_connection_string
-
-JWT_SECRET=your_secure_jwt_secret
-
-RAZORPAY_KEY_ID=your_razorpay_key_id
-RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-
-FRONTEND_URL=http://localhost:5173
-
-CLOUDINARY_NAME=your_cloudinary_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_SECRET_KEY=your_cloudinary_secret_key
-```
-
-## Frontend (.env)
-
-```env
-VITE_BACKEND_URL=https://feasto-backend-pcbq.onrender.com
-VITE_RAZORPAY_KEY_ID=your_razorpay_key_id
-```
-
-## Admin (.env)
-
-```env
-VITE_BACKEND_URL=https://feasto-backend-pcbq.onrender.com
-```
+> _Screenshot Coming Soon_
 
 ---
 
-# 📸 Screenshots
+## 🍽️ Food Menu
 
-Add screenshots of:
-
-- Home
-- Food Menu
-- Search
-- Cart
-- Checkout
-- Razorpay Payment
-- My Orders
-- Profile
-- Admin Dashboard
-- Food Management
-- Order Management
+> _Screenshot Coming Soon_
 
 ---
 
+## 🔍 Search & Categories
+
+> _Screenshot Coming Soon_
+
+---
+
+## 🛒 Shopping Cart
+
+> _Screenshot Coming Soon_
+
+---
+
+## 💳 Razorpay Checkout
+
+> _Screenshot Coming Soon_
+
+---
+
+## 📦 My Orders
+
+> _Screenshot Coming Soon_
+
+---
+
+## 👤 User Profile
+
+> _Screenshot Coming Soon_
+
+---
+
+## 🛠️ Admin Dashboard
+
+> _Screenshot Coming Soon_
+
+---
+
+## 🍕 Food Management
+
+> _Screenshot Coming Soon_
+
+---
+
+## 📋 Order Management
+
+> _Screenshot Coming Soon_
+
+---
 # 🚀 Future Improvements
 
-- Wishlist
-- Coupon & Discount System
-- Live Order Tracking
-- Email Notifications
-- Push Notifications
-- Multiple Delivery Addresses
-- Food Reviews & Ratings
-- Progressive Web App (PWA)
-- Dark Mode
+- ❤️ Wishlist Functionality
+- 🎟️ Coupon & Discount System
+- 📍 Live Order Tracking
+- 📧 Email Notifications
+- 🔔 Push Notifications
+- 🏠 Multiple Delivery Addresses
+- ⭐ Food Ratings & Reviews
+- 🌙 Dark Mode
+- 📱 Progressive Web App (PWA)
+- 🌍 Multi-language Support
+
+---
+
+# 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+If you'd like to contribute:
+
+1. Fork the repository
+2. Create a new feature branch
+3. Commit your changes
+4. Push the branch
+5. Open a Pull Request
 
 ---
 
 # 📄 License
 
-This project is developed for educational and portfolio purposes.
+This project is created for **learning, educational, and portfolio purposes**.
 
 ---
 
-# 👨‍💻 Author
+# 👨‍💻 Developer
 
-**Ayush Kumar**
+## Ayush Kumar
 
-GitHub:
+**B.Tech Information Technology**  
+**IIIT Bhubaneswar**
+
+📧 **Email**  
+ayushkumardandapat200@gmail.com
+
+💼 **LinkedIn**  
+https://www.linkedin.com/in/ayush-kumar-97326636a/
+
+💻 **GitHub**  
 https://github.com/AyushKumar-12345
 
-LinkedIn:
-https://www.linkedin.com/in/ayush-kumar-97326636a/
+🌐 **Portfolio**  
+https://ayush-portfolio-3yan.onrender.com
+
+---
+
+# ⭐ Support
+
+If you found this project helpful, please consider giving it a **⭐ Star** on GitHub.
+
+It helps increase the visibility of the project and supports my work.
+
+---
+
+<div align="center">
+
+### 🍔 Built with ❤️ using the MERN Stack
+
+**Thank you for visiting this repository!**
+
+</div>
