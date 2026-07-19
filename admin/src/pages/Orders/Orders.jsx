@@ -43,21 +43,14 @@ const Orders = ({ url }) => {
             setOrders((prev) =>
                 prev.map((order) =>
                     order._id === orderId
-                        ? { 
-                            ...order, 
-                            status: newStatus,
-                            payment: newStatus === "Delivered" ? true : order.payment
-                          }
+                        ? { ...order, status: newStatus }
                         : order
                 )
             );
 
             const response = await axios.post(
                 `${url}/api/order/status`,
-                {
-                    orderId,
-                    status: newStatus,
-                },
+                { orderId, status: newStatus },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -101,36 +94,14 @@ const Orders = ({ url }) => {
 
     return (
         <div className="order">
-            <div className="order-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-                <h2 className="page-title" style={{ margin: 0 }}>Customer Orders</h2>
+            <div className="order-header-row">
+                <h2 className="page-title">Customer Orders</h2>
                 <button 
                     onClick={fetchAllOrders} 
                     disabled={loading}
-                    style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        padding: '8px 16px',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        color: '#333',
-                        backgroundColor: '#fff',
-                        border: '1px solid #ccc',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease',
-                        boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = '#f5f5f5';
-                        e.currentTarget.style.borderColor = '#999';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = '#fff';
-                        e.currentTarget.style.borderColor = '#ccc';
-                    }}
+                    className="order-refresh-btn"
                 >
-                    <RotateCw size={16} className={loading ? "animate-spin" : ""} style={{ animation: loading ? 'spin 1s linear infinite' : 'none' }} />
+                    <RotateCw size={16} className={loading ? "refresh-icon-spin" : ""} />
                     Refresh
                 </button>
             </div>
@@ -152,8 +123,8 @@ const Orders = ({ url }) => {
                                     <span className={`status-badge ${formatStatusClass(order.status)}`}>
                                         {order.status}
                                     </span>
-                                    <span className={`payment-badge ${order.payment ? "paid" : "pending"}`}>
-                                        {order.payment ? "Paid" : "Pending"}
+                                    <span className={`payment-badge ${order.paymentStatus ? order.paymentStatus.toLowerCase() : "pending"}`}>
+                                        {order.paymentStatus || "Pending"}
                                     </span>
                                 </div>
                             </div>
@@ -169,11 +140,9 @@ const Orders = ({ url }) => {
                                             .map((item) => `${item.name} × ${item.quantity}`)
                                             .join(", ")}
                                     </p>
-
                                     <p className="order-item-name">
                                         {order.address.firstName} {order.address.lastName}
                                     </p>
-
                                     <div className="order-item-address">
                                         <p>{order.address.street},</p>
                                         <p>
@@ -181,7 +150,6 @@ const Orders = ({ url }) => {
                                             {order.address.country}, {order.address.zipCode}
                                         </p>
                                     </div>
-
                                     <p className="order-item-phone">{order.address.phone}</p>
                                 </div>
 
@@ -204,19 +172,12 @@ const Orders = ({ url }) => {
                                     <label>Order Status</label>
                                     <select
                                         value={order.status}
-                                        onChange={(event) =>
-                                            statusHandler(event, order._id)
-                                        }
+                                        disabled={order.paymentStatus !== "Paid"}
+                                        onChange={(event) => statusHandler(event, order._id)}
                                     >
-                                        <option value="Food Processing">
-                                            Food Processing
-                                        </option>
-                                        <option value="Out for delivery">
-                                            Out for delivery
-                                        </option>
-                                        <option value="Delivered">
-                                            Delivered
-                                        </option>
+                                        <option value="Food Processing">Food Processing</option>
+                                        <option value="Out for Delivery">Out for Delivery</option>
+                                        <option value="Delivered">Delivered</option>
                                     </select>
                                 </div>
                             </div>
@@ -224,12 +185,6 @@ const Orders = ({ url }) => {
                     ))
                 )}
             </div>
-            <style>{`
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
-                }
-            `}</style>
         </div>
     );
 };

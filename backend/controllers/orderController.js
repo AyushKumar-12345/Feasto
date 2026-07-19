@@ -35,6 +35,7 @@ const placeOrder = async (req, res) => {
             items,
             amount,
             address,
+            status: "Pending Payment",
             paymentMethod: "Razorpay",
             paymentStatus: "Pending",
         });
@@ -54,7 +55,6 @@ const placeOrder = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-
         return res.status(500).json({
             success: false,
             message: error.message,
@@ -81,10 +81,12 @@ const verifyOrder = async (req, res) => {
             });
         }
 
-        if (
-            success !== true &&
-            success !== "true"
-        ) {
+        if (success !== true && success !== "true") {
+            order.payment = false;
+            order.paymentStatus = "Failed";
+            order.status = "Cancelled";
+            await order.save();
+
             return res.status(400).json({
                 success: false,
                 message: "Payment not completed",
@@ -97,18 +99,23 @@ const verifyOrder = async (req, res) => {
             .digest("hex");
 
         if (generatedSignature !== razorpay_signature) {
+            order.payment = false;
+            order.paymentStatus = "Failed";
+            order.status = "Cancelled";
+            await order.save();
+
             return res.status(400).json({
                 success: false,
                 message: "Payment verification failed",
             });
         }
 
-        await OrderModel.findByIdAndUpdate(orderId, {
-            payment: true,
-            paymentId: razorpay_payment_id,
-            paymentMethod: "Razorpay",
-            paymentStatus: "Paid",
-        });
+        order.payment = true;
+        order.paymentId = razorpay_payment_id;
+        order.paymentMethod = "Razorpay";
+        order.paymentStatus = "Paid";
+        order.status = "Food Processing";
+        await order.save();
 
         await UserModel.findByIdAndUpdate(order.userId, {
             cartData: {},
@@ -120,7 +127,6 @@ const verifyOrder = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-
         return res.status(500).json({
             success: false,
             message: error.message,
@@ -131,7 +137,6 @@ const verifyOrder = async (req, res) => {
 const userOrders = async (req, res) => {
     try {
         const { userId } = req.body;
-
         const user = await UserModel.findById(userId);
 
         if (!user) {
@@ -149,7 +154,6 @@ const userOrders = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-
         return res.status(500).json({
             success: false,
             message: error.message,
@@ -160,14 +164,12 @@ const userOrders = async (req, res) => {
 const listOrders = async (req, res) => {
     try {
         const orders = await OrderModel.find({});
-
         return res.status(200).json({
             success: true,
             data: orders,
         });
     } catch (error) {
         console.error(error);
-
         return res.status(500).json({
             success: false,
             message: error.message,
@@ -178,7 +180,6 @@ const listOrders = async (req, res) => {
 const updateStatus = async (req, res) => {
     try {
         const { orderId, status } = req.body;
-
         const order = await OrderModel.findById(orderId);
 
         if (!order) {
@@ -188,14 +189,15 @@ const updateStatus = async (req, res) => {
             });
         }
 
-        const updateFields = { status };
-
-        if (status === "Delivered") {
-            updateFields.payment = true;
-            updateFields.paymentStatus = "Paid";
+        if (order.paymentStatus !== "Paid") {
+            return res.status(400).json({
+                success: false,
+                message: "Action denied: Only successfully paid orders can be updated.",
+            });
         }
 
-        await OrderModel.findByIdAndUpdate(orderId, updateFields);
+        order.status = status;
+        await order.save();
 
         return res.status(200).json({
             success: true,
@@ -203,7 +205,6 @@ const updateStatus = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-
         return res.status(500).json({
             success: false,
             message: error.message,
@@ -211,10 +212,4 @@ const updateStatus = async (req, res) => {
     }
 };
 
-export {
-    placeOrder,
-    verifyOrder,
-    userOrders,
-    listOrders,
-    updateStatus,
-};
+export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus };

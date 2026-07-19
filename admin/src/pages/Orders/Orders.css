@@ -25,32 +25,33 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 10px 18px;
+    padding: 10px 20px;
     font-size: 14px;
     font-weight: 600;
-    color: #4f5162;
-    background-color: #ffffff;
-    border: 1px solid #eff0f6;
-    border-radius: 10px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #ff6b57 0%, #ff4321 100%);
+    border: none;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    box-shadow: 0 4px 12px rgba(17, 20, 45, 0.02);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(255, 67, 33, 0.25);
 }
 
 .order-refresh-btn:hover:not(:disabled) {
-    background-color: #fafafb;
-    border-color: #d0d0d5;
-    color: #11142d;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(17, 20, 45, 0.05);
+    background: linear-gradient(135deg, #ff7b68 0%, #ff5233 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 67, 33, 0.35);
 }
 
 .order-refresh-btn:active:not(:disabled) {
     transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(255, 67, 33, 0.2);
 }
 
 .order-refresh-btn:disabled {
-    opacity: 0.6;
+    background: #e4e4e7;
+    color: #a1a1aa;
+    box-shadow: none;
     cursor: not-allowed;
 }
 
@@ -132,11 +133,17 @@
     color: #2b8a3e;
 }
 
+.status-badge.cancelled {
+    background-color: #f8f9fa;
+    color: #868e96;
+}
+
 .payment-badge {
     font-size: 12px;
     font-weight: 600;
     padding: 4px 12px;
     border-radius: 20px;
+    text-transform: capitalize;
 }
 
 .payment-badge.paid {
@@ -147,6 +154,11 @@
 .payment-badge.pending {
     background-color: #fff5f5;
     color: #c92a2a;
+}
+
+.payment-badge.failed {
+    background-color: #ffe3e3;
+    color: #e03131;
 }
 
 .order-item-body {
@@ -270,13 +282,20 @@
     transition: all 0.2s ease;
 }
 
-.order-action-panel select:hover {
+.order-action-panel select:hover:not(:disabled) {
     border-color: #d0d0d5;
 }
 
-.order-action-panel select:focus {
+.order-action-panel select:focus:not(:disabled) {
     border-color: #ff4321;
     box-shadow: 0 0 0 4px rgba(255, 67, 33, 0.08);
+}
+
+.order-action-panel select:disabled {
+    background: #f4f4f5;
+    color: #a1a1aa;
+    cursor: not-allowed;
+    border-color: #e4e4e7;
 }
 
 .empty-orders {

@@ -22,7 +22,7 @@ const orderSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            default: "Food Processing",
+            default: "Pending Payment",
             trim: true,
         },
         payment: {
