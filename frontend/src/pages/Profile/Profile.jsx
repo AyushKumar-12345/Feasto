@@ -9,7 +9,7 @@ const Profile = () => {
     const fileInputRef = useRef(null);
     const navigate = useNavigate();
 
-    const { profileImage, setProfileImage } = useContext(StoreContext);
+    const { profileImage, setProfileImage, userName } = useContext(StoreContext);
 
     const resizeImage = (file) => {
         const reader = new FileReader();
@@ -93,7 +93,7 @@ const Profile = () => {
                     }}
                 />
 
-                <h2>Ayush Kumar</h2>
+                <h2>{userName || "Guest"}</h2>
 
                 <p>
                     Welcome to your Feasto profile. Upload a profile picture

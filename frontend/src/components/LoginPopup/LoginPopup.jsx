@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { X } from "lucide-react";
 
 const LoginPopup = ({ setShowLogin }) => {
-    const { url, setToken } = useContext(StoreContext);
+    const { url, setToken, setUserName } = useContext(StoreContext);
     const navigate = useNavigate();
 
     const [currState, setCurrState] = useState("Login");
@@ -55,14 +55,14 @@ const LoginPopup = ({ setShowLogin }) => {
             setLoading(true);
 
             const response = await axios.post(newUrl, data);
+            console.log(response.data);
 
             if (response.data.success) {
-                localStorage.setItem(
-                    "token",
-                    response.data.token
-                );
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("userName", response.data.name);
 
                 setToken(response.data.token);
+                setUserName(response.data.name);
 
                 toast.success(
                     currState === "Login"

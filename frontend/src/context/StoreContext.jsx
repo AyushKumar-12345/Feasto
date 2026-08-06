@@ -7,6 +7,9 @@ const StoreContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({});
     const [food_list, setFoodList] = useState([]);
     const [token, setToken] = useState("");
+    const [userName, setUserName] = useState(
+        localStorage.getItem("userName") || ""
+    );
 
     const [profileImage, setProfileImage] = useState(
         localStorage.getItem("profileImage") || ""
@@ -152,6 +155,10 @@ const StoreContextProvider = ({ children }) => {
         loadData();
     }, []);
 
+    useEffect(() => {
+        localStorage.setItem("userName", userName);
+    }, [userName]);
+
     // Clear cart local state immediately on token change (logout handling fallback)
     useEffect(() => {
         if (!token) {
@@ -171,6 +178,8 @@ const StoreContextProvider = ({ children }) => {
         setToken,
         profileImage,
         setProfileImage,
+        userName,
+        setUserName,
     };
 
     return (

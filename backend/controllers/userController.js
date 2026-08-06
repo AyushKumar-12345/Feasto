@@ -46,6 +46,7 @@ const loginUser = async (req, res) => {
         return res.json({
             success: true,
             token,
+            name: user.name
         });
     } catch (error) {
         console.error(error);
@@ -115,6 +116,7 @@ const registerUser = async (req, res) => {
         return res.json({
             success: true,
             token,
+            name: user.name
         });
     } catch (error) {
         console.error(error);
