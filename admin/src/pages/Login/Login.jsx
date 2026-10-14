@@ -32,7 +32,7 @@ const Login = ({ url, setToken }) => {
             );
 
             if (response.data.success) {
-                localStorage.setItem("token", response.data.token);
+                localStorage.setItem("adminToken", response.data.token);
                 setToken(response.data.token);
                 toast.success("Login Successful");
                 navigate("/", { replace: true });

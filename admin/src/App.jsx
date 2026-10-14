@@ -17,7 +17,7 @@ const App = () => {
     const url =
         import.meta.env.VITE_BACKEND_URL || "https://feasto-backend-pcbg.onrender.com";
 
-    const [token, setToken] = useState(localStorage.getItem("token"));
+    const [token, setToken] = useState(localStorage.getItem("adminToken"));
 
     return (
         <>

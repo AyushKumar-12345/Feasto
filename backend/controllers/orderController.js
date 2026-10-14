@@ -48,6 +48,9 @@ const placeOrder = async (req, res) => {
             receipt: newOrder._id.toString(),
         });
 
+        newOrder.razorpayOrderId = razorpayOrder.id;
+        await newOrder.save();
+
         return res.status(200).json({
             success: true,
             order: razorpayOrder,
@@ -66,6 +69,7 @@ const verifyOrder = async (req, res) => {
     try {
         const {
             orderId,
+            userId,
             success,
             razorpay_order_id,
             razorpay_payment_id,
@@ -81,6 +85,20 @@ const verifyOrder = async (req, res) => {
             });
         }
 
+        if (String(order.userId) !== String(userId)) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to verify this order.",
+            });
+        }
+
+        if (order.paymentStatus === "Paid") {
+            return res.status(200).json({
+                success: true,
+                message: "Payment was already verified.",
+            });
+        }
+
         if (success !== true && success !== "true") {
             order.payment = false;
             order.paymentStatus = "Failed";
@@ -90,6 +108,24 @@ const verifyOrder = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: "Payment not completed",
+            });
+        }
+
+        if (
+            !process.env.RAZORPAY_KEY_SECRET ||
+            typeof razorpay_order_id !== "string" ||
+            razorpay_order_id !== order.razorpayOrderId ||
+            typeof razorpay_payment_id !== "string" ||
+            typeof razorpay_signature !== "string"
+        ) {
+            order.payment = false;
+            order.paymentStatus = "Failed";
+            order.status = "Cancelled";
+            await order.save();
+
+            return res.status(400).json({
+                success: false,
+                message: "Payment verification failed",
             });
         }
 
@@ -112,6 +148,7 @@ const verifyOrder = async (req, res) => {
 
         order.payment = true;
         order.paymentId = razorpay_payment_id;
+        order.razorpayOrderId = razorpay_order_id;
         order.paymentMethod = "Razorpay";
         order.paymentStatus = "Paid";
         order.status = "Food Processing";
@@ -146,7 +183,13 @@ const userOrders = async (req, res) => {
             });
         }
 
-        const orders = await OrderModel.find({ userId });
+        const orders = await OrderModel.find({
+            userId,
+            $or: [
+                { paymentStatus: { $in: ["Paid", "Failed"] } },
+                { status: "Cancelled" },
+            ],
+        }).sort({ createdAt: -1 });
 
         return res.status(200).json({
             success: true,
@@ -163,7 +206,12 @@ const userOrders = async (req, res) => {
 
 const listOrders = async (req, res) => {
     try {
-        const orders = await OrderModel.find({});
+        const orders = await OrderModel.find({
+            $or: [
+                { paymentStatus: { $in: ["Paid", "Failed"] } },
+                { status: "Cancelled" },
+            ],
+        }).sort({ createdAt: -1 });
         return res.status(200).json({
             success: true,
             data: orders,
@@ -180,6 +228,19 @@ const listOrders = async (req, res) => {
 const updateStatus = async (req, res) => {
     try {
         const { orderId, status } = req.body;
+        const allowedStatuses = [
+            "Food Processing",
+            "Out for Delivery",
+            "Delivered",
+        ];
+
+        if (!allowedStatuses.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid order status.",
+            });
+        }
+
         const order = await OrderModel.findById(orderId);
 
         if (!order) {

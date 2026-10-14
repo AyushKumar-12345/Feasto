@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./PlaceOrder.css";
 import { StoreContext } from "../../context/StoreContext";
 import axios from "axios";
@@ -18,6 +18,7 @@ const PlaceOrder = () => {
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
+    const paymentFailureHandled = useRef(false);
 
     const [data, setData] = useState({
         firstName: "",
@@ -49,6 +50,13 @@ const PlaceOrder = () => {
             return;
         }
 
+        paymentFailureHandled.current = false;
+        const handlePaymentFailure = () => {
+            if (paymentFailureHandled.current) return;
+            paymentFailureHandled.current = true;
+            navigate(`/verify?success=false&orderId=${dbOrderId}`);
+        };
+
         const options = {
             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
             amount: orderData.amount,
@@ -68,20 +76,22 @@ const PlaceOrder = () => {
                 color: "#ff4321",
             },
             handler: async (response) => {
+                paymentFailureHandled.current = true;
                 navigate(
                     `/verify?success=true&orderId=${dbOrderId}&razorpay_order_id=${response.razorpay_order_id}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_signature=${response.razorpay_signature}`
                 );
             },
             modal: {
-                ondismiss: () => {
-                    navigate(
-                        `/verify?success=false&orderId=${dbOrderId}`
-                    );
-                },
+                ondismiss: handlePaymentFailure,
             },
         };
 
-        new window.Razorpay(options).open();
+        const razorpay = new window.Razorpay(options);
+
+        razorpay.on("payment.failed", () => {
+            toast.error("Payment failed. You can retry or close the payment window.");
+        });
+        razorpay.open();
     };
 
     const placeOrder = async (event) => {

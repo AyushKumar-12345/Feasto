@@ -15,6 +15,14 @@ const authMiddleware = (req, res, next) => {
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+        if (typeof decoded.id !== "string" || decoded.role === "admin") {
+            return res.status(401).json({
+                success: false,
+                message: "Please log in with a customer account.",
+            });
+        }
+
+        req.body = req.body || {};
         req.body.userId = decoded.id;
 
         next();

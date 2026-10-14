@@ -1,12 +1,41 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import axios from "axios";
 
 export const StoreContext = createContext(null);
 
+const getCustomerToken = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return "";
+    }
+
+    try {
+        const encodedPayload = token.split(".")[1]
+            .replace(/-/g, "+")
+            .replace(/_/g, "/");
+        const paddedPayload = encodedPayload.padEnd(
+            encodedPayload.length + ((4 - (encodedPayload.length % 4)) % 4),
+            "="
+        );
+        const payload = JSON.parse(window.atob(paddedPayload));
+
+        if (!payload.id || payload.role === "admin") {
+            localStorage.removeItem("token");
+            return "";
+        }
+    } catch {
+        localStorage.removeItem("token");
+        return "";
+    }
+
+    return token;
+};
+
 const StoreContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({});
     const [food_list, setFoodList] = useState([]);
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState(getCustomerToken);
     const [userName, setUserName] = useState(
         localStorage.getItem("userName") || ""
     );
@@ -106,7 +135,7 @@ const StoreContextProvider = ({ children }) => {
         return totalAmount;
     };
 
-    const fetchFoodList = async () => {
+    const fetchFoodList = useCallback(async () => {
         try {
             const response = await axios.get(
                 `${url}/api/food/list`
@@ -118,9 +147,9 @@ const StoreContextProvider = ({ children }) => {
         } catch (error) {
             console.error(error);
         }
-    };
+    }, [url]);
 
-    const loadCartData = async (savedToken) => {
+    const loadCartData = useCallback(async (savedToken) => {
         try {
             const response = await axios.post(
                 `${url}/api/cart/get`,
@@ -134,26 +163,21 @@ const StoreContextProvider = ({ children }) => {
         } catch (error) {
             console.error(error);
         }
-    };
+    }, [url]);
 
     useEffect(() => {
         localStorage.setItem("profileImage", profileImage);
     }, [profileImage]);
 
     useEffect(() => {
-        const loadData = async () => {
-            await fetchFoodList();
+        fetchFoodList();
+    }, [fetchFoodList]);
 
-            const savedToken = localStorage.getItem("token");
-
-            if (savedToken) {
-                setToken(savedToken);
-                await loadCartData(savedToken);
-            }
+    useEffect(() => {
+        if (token) {
+            loadCartData(token);
         }
-
-        loadData();
-    }, []);
+    }, [loadCartData, token]);
 
     useEffect(() => {
         localStorage.setItem("userName", userName);

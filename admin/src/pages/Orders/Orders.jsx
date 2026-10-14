@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Package, Calendar, CreditCard, Hash, RotateCw } from "lucide-react";
@@ -8,10 +8,10 @@ const Orders = ({ url }) => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchAllOrders = async () => {
+    const fetchAllOrders = useCallback(async () => {
         try {
             setLoading(true);
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("adminToken");
             const response = await axios.get(
                 `${url}/api/order/list`,
                 {
@@ -33,12 +33,12 @@ const Orders = ({ url }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [url]);
 
-    const statusHandler = async (event, orderId) => {
+    const statusHandler = useCallback(async (event, orderId) => {
         const newStatus = event.target.value;
         try {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("adminToken");
             
             setOrders((prev) =>
                 prev.map((order) =>
@@ -70,13 +70,13 @@ const Orders = ({ url }) => {
             );
             fetchAllOrders();
         }
-    };
+    }, [fetchAllOrders, url]);
 
     useEffect(() => {
         fetchAllOrders();
-    }, []);
+    }, [fetchAllOrders]);
 
-    const formatStatusClass = (status) => {
+    const formatStatusClass = (status = "Unknown") => {
         return status.toLowerCase().replace(/\s+/g, "-");
     };
 
@@ -120,12 +120,23 @@ const Orders = ({ url }) => {
                                     <span>ID: {order._id.substring(0, 8).toUpperCase()}</span>
                                 </div>
                                 <div className="order-meta-badges">
-                                    <span className={`status-badge ${formatStatusClass(order.status)}`}>
-                                        {order.status}
-                                    </span>
-                                    <span className={`payment-badge ${order.paymentStatus ? order.paymentStatus.toLowerCase() : "pending"}`}>
-                                        {order.paymentStatus || "Pending"}
-                                    </span>
+                                    {order.paymentStatus === "Paid" &&
+                                    order.status !== "Cancelled" ? (
+                                        <>
+                                            <span className={`status-badge ${formatStatusClass(order.status)}`}>
+                                                {order.status}
+                                            </span>
+                                            <span className="payment-badge paid">
+                                                Paid
+                                            </span>
+                                        </>
+                                    ) : (
+                                        <span className="payment-badge failed">
+                                            {order.status === "Cancelled"
+                                                ? "Cancelled"
+                                                : "Payment Failed"}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
 
@@ -136,21 +147,21 @@ const Orders = ({ url }) => {
 
                                 <div className="order-details">
                                     <p className="order-item-food">
-                                        {order.items
+                                        {(Array.isArray(order.items) ? order.items : [])
                                             .map((item) => `${item.name} × ${item.quantity}`)
                                             .join(", ")}
                                     </p>
                                     <p className="order-item-name">
-                                        {order.address.firstName} {order.address.lastName}
+                                        {order.address?.firstName} {order.address?.lastName}
                                     </p>
                                     <div className="order-item-address">
-                                        <p>{order.address.street},</p>
+                                        <p>{order.address?.street},</p>
                                         <p>
-                                            {order.address.city}, {order.address.state},{" "}
-                                            {order.address.country}, {order.address.zipCode}
+                                            {order.address?.city}, {order.address?.state},{" "}
+                                            {order.address?.country}, {order.address?.zipCode}
                                         </p>
                                     </div>
-                                    <p className="order-item-phone">{order.address.phone}</p>
+                                    <p className="order-item-phone">{order.address?.phone}</p>
                                 </div>
 
                                 <div className="order-info-panel">
@@ -163,23 +174,25 @@ const Orders = ({ url }) => {
                                         <span>{order.paymentMethod || "Razorpay"}</span>
                                     </div>
                                     <div className="info-summary">
-                                        <span>{order.items.length} {order.items.length === 1 ? "Item" : "Items"}</span>
+                                        <span>{Array.isArray(order.items) ? order.items.length : 0} {order.items?.length === 1 ? "Item" : "Items"}</span>
                                         <strong>₹{order.amount}</strong>
                                     </div>
                                 </div>
 
-                                <div className="order-action-panel">
-                                    <label>Order Status</label>
-                                    <select
-                                        value={order.status}
-                                        disabled={order.paymentStatus !== "Paid"}
-                                        onChange={(event) => statusHandler(event, order._id)}
-                                    >
-                                        <option value="Food Processing">Food Processing</option>
-                                        <option value="Out for Delivery">Out for Delivery</option>
-                                        <option value="Delivered">Delivered</option>
-                                    </select>
-                                </div>
+                                {order.paymentStatus === "Paid" &&
+                                    order.status !== "Cancelled" && (
+                                    <div className="order-action-panel">
+                                        <label>Order Status</label>
+                                        <select
+                                            value={order.status}
+                                            onChange={(event) => statusHandler(event, order._id)}
+                                        >
+                                            <option value="Food Processing">Food Processing</option>
+                                            <option value="Out for Delivery">Out for Delivery</option>
+                                            <option value="Delivered">Delivered</option>
+                                        </select>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     ))

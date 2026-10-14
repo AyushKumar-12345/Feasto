@@ -11,6 +11,7 @@ const Cart = () => {
         food_list,
         removeFromCart,
         getTotalCartAmount,
+        token,
     } = useContext(StoreContext);
 
     const navigate = useNavigate();
@@ -24,8 +25,6 @@ const Cart = () => {
     );
 
     const handleCheckout = () => {
-        const token = localStorage.getItem("token");
-
         if (!token) {
             toast.info("Please login to continue checkout 🚀");
             return;

@@ -32,11 +32,47 @@
 }
 
 .my-orders h2 {
-    margin: 0 0 24px 0;
+    margin: 0;
     color: var(--text);
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.5px;
+}
+
+.orders-heading-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.orders-refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 40px;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface);
+    color: #4f5162;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.orders-refresh-btn:hover:not(:disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: #fff5f2;
+}
+
+.orders-refresh-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .orders-loading {
@@ -44,6 +80,36 @@
     text-align: center;
     color: var(--text-light);
     font-size: 15px;
+}
+
+.orders-error {
+    padding: 18px 20px;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    background: #fef2f2;
+    color: #b91c1c;
+    text-align: center;
+    font-size: 14px;
+}
+
+.orders-error p {
+    margin: 0;
+}
+
+.orders-retry-btn {
+    margin-top: 12px;
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.orders-retry-btn:hover {
+    background: var(--primary-dark);
 }
 
 .my-orders .container {
@@ -138,42 +204,21 @@
     color: #15803d;
 }
 
+.status-badge.payment-failed {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
 .status-badge.out-for-delivery {
     background: #fff5f2;
     color: var(--primary);
 }
 
 .status-badge.order-placed,
-.status-badge.preparing {
+.status-badge.preparing,
+.status-badge.food-processing {
     background: #fef8e8;
     color: #b45309;
-}
-
-/* Refresh / Tracking Dynamic Button */
-.refresh-status-btn {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--surface);
-    color: #4f5162;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.refresh-status-btn:hover:not(:disabled) {
-    border-color: var(--primary);
-    color: var(--primary);
-    background: #fff5f2;
-}
-
-.refresh-status-btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
 }
 
 .spinning svg {
@@ -269,10 +314,6 @@
         box-sizing: border-box;
     }
 
-    .refresh-status-btn {
-        width: 100%;
-        justify-content: center;
-    }
 }
 
 @media (max-width: 600px) {
@@ -287,5 +328,15 @@
 
     .order-food {
         font-size: 14px;
+    }
+
+    .orders-heading-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .orders-refresh-btn {
+        width: 100%;
     }
 }

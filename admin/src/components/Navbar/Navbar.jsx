@@ -34,7 +34,7 @@ const Navbar = ({ setToken }) => {
     }, []);
 
     const logoutHandler = () => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("adminToken");
         setToken(null);
         navigate("/", { replace: true });
     };

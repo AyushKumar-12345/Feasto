@@ -12,6 +12,7 @@ const LoginPopup = ({ setShowLogin }) => {
 
     const [currState, setCurrState] = useState("Login");
     const [loading, setLoading] = useState(false);
+    const isSignUp = currState === "Sign Up";
 
     const [data, setData] = useState({
         name: "",
@@ -46,16 +47,19 @@ const LoginPopup = ({ setShowLogin }) => {
 
         if (loading) return;
 
-        const newUrl =
-            currState === "Login"
-                ? `${url}/api/user/login`
-                : `${url}/api/user/register`;
+        const payload = {
+            ...data,
+            email: data.email.trim(),
+            ...(isSignUp ? { name: data.name.trim() } : {}),
+        };
+        const newUrl = isSignUp
+            ? `${url}/api/user/register`
+            : `${url}/api/user/login`;
 
         try {
             setLoading(true);
 
-            const response = await axios.post(newUrl, data);
-            console.log(response.data);
+            const response = await axios.post(newUrl, payload);
 
             if (response.data.success) {
                 localStorage.setItem("token", response.data.token);
@@ -106,12 +110,13 @@ const LoginPopup = ({ setShowLogin }) => {
                 </div>
 
                 <div className="login-popup-inputs">
-                    {currState !== "Login" && (
+                    {isSignUp && (
                         <input
                             autoFocus
                             type="text"
                             name="name"
                             placeholder="Your Name"
+                            autoComplete="name"
                             value={data.name}
                             onChange={onChangeHandler}
                             disabled={loading}
@@ -126,6 +131,7 @@ const LoginPopup = ({ setShowLogin }) => {
                         type="email"
                         name="email"
                         placeholder="Your Email"
+                        autoComplete="email"
                         value={data.email}
                         onChange={onChangeHandler}
                         disabled={loading}
@@ -136,6 +142,20 @@ const LoginPopup = ({ setShowLogin }) => {
                         type="password"
                         name="password"
                         placeholder="Password"
+                        autoComplete={
+                            isSignUp ? "new-password" : "current-password"
+                        }
+                        minLength={isSignUp ? 8 : undefined}
+                        pattern={
+                            isSignUp
+                                ? "(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}"
+                                : undefined
+                        }
+                        title={
+                            isSignUp
+                                ? "Use at least 8 characters with an uppercase letter, a lowercase letter, and a number."
+                                : undefined
+                        }
                         value={data.password}
                         onChange={onChangeHandler}
                         disabled={loading}
@@ -154,35 +174,37 @@ const LoginPopup = ({ setShowLogin }) => {
                         : "Create Account"}
                 </button>
 
-                <div className="login-popup-condition">
-                    <input
-                        type="checkbox"
-                        required
-                        disabled={loading}
-                    />
+                {isSignUp && (
+                    <div className="login-popup-condition">
+                        <input
+                            type="checkbox"
+                            required
+                            disabled={loading}
+                        />
 
-                    <p>
-                        By continuing, I agree to the{" "}
-                        <span
-                            className="popup-link"
-                            onClick={() =>
-                                toast.info(
-                                    "Terms of Use page is coming soon! 🚀"
-                                )
-                            }
-                        >
-                            Terms of Use
-                        </span>{" "}
-                        and{" "}
-                        <span
-                            className="popup-link"
-                            onClick={() => handleNavigation("/privacy")}
-                        >
-                            Privacy Policy
-                        </span>
-                        .
-                    </p>
-                </div>
+                        <p>
+                            By continuing, I agree to the{" "}
+                            <span
+                                className="popup-link"
+                                onClick={() =>
+                                    toast.info(
+                                        "Terms of Use page is coming soon! 🚀"
+                                    )
+                                }
+                            >
+                                Terms of Use
+                            </span>{" "}
+                            and{" "}
+                            <span
+                                className="popup-link"
+                                onClick={() => handleNavigation("/privacy")}
+                            >
+                                Privacy Policy
+                            </span>
+                            .
+                        </p>
+                    </div>
+                )}
 
                 {currState === "Login" ? (
                     <p>

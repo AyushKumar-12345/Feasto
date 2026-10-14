@@ -35,7 +35,7 @@ const List = ({ url }) => {
         if (!confirmDelete) return;
 
         try {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("adminToken");
             const response = await axios.post(
                 `${url}/api/food/remove`,
                 { id: foodId },

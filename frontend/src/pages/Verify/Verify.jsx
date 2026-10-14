@@ -14,7 +14,7 @@ const Verify = () => {
     const razorpay_payment_id = searchParams.get("razorpay_payment_id");
     const razorpay_signature = searchParams.get("razorpay_signature");
 
-    const { url } = useContext(StoreContext);
+    const { url, token, setCartItems } = useContext(StoreContext);
     const navigate = useNavigate();
 
     const [status, setStatus] = useState("verifying");
@@ -30,10 +30,16 @@ const Verify = () => {
                         razorpay_order_id,
                         razorpay_payment_id,
                         razorpay_signature,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
                     }
                 );
 
                 if (response.data.success) {
+                    setCartItems({});
                     setStatus("success");
 
                     setTimeout(() => {
@@ -63,7 +69,7 @@ const Verify = () => {
             }
         };
 
-        if (orderId && success !== null) {
+        if (token && orderId && success !== null) {
             verifyPayment();
         } else {
             navigate("/", {
@@ -76,6 +82,8 @@ const Verify = () => {
         razorpay_order_id,
         razorpay_payment_id,
         razorpay_signature,
+        setCartItems,
+        token,
         url,
         navigate,
     ]);
@@ -121,8 +129,8 @@ const Verify = () => {
                     <h2>Payment Failed</h2>
 
                     <p>
-                        Something went wrong while
-                        verifying your payment.
+                        Your payment was not completed, so this order was
+                        cancelled. You can try placing it again.
                     </p>
                 </div>
             )}

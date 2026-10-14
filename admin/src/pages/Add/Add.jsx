@@ -51,7 +51,7 @@ const Add = ({ url }) => {
 
         try {
             setLoading(true);
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem("adminToken");
 
             const formData = new FormData();
             formData.append("name", data.name.trim());

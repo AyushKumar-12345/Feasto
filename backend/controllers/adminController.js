@@ -2,10 +2,25 @@ import jwt from "jsonwebtoken";
 
 const loginAdmin = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body || {};
+
+        if (typeof email !== "string" || typeof password !== "string") {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required.",
+            });
+        }
+
+        if (!process.env.ADMIN_EMAIL || !process.env.ADMIN_PASSWORD || !process.env.JWT_SECRET) {
+            console.error("Admin login is missing required server configuration.");
+            return res.status(500).json({
+                success: false,
+                message: "Admin login is not configured.",
+            });
+        }
 
         if (
-            email !== process.env.ADMIN_EMAIL ||
+            email.trim().toLowerCase() !== process.env.ADMIN_EMAIL.trim().toLowerCase() ||
             password !== process.env.ADMIN_PASSWORD
         ) {
             return res.status(401).json({

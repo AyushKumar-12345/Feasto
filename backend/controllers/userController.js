@@ -5,39 +5,58 @@ import validator from "validator";
 import UserModel from "../models/userModel.js";
 
 const createToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
+    return jwt.sign({ id, role: "user" }, process.env.JWT_SECRET, {
         expiresIn: "7d",
     });
 };
 
 const loginUser = async (req, res) => {
     try {
-        let { email = "", password = "" } = req.body;
-
-        email = email.trim().toLowerCase();
-
-        if (!email || !password) {
-            return res.json({
+        if (!process.env.JWT_SECRET) {
+            console.error("Customer login is missing JWT_SECRET.");
+            return res.status(500).json({
                 success: false,
-                message: "All fields are required",
+                message: "Login is not configured.",
+            });
+        }
+
+        const { email: submittedEmail, password } = req.body || {};
+
+        if (
+            typeof submittedEmail !== "string" ||
+            typeof password !== "string" ||
+            !submittedEmail.trim() ||
+            !password
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required",
+            });
+        }
+
+        const email = submittedEmail.trim().toLowerCase();
+        if (!validator.isEmail(email)) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid email",
             });
         }
 
         const user = await UserModel.findOne({ email });
 
         if (!user) {
-            return res.json({
+            return res.status(401).json({
                 success: false,
-                message: "User doesn't exist",
+                message: "Invalid email or password",
             });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
-            return res.json({
+            return res.status(401).json({
                 success: false,
-                message: "Invalid Credentials",
+                message: "Invalid email or password",
             });
         }
 
@@ -46,44 +65,65 @@ const loginUser = async (req, res) => {
         return res.json({
             success: true,
             token,
-            name: user.name
+            name: user.name,
         });
     } catch (error) {
         console.error(error);
-        return res.json({
+        return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "Unable to log in right now. Please try again.",
         });
     }
 };
 
 const registerUser = async (req, res) => {
     try {
-        let { name = "", email = "", password = "" } = req.body;
+        if (!process.env.JWT_SECRET) {
+            console.error("Customer registration is missing JWT_SECRET.");
+            return res.status(500).json({
+                success: false,
+                message: "Registration is not configured.",
+            });
+        }
 
-        name = name.trim();
-        email = email.trim().toLowerCase();
+        const {
+            name: submittedName,
+            email: submittedEmail,
+            password,
+        } = req.body || {};
 
-        if (!name || !email || !password) {
-            return res.json({
+        if (
+            typeof submittedName !== "string" ||
+            typeof submittedEmail !== "string" ||
+            typeof password !== "string"
+        ) {
+            return res.status(400).json({
                 success: false,
                 message: "All fields are required",
             });
         }
 
-        const existingUser = await UserModel.findOne({ email });
+        const name = submittedName.trim();
+        const email = submittedEmail.trim().toLowerCase();
 
-        if (existingUser) {
-            return res.json({
+        if (!name || !email || !password) {
+            return res.status(400).json({
                 success: false,
-                message: "User already exists",
+                message: "All fields are required",
             });
         }
 
         if (!validator.isEmail(email)) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message: "Please enter a valid email",
+            });
+        }
+
+        if (name.length > 100) {
+            return res.status(400).json({
+                success: false,
+                message: "Name must be 100 characters or fewer",
             });
         }
 
@@ -96,10 +136,19 @@ const registerUser = async (req, res) => {
                 minSymbols: 0,
             })
         ) {
-            return res.json({
+            return res.status(400).json({
                 success: false,
                 message:
                     "Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.",
+            });
+        }
+
+        const existingUser = await UserModel.findOne({ email });
+
+        if (existingUser) {
+            return res.status(409).json({
+                success: false,
+                message: "An account with this email already exists",
             });
         }
 
@@ -116,13 +165,20 @@ const registerUser = async (req, res) => {
         return res.json({
             success: true,
             token,
-            name: user.name
+            name: user.name,
         });
     } catch (error) {
         console.error(error);
-        return res.json({
+        if (error.code === 11000) {
+            return res.status(409).json({
+                success: false,
+                message: "An account with this email already exists",
+            });
+        }
+
+        return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "Unable to create your account right now. Please try again.",
         });
     }
 };
