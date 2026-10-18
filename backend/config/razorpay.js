@@ -1,17 +1,31 @@
+import "./loadEnv.js";
 import Razorpay from "razorpay";
 
-const {
-    RAZORPAY_KEY_ID,
-    RAZORPAY_KEY_SECRET,
-} = process.env;
+const getRazorpayInstance = () => {
+    const key_id = process.env.RAZORPAY_KEY_ID;
+    const key_secret = process.env.RAZORPAY_KEY_SECRET;
 
-if (!RAZORPAY_KEY_ID || !RAZORPAY_KEY_SECRET) {
-    throw new Error("Missing Razorpay environment variables.");
-}
+    if (!key_id || !key_secret) {
+        return new Proxy(
+            {},
+            {
+                get() {
+                    return () => {
+                        throw new Error(
+                            "Razorpay is not configured. Missing RAZORPAY_KEY_ID or RAZORPAY_KEY_SECRET."
+                        );
+                    };
+                },
+            }
+        );
+    }
 
-const razorpay = new Razorpay({
-    key_id: RAZORPAY_KEY_ID,
-    key_secret: RAZORPAY_KEY_SECRET,
-});
+    return new Razorpay({
+        key_id,
+        key_secret,
+    });
+};
 
-export default razorpay;
+const razorpay = getRazorpayInstance();
+
+export default razorpay;

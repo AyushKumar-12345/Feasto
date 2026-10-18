@@ -1,34 +1,42 @@
-import jwt from "jsonwebtoken";
+import UserModel from "../models/userModel.js";
+import { verifyCustomerToken } from "../config/authTokens.js";
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     const authHeader = req.headers.authorization;
+    const tokenMatch =
+        typeof authHeader === "string"
+            ? /^Bearer ([^\s]+)$/.exec(authHeader)
+            : null;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (!tokenMatch) {
         return res.status(401).json({
             success: false,
             message: "Not Authorized. Please login again.",
         });
     }
 
-    const token = authHeader.split(" ")[1];
-
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        if (typeof decoded.id !== "string" || decoded.role === "admin") {
+        const userId = verifyCustomerToken(tokenMatch[1]);
+        const userExists = await UserModel.exists({ _id: userId });
+        if (!userExists) {
             return res.status(401).json({
                 success: false,
-                message: "Please log in with a customer account.",
+                message: "Customer account not found. Please sign in again.",
             });
         }
 
-        req.body = req.body || {};
-        req.body.userId = decoded.id;
-
-        next();
+        req.authenticatedUserId = userId;
+        return next();
     } catch (error) {
-        console.error(error);
-
+        if (error.name !== "JsonWebTokenError" &&
+            error.name !== "TokenExpiredError" &&
+            error.message !== "Invalid customer token claims.") {
+            console.error("Customer authentication lookup failed.", error);
+            return res.status(500).json({
+                success: false,
+                message: "Unable to verify your account right now.",
+            });
+        }
         return res.status(401).json({
             success: false,
             message: "Invalid or Expired Token",

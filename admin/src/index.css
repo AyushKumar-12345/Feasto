@@ -9,15 +9,15 @@
 }
 
 :root {
-    --primary: #ff4321;
-    --primary-dark: #e03212;
-    --background: #fafafb;
+    --primary: #f15a38;
+    --primary-dark: #d94327;
+    --background: #f7f7f5;
     --surface: #ffffff;
-    --border: #eff0f6;
-    --text: #11142d;
-    --text-light: #808191;
-    --shadow: 0 12px 30px rgba(17, 20, 45, 0.02);
-    --radius: 12px;
+    --border: #eae7e2;
+    --text: #25221f;
+    --text-light: #716e69;
+    --shadow: 0 12px 34px rgba(36, 29, 22, 0.06);
+    --radius: 16px;
 }
 
 html {
@@ -99,11 +99,30 @@ button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #d0d0d0;
+    background: var(--primary);
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 3px solid rgba(241, 90, 56, 0.28);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
 
 ::selection {
-    background: rgba(255, 67, 33, 0.15);
+    background: rgba(241, 90, 56, 0.16);
     color: var(--primary);
 }
 

@@ -33,7 +33,7 @@
 
 .sidebar-option:hover {
     background: #fff5f2;
-    color: #ff4321;
+    color: var(--primary);
     transform: translateX(4px);
 }
 
@@ -42,7 +42,7 @@
 }
 
 .sidebar-option.active {
-    background: #ff4321;
+    background: var(--primary);
     color: #ffffff;
     box-shadow: 0 8px 24px rgba(255, 67, 33, 0.2);
 }

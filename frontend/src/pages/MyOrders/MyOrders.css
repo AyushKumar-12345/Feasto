@@ -17,7 +17,7 @@
     border: 1px solid var(--border);
     padding: 8px 14px;
     border-radius: 10px;
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -57,7 +57,7 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     background: var(--surface);
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;

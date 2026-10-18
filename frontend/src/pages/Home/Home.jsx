@@ -2,18 +2,30 @@ import React, { useState } from "react";
 import "./Home.css";
 
 import Header from "../../components/Header/Header";
-import ExploreMenu from "../../components/ExploreMenu/ExploreMenu";
 import FoodDisplay from "../../components/FoodDisplay/FoodDisplay";
 import AppDownload from "../../components/AppDownload/AppDownload";
 
 const Home = () => {
-    const [category, setCategory] = useState("All");
+    const [selectedCategory, setSelectedCategory] = useState("All");
+
+    const chooseCategory = (category) => {
+        setSelectedCategory(category);
+        document.getElementById("food-display")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    };
 
     return (
         <div className="home" id="home-main-view">
-            <Header />
-            <ExploreMenu category={category} setCategory={setCategory} />
-            <FoodDisplay category={category} />
+            <Header
+                selectedCategory={selectedCategory}
+                onChooseCategory={chooseCategory}
+            />
+            <FoodDisplay
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+            />
             <AppDownload />
         </div>
     );

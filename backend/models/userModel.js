@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema(
             type: Object,
             default: {},
         },
+        lastGuestCartMergeId: {
+            type: String,
+            default: "",
+        },
     },
     {
         minimize: false,

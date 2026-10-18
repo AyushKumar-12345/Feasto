@@ -8,6 +8,7 @@ The **Feasto Admin Dashboard** is a high-performance, modern administration suit
 * **Inventory Management:** View and remove food items with real-time updates.
 * **Order Management:** Monitor customer orders, delivery details, payment status, and purchased items.
 * **Order Status Tracking:** Update order progress from **Food Processing → Out for Delivery → Delivered**.
+* **Live Rider Location:** Start or stop browser GPS sharing for orders marked **Out for Delivery**. Use a rider's phone and allow location access.
 * **Payment Management:** Securely verifies Razorpay payments and maintains payment status for every order.
 * **Cloudinary Integration:** Fast and optimized cloud-based image storage.
 * **JWT Authentication:** Secure admin login and protected API access.
@@ -28,3 +29,7 @@ The **Feasto Admin Dashboard** is a high-performance, modern administration suit
 ```bash
 npm install
 ```
+
+For local development, keep environment settings in the single repository-root
+`.env` file. Configure the frontend and backend values there; do not commit
+the file or share its secrets.

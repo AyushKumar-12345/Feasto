@@ -11,20 +11,18 @@ import {
     useLocation,
     useNavigate,
 } from "react-router-dom";
-import { StoreContext } from "../../context/StoreContext";
-import SearchPopup from "../SearchPopup/SearchPopup";
+import { StoreContext } from "../../context/StoreContextValue";
 import {
-    Search,
     ShoppingBasket,
+    Heart,
     User,
     ShoppingBag,
     LogOut,
+    ShieldCheck,
 } from "lucide-react";
 
-const Navbar = ({ setShowLogin }) => {
+const Navbar = () => {
     const [menu, setMenu] = useState("home");
-    const [showSearch, setShowSearch] =
-        useState(false);
     const [showProfile, setShowProfile] =
         useState(false);
 
@@ -32,17 +30,30 @@ const Navbar = ({ setShowLogin }) => {
 
     const {
         getTotalCartAmount,
+        favoriteFoodIds,
         token,
-        setToken,
         profileImage,
+        logout,
     } = useContext(StoreContext);
 
     const navigate = useNavigate();
     const location = useLocation();
+    const adminUrl =
+        import.meta.env.DEV ||
+        (typeof window !== "undefined" &&
+            (window.location.hostname === "localhost" ||
+                window.location.hostname === "127.0.0.1"))
+            ? "http://localhost:5174"
+            : import.meta.env.VITE_ADMIN_URL ||
+              "https://feasto-admin-567d.onrender.com";
 
     useEffect(() => {
         if (location.pathname !== "/") {
-            setMenu("");
+            if (location.pathname === "/contact") {
+                setMenu("contact");
+            } else {
+                setMenu("");
+            }
             return;
         }
 
@@ -56,7 +67,7 @@ const Navbar = ({ setShowLogin }) => {
                             setMenu("home");
                             break;
 
-                        case "explore-menu":
+                        case "food-display":
                             setMenu("menu");
                             break;
 
@@ -74,19 +85,18 @@ const Navbar = ({ setShowLogin }) => {
                 });
             },
             {
-                threshold: 0.45,
+                rootMargin: "-20% 0px -50% 0px",
+                threshold: 0,
             }
         );
 
         [
             "home",
-            "explore-menu",
+            "food-display",
             "app-download",
             "footer",
         ].forEach((id) => {
-            const section =
-                document.getElementById(id);
-
+            const section = document.getElementById(id);
             if (section) observer.observe(section);
         });
 
@@ -122,9 +132,33 @@ const Navbar = ({ setShowLogin }) => {
         });
     };
 
-    const logout = () => {
-        localStorage.removeItem("token");
-        setToken("");
+    const handleNavClick = (sectionId, menuName) => {
+        setMenu(menuName);
+        if (location.pathname === "/") {
+            const el =
+                document.getElementById(sectionId) ||
+                (sectionId === "menu" ? document.getElementById("food-display") : null) ||
+                (sectionId === "contact" ? document.getElementById("footer") : null);
+
+            if (el) {
+                const navbarOffset = 85;
+                const elementPosition = el.getBoundingClientRect().top;
+                const offsetPosition =
+                    elementPosition + window.pageYOffset - navbarOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth",
+                });
+            } else if (sectionId === "home") {
+                scrollToTop();
+            }
+        } else {
+            navigate(sectionId === "home" ? "/" : `/#${sectionId}`);
+        }
+    };
+
+    const handleLogout = () => {
+        logout();
         setShowProfile(false);
         scrollToTop();
         navigate("/");
@@ -132,12 +166,6 @@ const Navbar = ({ setShowLogin }) => {
 
     return (
         <>
-            {showSearch && (
-                <SearchPopup
-                    setShowSearch={setShowSearch}
-                />
-            )}
-
             <nav className="navbar">
                 <Link
                     to="/"
@@ -155,101 +183,83 @@ const Navbar = ({ setShowLogin }) => {
                 </Link>
 
                 <ul className="navbar-menu">
-                    <Link
-                        to="/"
+                    <a
+                        href="/#home"
                         className={
                             menu === "home" && location.pathname === "/"
                                 ? "active"
                                 : ""
                         }
-                        onClick={() => {
-                            setMenu("home");
-                            scrollToTop();
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick("home", "home");
                         }}
                     >
                         Home
-                    </Link>
+                    </a>
 
-                    {location.pathname === "/" ? (
-                        <a
-                            href="#explore-menu"
-                            className={menu === "menu" ? "active" : ""}
-                        >
-                            Menu
-                        </a>
-                    ) : (
-                        <Link
-                            to="/"
-                            onClick={() => {
-                                setTimeout(() => {
-                                    document
-                                        .getElementById("explore-menu")
-                                        ?.scrollIntoView({ behavior: "smooth" });
-                                }, 100);
-                            }}
-                        >
-                            Menu
-                        </Link>
-                    )}
+                    <a
+                        href="/#food-display"
+                        className={menu === "menu" ? "active" : ""}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick("food-display", "menu");
+                        }}
+                    >
+                        Menu
+                    </a>
 
-                    {location.pathname === "/" ? (
-                        <a
-                            href="#app-download"
-                            className={menu === "app" ? "active" : ""}
-                        >
-                            Mobile App
-                        </a>
-                    ) : (
-                        <Link
-                            to="/"
-                            onClick={() => {
-                                setTimeout(() => {
-                                    document
-                                        .getElementById("app-download")
-                                        ?.scrollIntoView({ behavior: "smooth" });
-                                }, 100);
-                            }}
-                        >
-                            Mobile App
-                        </Link>
-                    )}
+                    <a
+                        href="/#app-download"
+                        className={menu === "app" ? "active" : ""}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick("app-download", "app");
+                        }}
+                    >
+                        Mobile App
+                    </a>
 
-                    {location.pathname === "/" ? (
-                        <a
-                            href="#footer"
-                            className={menu === "contact" ? "active" : ""}
-                        >
-                            Contact Us
-                        </a>
-                    ) : (
-                        <Link
-                            to="/"
-                            onClick={() => {
-                                setTimeout(() => {
-                                    document
-                                        .getElementById("footer")
-                                        ?.scrollIntoView({ behavior: "smooth" });
-                                }, 100);
-                            }}
-                        >
-                            Contact Us
-                        </Link>
-                    )}
+                    <a
+                        href="/#footer"
+                        className={
+                            menu === "contact" || location.pathname === "/contact"
+                                ? "active"
+                                : ""
+                        }
+                        onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick("footer", "contact");
+                        }}
+                    >
+                        Contact Us
+                    </a>
                 </ul>
 
                 <div className="navbar-right">
-                    <button
-                        type="button"
-                        className="navbar-icon-wrapper"
-                        onClick={() =>
-                            setShowSearch(true)
-                        }
+                    <a
+                        className="admin-access-link"
+                        href={adminUrl}
+                        target="_blank"
+                        rel="noreferrer"
                     >
-                        <Search
-                            className="lucide-icon"
-                            size={22}
-                        />
-                    </button>
+                        <ShieldCheck size={16} aria-hidden="true" />
+                        <span>Admin</span>
+                    </a>
+                    <div className="navbar-search-icon navbar-favorites">
+                        <Link
+                            to="/favorites"
+                            aria-label={`Favorites${favoriteFoodIds.length ? `, ${favoriteFoodIds.length} saved` : ""}`}
+                            title="Favorites"
+                        >
+                            <Heart className="lucide-icon" size={22} />
+                        </Link>
+                        {favoriteFoodIds.length > 0 && (
+                            <span className="favorites-dot">
+                                {favoriteFoodIds.length}
+                            </span>
+                        )}
+                    </div>
 
                     <div className="navbar-search-icon">
                         <Link to="/cart">
@@ -268,9 +278,7 @@ const Navbar = ({ setShowLogin }) => {
                     {!token ? (
                         <button
                             className="signin-btn"
-                            onClick={() =>
-                                setShowLogin(true)
-                            }
+                            onClick={() => navigate("/login")}
                         >
                             Sign In
                         </button>
@@ -343,7 +351,7 @@ const Navbar = ({ setShowLogin }) => {
 
                                 <hr />
 
-                                <li onClick={logout}>
+                                <li onClick={handleLogout}>
                                     <LogOut
                                         size={18}
                                     />

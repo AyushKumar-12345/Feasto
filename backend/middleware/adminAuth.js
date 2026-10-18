@@ -1,31 +1,32 @@
-import jwt from "jsonwebtoken";
+import { verifyAdminToken } from "../config/authTokens.js";
 
 const adminAuth = (req, res, next) => {
     const authHeader = req.headers.authorization;
+    const tokenMatch =
+        typeof authHeader === "string"
+            ? /^Bearer ([^\s]+)$/.exec(authHeader)
+            : null;
 
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    if (!tokenMatch) {
         return res.status(401).json({
             success: false,
             message: "Admin Not Authorized",
         });
     }
 
-    const token = authHeader.split(" ")[1];
-
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-        if (decoded.role !== "admin") {
-            return res.status(403).json({
+        verifyAdminToken(tokenMatch[1]);
+        return next();
+    } catch (error) {
+        if (error.name !== "JsonWebTokenError" &&
+            error.name !== "TokenExpiredError" &&
+            error.message !== "Invalid admin token claims.") {
+            console.error("Admin authentication failed.", error);
+            return res.status(500).json({
                 success: false,
-                message: "Access Denied",
+                message: "Unable to verify administrator access right now.",
             });
         }
-
-        next();
-    } catch (error) {
-        console.error(error);
-
         return res.status(401).json({
             success: false,
             message: "Invalid or Expired Admin Token",

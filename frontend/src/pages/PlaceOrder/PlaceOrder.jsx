@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./PlaceOrder.css";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContextValue";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { ArrowLeft, CreditCard } from "lucide-react";
+import { ArrowLeft, CreditCard, LocateFixed, MapPin } from "lucide-react";
 
 const PlaceOrder = () => {
     const {
@@ -18,6 +18,8 @@ const PlaceOrder = () => {
     const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
+    const [locationLoading, setLocationLoading] = useState(false);
+    const [deliveryLocation, setDeliveryLocation] = useState(null);
     const paymentFailureHandled = useRef(false);
 
     const [data, setData] = useState({
@@ -44,9 +46,48 @@ const PlaceOrder = () => {
         }));
     };
 
-    const initPay = (orderData, dbOrderId) => {
+    const captureDeliveryLocation = () => {
+        if (!navigator.geolocation) {
+            toast.error("Location is not supported by this browser.");
+            return;
+        }
+
+        setLocationLoading(true);
+        navigator.geolocation.getCurrentPosition(
+            ({ coords }) => {
+                setDeliveryLocation({
+                    latitude: coords.latitude,
+                    longitude: coords.longitude,
+                });
+                setLocationLoading(false);
+                toast.success("Delivery pin added to your order.");
+            },
+            (error) => {
+                setLocationLoading(false);
+                toast.error(
+                    error.code === error.PERMISSION_DENIED
+                        ? "Location permission was denied. You can still place your order without a map pin."
+                        : "Could not get your location. Please try again or continue without a map pin."
+                );
+            },
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+        );
+    };
+
+    const initPay = (orderData, dbOrderId, razorpayKeyId) => {
         if (!window.Razorpay) {
-            toast.error("Razorpay SDK failed to load.");
+            toast.error("Razorpay SDK failed to load. Please refresh the page.");
+            return;
+        }
+
+        const key =
+            razorpayKeyId ||
+            orderData.razorpayKeyId ||
+            orderData.keyId ||
+            import.meta.env.VITE_RAZORPAY_KEY_ID;
+
+        if (!key) {
+            toast.error("Payment gateway is not configured yet.");
             return;
         }
 
@@ -58,7 +99,7 @@ const PlaceOrder = () => {
         };
 
         const options = {
-            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+            key,
             amount: orderData.amount,
             currency: orderData.currency || "INR",
             name: "Feasto",
@@ -73,7 +114,7 @@ const PlaceOrder = () => {
                 address: data.street,
             },
             theme: {
-                color: "#ff4321",
+                color: "var(--primary)",
             },
             handler: async (response) => {
                 paymentFailureHandled.current = true;
@@ -112,6 +153,7 @@ const PlaceOrder = () => {
             address: data,
             items: orderItems,
             amount: total,
+            ...(deliveryLocation ? { deliveryLocation } : {}),
         };
 
         try {
@@ -128,7 +170,7 @@ const PlaceOrder = () => {
             );
 
             if (response.data.success) {
-                initPay(response.data.order, response.data.orderId);
+                initPay(response.data.order, response.data.orderId, response.data.razorpayKeyId);
             } else {
                 toast.error(response.data.message);
             }
@@ -258,6 +300,45 @@ const PlaceOrder = () => {
                         onChange={onChangeHandler}
                         disabled={loading}
                     />
+
+                    <div className="delivery-location">
+                        <div className="delivery-location-copy">
+                            <MapPin size={18} />
+                            <div>
+                                <strong>
+                                    {deliveryLocation
+                                        ? "Delivery map pin added"
+                                        : "Add a delivery map pin"}
+                                </strong>
+                                <p>
+                                    Optional. Share your current location so the
+                                    rider can find you.
+                                </p>
+                            </div>
+                        </div>
+                        {deliveryLocation ? (
+                            <button
+                                type="button"
+                                className="location-action location-remove"
+                                onClick={() => setDeliveryLocation(null)}
+                                disabled={loading || locationLoading}
+                            >
+                                Remove pin
+                            </button>
+                        ) : (
+                            <button
+                                type="button"
+                                className="location-action"
+                                onClick={captureDeliveryLocation}
+                                disabled={loading || locationLoading}
+                            >
+                                <LocateFixed size={16} />
+                                {locationLoading
+                                    ? "Getting location..."
+                                    : "Use my location"}
+                            </button>
+                        )}
+                    </div>
                 </div>
 
                 <div className="place-order-right">

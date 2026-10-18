@@ -1,24 +1,49 @@
 .home {
     display: flex;
     flex-direction: column;
-    gap: 48px;
+    gap: clamp(32px, 4vw, 52px);
     width: 100%;
     margin: 0 auto;
-    padding: 16px 0 60px;
+    padding: 8px 0 58px;
+}
+
+.home > .header,
+.home > .food-display,
+.home > .app-download {
+    animation: home-section-enter 420ms ease both;
+}
+
+.home > .food-display {
+    animation-delay: 70ms;
+}
+
+.home > .app-download {
+    animation-delay: 120ms;
+}
+
+@keyframes home-section-enter {
+    from {
+        opacity: 0.75;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 900px) {
     .home {
-        gap: 36px;
+        gap: 34px;
         width: 100%;
-        padding: 12px 0 44px;
+        padding: 8px 0 40px;
     }
 }
 
 @media (max-width: 600px) {
     .home {
-        gap: 28px;
+        gap: 26px;
         width: 100%;
-        padding: 8px 0 32px;
+        padding: 6px 0 30px;
     }
 }

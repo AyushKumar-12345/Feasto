@@ -1,0 +1,142 @@
+.welcome-gate-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1200;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(17, 20, 45, 0.65);
+    backdrop-filter: blur(10px);
+}
+
+.welcome-gate {
+    width: min(460px, 100%);
+    padding: clamp(32px, 6vw, 44px);
+    border: 1px solid var(--border);
+    border-radius: 26px;
+    background: #ffffff;
+    box-shadow: 0 24px 70px rgba(17, 20, 45, 0.22);
+    text-align: center;
+}
+
+.welcome-gate-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: #fff0e9;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+    margin-bottom: 12px;
+}
+
+.welcome-gate h1 {
+    margin: 0 0 10px;
+    color: var(--text);
+    font-size: clamp(28px, 6vw, 36px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1.15;
+}
+
+.welcome-gate h1 span {
+    color: var(--primary);
+}
+
+.welcome-gate p {
+    margin: 0 auto 28px;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 360px;
+}
+
+.welcome-gate-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.welcome-btn {
+    display: inline-flex;
+    width: 100%;
+    min-height: 50px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 14px;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 650;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.welcome-btn.customer-login {
+    border: none;
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(241, 90, 56, 0.32);
+}
+
+.welcome-btn.customer-login:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(241, 90, 56, 0.4);
+}
+
+.welcome-btn.customer-signup {
+    border: 1.5px solid #e5e0d8;
+    background: #ffffff;
+    color: var(--text);
+}
+
+.welcome-btn.customer-signup:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+    background: #fff8f5;
+}
+
+.welcome-gate-divider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 6px 0;
+}
+
+.welcome-gate-divider::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    top: 50%;
+    border-top: 1px solid var(--border);
+}
+
+.welcome-gate-divider span {
+    position: relative;
+    padding: 0 12px;
+    background: #ffffff;
+    color: #a8a29e;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.welcome-btn.admin-portal {
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #334155;
+}
+
+.welcome-btn.admin-portal:hover {
+    border-color: #cbd5e1;
+    background: #f1f5f9;
+    color: #0f172a;
+    transform: translateY(-2px);
+}

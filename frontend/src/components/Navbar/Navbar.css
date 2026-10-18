@@ -35,7 +35,7 @@
 
 .navbar-menu a {
     position: relative;
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 15px;
     font-weight: 500;
     text-decoration: none;
@@ -69,6 +69,29 @@
     gap: 16px;
 }
 
+.admin-access-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 36px;
+    padding: 0 11px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-light);
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.admin-access-link:hover {
+    border-color: #435fc4;
+    background: #f5f7ff;
+    color: #435fc4;
+}
+
 .navbar-icon-wrapper,
 .navbar-search-icon {
     width: 38px;
@@ -89,7 +112,7 @@
 }
 
 .lucide-icon {
-    color: #4f5162;
+    color: var(--text-light);
     transition: color 0.2s ease;
 }
 
@@ -100,6 +123,30 @@
 
 .navbar-search-icon {
     position: relative;
+}
+
+.navbar-favorites a {
+    position: relative;
+    z-index: 1;
+}
+
+.favorites-dot {
+    position: absolute;
+    top: -3px;
+    right: -4px;
+    display: grid;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    place-items: center;
+    border: 2px solid #ffffff;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
 }
 
 .navbar-search-icon a {
@@ -204,7 +251,7 @@
     gap: 10px;
     padding: 10px 12px;
     border-radius: 8px;
-    color: #4f5162;
+    color: var(--text-light);
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -266,6 +313,12 @@
 
     .navbar-right {
         gap: 10px;
+    }
+
+    .admin-access-link {
+        min-height: 34px;
+        padding: 0 8px;
+        font-size: 12px;
     }
 
     .navbar .logo {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Trash2 } from "lucide-react";
@@ -8,7 +8,7 @@ const List = ({ url }) => {
     const [list, setList] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const fetchList = async () => {
+    const fetchList = useCallback(async () => {
         try {
             setLoading(true);
             const response = await axios.get(`${url}/api/food/list`);
@@ -25,7 +25,7 @@ const List = ({ url }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [url]);
 
     const removeFood = async (foodId) => {
         const confirmDelete = window.confirm(
@@ -61,7 +61,7 @@ const List = ({ url }) => {
 
     useEffect(() => {
         fetchList();
-    }, []);
+    }, [fetchList]);
 
     return (
         <div className="list">

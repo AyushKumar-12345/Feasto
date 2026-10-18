@@ -17,7 +17,7 @@
     border: 1px solid var(--border);
     padding: 8px 14px;
     border-radius: 10px;
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -145,7 +145,7 @@
     display: flex;
     justify-content: space-between;
     padding: 8px 0;
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 14px;
 }
 
@@ -186,7 +186,7 @@
 
 .cart-promocode-input button {
     padding: 0 24px;
-    background: #11142d;
+    background: var(--text);
     color: #ffffff;
     font-size: 14px;
     font-weight: 600;

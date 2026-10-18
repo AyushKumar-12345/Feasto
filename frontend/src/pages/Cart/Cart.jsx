@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "./Cart.css";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContextValue";
 import { useNavigate } from "react-router-dom";
 import { Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
 import { toast } from "react-toastify";

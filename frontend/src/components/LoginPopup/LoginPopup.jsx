@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LoginPopup.css";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContextValue";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { X } from "lucide-react";
 
-const LoginPopup = ({ setShowLogin }) => {
+const LoginPopup = ({ setShowLogin, initialState = "Login" }) => {
     const { url, setToken, setUserName } = useContext(StoreContext);
     const navigate = useNavigate();
 
-    const [currState, setCurrState] = useState("Login");
+    const [currState, setCurrState] = useState(initialState);
     const [loading, setLoading] = useState(false);
     const isSignUp = currState === "Sign Up";
 
@@ -186,11 +186,14 @@ const LoginPopup = ({ setShowLogin }) => {
                             By continuing, I agree to the{" "}
                             <span
                                 className="popup-link"
-                                onClick={() =>
-                                    toast.info(
-                                        "Terms of Use page is coming soon! 🚀"
-                                    )
-                                }
+                                onClick={() => handleNavigation("/terms")}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(event) => {
+                                    if (event.key === "Enter" || event.key === " ") {
+                                        handleNavigation("/terms");
+                                    }
+                                }}
                             >
                                 Terms of Use
                             </span>{" "}

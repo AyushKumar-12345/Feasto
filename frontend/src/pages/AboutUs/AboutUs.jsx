@@ -22,7 +22,7 @@ const AboutUs = () => {
                 <h2>About Feasto</h2>
             </header>
 
-            <main className="static-page-content">
+            <div className="static-page-content">
                 <section className="static-section">
                     <h3>Welcome to Feasto</h3>
 
@@ -99,7 +99,7 @@ const AboutUs = () => {
                         every order worth remembering.
                     </p>
                 </section>
-            </main>
+            </div>
         </div>
     );
 };

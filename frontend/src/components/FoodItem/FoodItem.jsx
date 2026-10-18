@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import "./FoodItem.css";
-import { StoreContext } from "../../context/StoreContext";
-import { Plus, Minus, Star } from "lucide-react";
+import { StoreContext } from "../../context/StoreContextValue";
+import { Heart, Plus, Minus, Star } from "lucide-react";
+import { food_list as sampleFoodList } from "../../assets/assets";
 
 const FoodItem = ({
     id,
@@ -12,9 +13,22 @@ const FoodItem = ({
 }) => {
     const {
         cartItems,
+        favoriteFoodIds,
+        toggleFavorite,
         addToCart,
         removeFromCart,
     } = useContext(StoreContext);
+    const isFavorite = favoriteFoodIds.includes(id);
+    const [failedImageSource, setFailedImageSource] = useState("");
+    const matchingSample = sampleFoodList.find((item) => item._id === id);
+    const fallbackIndex = Array.from(String(id ?? name ?? "")).reduce(
+        (sum, character) => sum + character.charCodeAt(0),
+        0
+    ) % sampleFoodList.length;
+    const fallbackImage = matchingSample?.image || sampleFoodList[fallbackIndex]?.image;
+    const imageSource = image || fallbackImage;
+    const displayedImage =
+        failedImageSource === imageSource ? fallbackImage : imageSource;
 
     const ratings = [
         4.1, 4.3, 4.5, 4.6, 4.7,
@@ -40,9 +54,14 @@ const FoodItem = ({
             <div className="food-item-img-container">
                 <img
                     className="food-item-img"
-                    src={image}
+                    src={displayedImage}
                     alt={name}
                     loading="lazy"
+                    onError={() => {
+                        if (displayedImage !== fallbackImage) {
+                            setFailedImageSource(imageSource);
+                        }
+                    }}
                 />
 
                 {rating >= 4.8 && (
@@ -50,6 +69,17 @@ const FoodItem = ({
                         🔥 Popular
                     </span>
                 )}
+
+                <button
+                    type="button"
+                    className={`food-favorite-button${isFavorite ? " is-favorite" : ""}`}
+                    onClick={() => toggleFavorite(id)}
+                    aria-label={`${isFavorite ? "Remove" : "Add"} ${name} ${isFavorite ? "from" : "to"} favorites`}
+                    aria-pressed={isFavorite}
+                    title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                >
+                    <Heart size={19} fill={isFavorite ? "currentColor" : "none"} />
+                </button>
 
                 {!cartItems[id] ? (
                     <button

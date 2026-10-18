@@ -6,6 +6,14 @@ import "./Login.css";
 
 const Login = ({ url, setToken }) => {
     const navigate = useNavigate();
+    const websiteUrl =
+        import.meta.env.DEV ||
+        (typeof window !== "undefined" &&
+            (window.location.hostname === "localhost" ||
+                window.location.hostname === "127.0.0.1"))
+            ? "http://localhost:5173"
+            : import.meta.env.VITE_FRONTEND_URL ||
+              "https://feasto-frontend-qt0n.onrender.com";
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState({
         email: "",
@@ -52,6 +60,9 @@ const Login = ({ url, setToken }) => {
         <div className="login">
             <form className="login-container" onSubmit={onSubmitHandler}>
                 <h2>Feasto Admin</h2>
+                <p className="login-description">
+                    Sign in with your authorized restaurant administrator account.
+                </p>
 
                 <input
                     type="email"
@@ -76,6 +87,15 @@ const Login = ({ url, setToken }) => {
                 <button type="submit" disabled={loading}>
                     {loading ? "Logging In..." : "Login"}
                 </button>
+
+                <a
+                    className="login-website-link"
+                    href={websiteUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Back to Feasto
+                </a>
             </form>
         </div>
     );

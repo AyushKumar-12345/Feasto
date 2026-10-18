@@ -17,7 +17,7 @@
     border: 1px solid var(--border);
     padding: 8px 14px;
     border-radius: 10px;
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
@@ -95,6 +95,75 @@
     gap: 14px;
 }
 
+.delivery-location {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 4px;
+    padding: 14px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: #fffdfc;
+}
+
+.delivery-location-copy {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--primary);
+}
+
+.delivery-location-copy svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.delivery-location-copy strong {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--text);
+    font-size: 13px;
+}
+
+.delivery-location-copy p {
+    color: var(--text-light);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.location-action {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 38px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 67, 33, 0.25);
+    border-radius: 9px;
+    background: #fff5f2;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.location-action:hover:not(:disabled) {
+    background: #ffe9e2;
+}
+
+.location-action:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.location-remove {
+    border-color: var(--border);
+    background: var(--surface);
+    color: var(--text-light);
+}
+
 /* Sticky Right Column Panel for Cart Total Summary */
 .place-order-right .cart-total {
     background: var(--surface);
@@ -124,7 +193,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 0;
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 14px;
 }
 
@@ -208,6 +277,15 @@
         padding: 10px 12px;
         font-size: 13px;
         margin-bottom: 12px;
+    }
+
+    .delivery-location {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .location-action {
+        width: 100%;
     }
 
     .payment-btn {

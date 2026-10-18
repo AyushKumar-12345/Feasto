@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
-import "dotenv/config";
+import "./loadEnv.js";
 
 const {
   CLOUDINARY_NAME,

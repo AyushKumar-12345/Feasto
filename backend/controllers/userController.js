@@ -1,14 +1,8 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import validator from "validator";
 
+import { createCustomerToken } from "../config/authTokens.js";
 import UserModel from "../models/userModel.js";
-
-const createToken = (id) => {
-    return jwt.sign({ id, role: "user" }, process.env.JWT_SECRET, {
-        expiresIn: "7d",
-    });
-};
 
 const loginUser = async (req, res) => {
     try {
@@ -60,7 +54,7 @@ const loginUser = async (req, res) => {
             });
         }
 
-        const token = createToken(user._id);
+        const token = createCustomerToken(user._id);
 
         return res.json({
             success: true,
@@ -160,7 +154,7 @@ const registerUser = async (req, res) => {
             password: hashedPassword,
         });
 
-        const token = createToken(user._id);
+        const token = createCustomerToken(user._id);
 
         return res.json({
             success: true,

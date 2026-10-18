@@ -18,6 +18,8 @@ const Footer = () => {
             className="footer"
             id="footer"
         >
+            <span id="contact" style={{ position: "relative", top: "-110px", display: "block", visibility: "hidden" }} />
+            <span id="contact-us" style={{ position: "relative", top: "-110px", display: "block", visibility: "hidden" }} />
             <div className="footer-content">
                 <div className="footer-content-left">
                     <img
@@ -82,11 +84,23 @@ const Footer = () => {
                                 Privacy Policy
                             </Link>
                         </li>
+
+                        <li>
+                            <Link to="/terms" className="footer-nav-link">
+                                Terms of Use
+                            </Link>
+                        </li>
+
+                        <li>
+                            <Link to="/contact" className="footer-nav-link">
+                                Contact &amp; Support
+                            </Link>
+                        </li>
                     </ul>
                 </div>
 
                 <div className="footer-content-right">
-                    <h2>Connect With Me</h2>
+                    <h2>Connect With Feasto</h2>
 
                     <ul className="contact-list">
                         <li>

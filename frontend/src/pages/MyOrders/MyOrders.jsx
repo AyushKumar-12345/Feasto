@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import "./MyOrders.css";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContextValue";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DeliveryTrackingMap from "../../components/DeliveryTrackingMap/DeliveryTrackingMap";
 import {
     Package,
     CircleCheckBig,
@@ -72,6 +73,24 @@ const MyOrders = () => {
     useEffect(() => {
         fetchOrders();
     }, [fetchOrders]);
+
+    const updateOrderTracking = useCallback((orderId, tracking) => {
+        setOrders((previousOrders) =>
+            previousOrders.map((order) =>
+                order._id === orderId
+                    ? {
+                          ...order,
+                          status: tracking.status,
+                          trackingActive: tracking.trackingActive,
+                          deliveryLocation: tracking.deliveryLocation,
+                          riderLocation: tracking.riderLocation,
+                          riderLocationUpdatedAt:
+                              tracking.riderLocationUpdatedAt,
+                      }
+                    : order
+            )
+        );
+    }, []);
 
     return (
         <section className="my-orders">
@@ -203,6 +222,16 @@ const MyOrders = () => {
                                             </span>
                                         </div>
                                     </div>
+
+                                    {showOrderStatus &&
+                                        status === "Out for Delivery" && (
+                                        <DeliveryTrackingMap
+                                            orderId={order._id}
+                                            url={url}
+                                            token={token}
+                                            onOrderUpdate={updateOrderTracking}
+                                        />
+                                        )}
                                 </div>
                             );
                         })}

@@ -11,7 +11,20 @@ import {
 import { assets } from "../../assets/assets";
 import "./Navbar.css";
 
-const WEBSITE_URL = import.meta.env.VITE_FRONTEND_URL || "https://feasto-frontend-qt0n.onrender.com";
+const getWebsiteUrl = () => {
+    if (
+        import.meta.env.DEV ||
+        (typeof window !== "undefined" &&
+            (window.location.hostname === "localhost" ||
+                window.location.hostname === "127.0.0.1"))
+    ) {
+        return "http://localhost:5173";
+    }
+    return (
+        import.meta.env.VITE_FRONTEND_URL ||
+        "https://feasto-frontend-qt0n.onrender.com"
+    );
+};
 
 const Navbar = ({ setToken }) => {
     const navigate = useNavigate();
@@ -40,7 +53,7 @@ const Navbar = ({ setToken }) => {
     };
 
     const goToDashboard = () => navigate("/add");
-    const openWebsite = () => window.open(WEBSITE_URL, "_blank", "noopener,noreferrer");
+    const openWebsite = () => window.open(getWebsiteUrl(), "_blank", "noopener,noreferrer");
 
     const handleProfileImage = (event) => {
         const file = event.target.files[0];

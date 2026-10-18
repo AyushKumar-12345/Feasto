@@ -18,3 +18,13 @@ services:
       - source: /*
         destination: /index.html
         type: rewrite
+
+  - type: web
+    name: feasto-backend-pcbq
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.0.0

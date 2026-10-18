@@ -1,119 +1,195 @@
-import { createContext, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { StoreContext } from "./StoreContextValue";
+import { food_list as sampleFoodList } from "../assets/assets";
 
-export const StoreContext = createContext(null);
-
-const getCustomerToken = () => {
-    const token = localStorage.getItem("token");
-
-    if (!token) {
-        return "";
-    }
-
+const decodeTokenPayload = (rawToken) => {
+    if (!rawToken || typeof rawToken !== "string") return null;
     try {
-        const encodedPayload = token.split(".")[1]
+        const segments = rawToken.split(".");
+        if (segments.length !== 3 || !segments.every(Boolean)) {
+            return null;
+        }
+        const encodedPayload = segments[1]
             .replace(/-/g, "+")
             .replace(/_/g, "/");
         const paddedPayload = encodedPayload.padEnd(
             encodedPayload.length + ((4 - (encodedPayload.length % 4)) % 4),
             "="
         );
-        const payload = JSON.parse(window.atob(paddedPayload));
+        return JSON.parse(window.atob(paddedPayload));
+    } catch {
+        return null;
+    }
+};
 
-        if (!payload.id || payload.role === "admin") {
-            localStorage.removeItem("token");
+const getUserIdFromToken = (rawToken) => {
+    const payload = decodeTokenPayload(rawToken);
+    return typeof payload?.id === "string" ? payload.id : "";
+};
+
+const clearStoredCustomerSession = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userName");
+    localStorage.removeItem("profileImage");
+    localStorage.removeItem("favoriteFoodIds");
+    localStorage.removeItem("guestCart");
+    localStorage.removeItem("guestCartMerge");
+};
+
+const getCustomerToken = () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        clearStoredCustomerSession();
+        return "";
+    }
+
+    try {
+        const segments = token.split(".");
+        if (segments.length !== 3 || !segments.every(Boolean)) {
+            throw new Error("Malformed customer token.");
+        }
+        const header = JSON.parse(
+            window.atob(
+                segments[0]
+                    .replace(/-/g, "+")
+                    .replace(/_/g, "/")
+                    .padEnd(segments[0].length + ((4 - (segments[0].length % 4)) % 4), "=")
+            )
+        );
+        const payload = decodeTokenPayload(token);
+
+        if (
+            !payload ||
+            typeof payload.id !== "string" ||
+            !/^[a-f\d]{24}$/i.test(payload.id) ||
+            payload.role !== "user" ||
+            payload.sub !== payload.id ||
+            payload.iss !== "feasto-api" ||
+            payload.aud !== "feasto-customer" ||
+            header.alg !== "HS256" ||
+            !Number.isFinite(payload.exp) ||
+            payload.exp <= Date.now() / 1000
+        ) {
+            clearStoredCustomerSession();
             return "";
         }
     } catch {
-        localStorage.removeItem("token");
+        clearStoredCustomerSession();
         return "";
     }
 
     return token;
 };
 
+const getSavedUserFavorites = (userId) => {
+    if (!userId) return [];
+    try {
+        const userFavs = JSON.parse(
+            localStorage.getItem(`feasto_favs_${userId}`) || "[]"
+        );
+        return Array.isArray(userFavs)
+            ? userFavs.filter((id) => typeof id === "string")
+            : [];
+    } catch {
+        return [];
+    }
+};
+
+const getSavedUserProfile = (userId) => {
+    if (!userId) return "";
+    return localStorage.getItem(`feasto_profile_${userId}`) || "";
+};
+
 const StoreContextProvider = ({ children }) => {
+    const initialToken = getCustomerToken();
+    const initialUserId = getUserIdFromToken(initialToken);
+
+    const [token, setToken] = useState(initialToken);
+    const [userName, setUserName] = useState(
+        () => (initialToken ? localStorage.getItem("userName") || "" : "")
+    );
+    const [profileImage, setProfileImage] = useState(
+        () => getSavedUserProfile(initialUserId)
+    );
+    const [favoriteFoodIds, setFavoriteFoodIds] = useState(
+        () => getSavedUserFavorites(initialUserId)
+    );
     const [cartItems, setCartItems] = useState({});
     const [food_list, setFoodList] = useState([]);
-    const [token, setToken] = useState(getCustomerToken);
-    const [userName, setUserName] = useState(
-        localStorage.getItem("userName") || ""
-    );
+    const [foodListSource, setFoodListSource] = useState("loading");
 
-    const [profileImage, setProfileImage] = useState(
-        localStorage.getItem("profileImage") || ""
-    );
+    const cartSyncToken = useRef("");
 
-    const url =
-        import.meta.env.VITE_BACKEND_URL ||
-        "https://feasto-backend-pcbq.onrender.com";
+    const url = import.meta.env.DEV
+        ? ""
+        : import.meta.env.VITE_BACKEND_URL ||
+          "https://feasto-backend-pcbq.onrender.com";
 
-    const authHeader = (token) => ({
+    const authHeader = (authToken) => ({
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${authToken}`,
         },
     });
 
-    const addToCart = async (itemId) => {
-        if (token) {
-            try {
-                await axios.post(
-                    `${url}/api/cart/add`,
-                    { itemId },
-                    authHeader(token)
-                );
+    const logout = useCallback(() => {
+        clearStoredCustomerSession();
+        setToken("");
+        setUserName("");
+        setProfileImage("");
+        setCartItems({});
+        setFavoriteFoodIds([]);
+        cartSyncToken.current = "";
+    }, []);
 
-                setCartItems((prev) => ({
-                    ...prev,
-                    [itemId]: (prev[itemId] || 0) + 1,
-                }));
-            } catch (error) {
-                console.error(error);
-            }
-        } else {
+    const addToCart = async (itemId) => {
+        if (!token) return;
+        try {
+            await axios.post(
+                `${url}/api/cart/add`,
+                { itemId },
+                authHeader(token)
+            );
+
             setCartItems((prev) => ({
                 ...prev,
                 [itemId]: (prev[itemId] || 0) + 1,
             }));
+        } catch (error) {
+            console.error("Failed to add to cart:", error);
         }
     };
 
     const removeFromCart = async (itemId) => {
-        if (token) {
-            try {
-                await axios.post(
-                    `${url}/api/cart/remove`,
-                    { itemId },
-                    authHeader(token)
-                );
+        if (!token) return;
+        try {
+            await axios.post(
+                `${url}/api/cart/remove`,
+                { itemId },
+                authHeader(token)
+            );
 
-                setCartItems((prev) => {
-                    const updated = { ...prev };
-
-                    if (updated[itemId] > 1) {
-                        updated[itemId]--;
-                    } else {
-                        delete updated[itemId];
-                    }
-
-                    return updated;
-                });
-            } catch (error) {
-                console.error(error);
-            }
-        } else {
             setCartItems((prev) => {
                 const updated = { ...prev };
-
                 if (updated[itemId] > 1) {
                     updated[itemId]--;
                 } else {
                     delete updated[itemId];
                 }
-
                 return updated;
             });
+        } catch (error) {
+            console.error("Failed to remove from cart:", error);
         }
+    };
+
+    const toggleFavorite = (itemId) => {
+        setFavoriteFoodIds((previousFavorites) =>
+            previousFavorites.includes(itemId)
+                ? previousFavorites.filter((id) => id !== itemId)
+                : [...previousFavorites, itemId]
+        );
     };
 
     const getTotalCartAmount = () => {
@@ -141,11 +217,16 @@ const StoreContextProvider = ({ children }) => {
                 `${url}/api/food/list`
             );
 
-            if (response.data.success) {
+            if (response.data.success && Array.isArray(response.data.data)) {
                 setFoodList(response.data.data);
+                setFoodListSource("api");
+                return;
             }
+            throw new Error(response.data.message || "Menu request failed.");
         } catch (error) {
             console.error(error);
+            setFoodList(sampleFoodList);
+            setFoodListSource("sample");
         }
     }, [url]);
 
@@ -161,39 +242,92 @@ const StoreContextProvider = ({ children }) => {
                 setCartItems(response.data.cartData || {});
             }
         } catch (error) {
-            console.error(error);
+            console.error("Failed to load user cart:", error);
         }
     }, [url]);
 
+    // When token changes (login, switch account, logout)
     useEffect(() => {
-        localStorage.setItem("profileImage", profileImage);
-    }, [profileImage]);
+        if (token) {
+            const userId = getUserIdFromToken(token);
+            if (userId) {
+                setFavoriteFoodIds(getSavedUserFavorites(userId));
+                setProfileImage(getSavedUserProfile(userId));
+                if (cartSyncToken.current !== token) {
+                    cartSyncToken.current = token;
+                    loadCartData(token);
+                }
+            }
+        } else {
+            cartSyncToken.current = "";
+            setCartItems({});
+            setFavoriteFoodIds([]);
+            setProfileImage("");
+            setUserName("");
+        }
+    }, [token, loadCartData]);
+
+    // Persist favorites per user ID
+    useEffect(() => {
+        if (token) {
+            const userId = getUserIdFromToken(token);
+            if (userId) {
+                localStorage.setItem(
+                    `feasto_favs_${userId}`,
+                    JSON.stringify(favoriteFoodIds)
+                );
+            }
+        }
+    }, [favoriteFoodIds, token]);
+
+    // Persist profile photo per user ID
+    useEffect(() => {
+        if (token) {
+            const userId = getUserIdFromToken(token);
+            if (userId) {
+                if (profileImage) {
+                    localStorage.setItem(`feasto_profile_${userId}`, profileImage);
+                } else {
+                    localStorage.removeItem(`feasto_profile_${userId}`);
+                }
+            }
+        }
+    }, [profileImage, token]);
 
     useEffect(() => {
         fetchFoodList();
     }, [fetchFoodList]);
 
+    // Handle 401 unauthenticated responses cleanly
     useEffect(() => {
-        if (token) {
-            loadCartData(token);
-        }
-    }, [loadCartData, token]);
+        const interceptorId = axios.interceptors.response.use(
+            (response) => response,
+            (error) => {
+                if (error.response?.status === 401 && token) {
+                    logout();
+                }
+                return Promise.reject(error);
+            }
+        );
+
+        return () => axios.interceptors.response.eject(interceptorId);
+    }, [token, logout]);
 
     useEffect(() => {
-        localStorage.setItem("userName", userName);
-    }, [userName]);
-
-    // Clear cart local state immediately on token change (logout handling fallback)
-    useEffect(() => {
-        if (!token) {
-            setCartItems({});
+        if (userName && token) {
+            localStorage.setItem("userName", userName);
+        } else if (!token) {
+            localStorage.removeItem("userName");
         }
-    }, [token]);
+    }, [userName, token]);
 
     const contextValue = {
         food_list,
+        foodListSource,
         cartItems,
         setCartItems,
+        favoriteFoodIds,
+        toggleFavorite,
         addToCart,
         removeFromCart,
         getTotalCartAmount,
@@ -204,6 +338,7 @@ const StoreContextProvider = ({ children }) => {
         setProfileImage,
         userName,
         setUserName,
+        logout,
     };
 
     return (

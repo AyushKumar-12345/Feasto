@@ -3,7 +3,7 @@
     font-size: 24px;
     font-weight: 700;
     letter-spacing: -0.5px;
-    color: #11142d;
+    color: var(--text);
 }
 
 .list-table {
@@ -30,7 +30,7 @@
 }
 
 .list-table-format:not(.title):hover {
-    background: #fafafb;
+    background: var(--background);
 }
 
 .list-table-format.title {
@@ -59,19 +59,19 @@
 
 .list-table-format p {
     margin: 0;
-    color: #4f5162;
+    color: var(--text-light);
     font-size: 15px;
     font-weight: 500;
     word-break: break-word;
 }
 
 .list-table-format .food-name {
-    color: #11142d;
+    color: var(--text);
     font-weight: 600;
 }
 
 .list-table-format .food-price {
-    color: #ff4321;
+    color: var(--primary);
     font-weight: 600;
 }
 
@@ -89,13 +89,13 @@
     border: none;
     border-radius: 8px;
     background: #fff5f2;
-    color: #ff4321;
+    color: var(--primary);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .delete-btn:hover {
-    background: #ff4321;
+    background: var(--primary);
     color: #ffffff;
     transform: translateY(-1px);
 }

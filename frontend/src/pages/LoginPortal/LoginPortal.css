@@ -1,0 +1,169 @@
+.login-portal {
+    width: min(960px, 100%);
+    margin: 0 auto;
+    padding: 76px 20px 88px;
+    text-align: center;
+}
+
+.login-portal-heading {
+    margin: 0 auto 38px;
+}
+
+.login-portal-eyebrow,
+.login-portal-label {
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+}
+
+.login-portal-heading h1 {
+    margin: 12px 0 10px;
+    color: var(--text);
+    font-size: clamp(30px, 5vw, 44px);
+    letter-spacing: -1.5px;
+}
+
+.login-portal-heading p {
+    color: var(--text-light);
+    font-size: 16px;
+}
+
+.login-portal-options {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    text-align: left;
+}
+
+.login-portal-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: 310px;
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background: var(--surface);
+    box-shadow: 0 16px 38px rgba(17, 20, 45, 0.05);
+}
+
+.login-portal-icon {
+    display: grid;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 22px;
+    place-items: center;
+    border-radius: 15px;
+}
+
+.login-portal-icon.customer {
+    background: #fff0eb;
+    color: var(--primary);
+}
+
+.login-portal-icon.admin {
+    background: #edf2ff;
+    color: #435fc4;
+}
+
+.login-portal-card h2 {
+    margin: 9px 0 8px;
+    color: var(--text);
+    font-size: 22px;
+    letter-spacing: -0.4px;
+}
+
+.login-portal-card > p {
+    max-width: 360px;
+    margin-bottom: 24px;
+    color: var(--text-light);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.login-portal-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 46px;
+    margin-top: auto;
+    padding: 0 18px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.login-portal-button:hover {
+    transform: translateY(-2px);
+}
+
+.customer-button {
+    background: var(--primary);
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.customer-signup-button {
+    margin-top: 10px;
+    border-color: var(--border);
+    background: #ffffff;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.customer-signup-button:hover {
+    border-color: var(--primary);
+    background: #fff5f2;
+    color: var(--primary);
+}
+
+.customer-button:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 8px 18px rgba(255, 67, 33, 0.2);
+}
+
+.admin-button {
+    border-color: var(--border);
+    background: #ffffff;
+    color: var(--text);
+}
+
+.admin-button:hover {
+    border-color: #435fc4;
+    background: #f5f7ff;
+}
+
+.login-portal-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 28px;
+    color: var(--text-light);
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.login-portal-home:hover {
+    color: var(--primary);
+}
+
+@media (max-width: 650px) {
+    .login-portal {
+        padding: 52px 14px 64px;
+    }
+
+    .login-portal-options {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .login-portal-card {
+        min-height: 285px;
+        padding: 24px;
+    }
+}

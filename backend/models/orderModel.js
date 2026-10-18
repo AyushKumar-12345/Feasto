@@ -20,6 +20,22 @@ const orderSchema = new mongoose.Schema(
             type: Object,
             required: true,
         },
+        deliveryLocation: {
+            type: Object,
+            default: null,
+        },
+        riderLocation: {
+            type: Object,
+            default: null,
+        },
+        riderLocationUpdatedAt: {
+            type: Date,
+            default: null,
+        },
+        trackingActive: {
+            type: Boolean,
+            default: false,
+        },
         status: {
             type: String,
             default: "Pending Payment",

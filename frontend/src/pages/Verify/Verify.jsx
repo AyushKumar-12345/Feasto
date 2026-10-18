@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Verify.css";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { StoreContext } from "../../context/StoreContext";
+import { StoreContext } from "../../context/StoreContextValue";
 import axios from "axios";
 import { CircleCheckBig, CircleX } from "lucide-react";
 

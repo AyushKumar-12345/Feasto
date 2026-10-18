@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+import { createAdminToken } from "../config/authTokens.js";
 
 const loginAdmin = async (req, res) => {
     try {
@@ -29,11 +29,7 @@ const loginAdmin = async (req, res) => {
             });
         }
 
-        const token = jwt.sign(
-            { role: "admin" },
-            process.env.JWT_SECRET,
-            { expiresIn: "7d" }
-        );
+        const token = createAdminToken();
 
         return res.json({
             success: true,
