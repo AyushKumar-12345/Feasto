@@ -196,6 +196,11 @@
     margin: 3px 0;
 }
 
+.ai-bullet-item.ai-sub-bullet {
+    margin-left: 14px;
+    opacity: 0.94;
+}
+
 .ai-bullet-dot {
     color: var(--primary);
     font-weight: 700;

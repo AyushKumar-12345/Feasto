@@ -13,8 +13,9 @@ const renderMessageContent = (content) => {
     if (!content) return null;
     const lines = content.split("\n");
     return lines.map((line, lineIdx) => {
-        const isBullet = /^\s*[-*]\s+/.test(line);
-        const textToFormat = isBullet ? line.replace(/^\s*[-*]\s+/, "") : line;
+        const isSubBullet = /^\s{2,}[-*•]\s+/.test(line);
+        const isBullet = /^\s*[-*•]\s+/.test(line);
+        const textToFormat = isBullet ? line.replace(/^\s*[-*•]\s+/, "") : line;
         const parts = textToFormat.split(/(\*\*.*?\*\*)/g);
 
         const formatted = parts.map((part, partIdx) => {
@@ -26,8 +27,8 @@ const renderMessageContent = (content) => {
 
         if (isBullet) {
             return (
-                <div key={lineIdx} className="ai-bullet-item">
-                    <span className="ai-bullet-dot">•</span>
+                <div key={lineIdx} className={`ai-bullet-item${isSubBullet ? " ai-sub-bullet" : ""}`}>
+                    <span className="ai-bullet-dot">{isSubBullet ? "–" : "•"}</span>
                     <span className="ai-bullet-text">{formatted}</span>
                 </div>
             );
