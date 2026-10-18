@@ -38,60 +38,53 @@ https://feasto-backend-pcbq.onrender.com
 
 ## 👤 User Features
 
-- 🔐 Secure User Authentication (JWT)
-- 🧭 Separate customer and admin sign-in with role-protected API operations
-- 🍽️ Browse Food Menu
-- 🔍 Search Food Items
-- 🛒 Add & Remove Items from Cart
-- 💳 Secure Online Payments with Razorpay
-- 📦 Order Placement & Management
-- 📜 Order History
-- 🚚 Real-time Order Status Tracking
-- 👤 User Profile Management
-- 🖼️ Profile Picture Upload
-- 🔔 Toast Notifications
-- 📱 Fully Responsive Design
-- 🤖 AI assistant for menu discovery, ordering help, and recent order questions
-- 📷 Responsive homepage image carousel
-- 📄 Privacy, terms, and contact pages
+- 🚪 **Mandatory Authentication Gate (`WelcomeGate`)**: Clear entry screen requiring user Sign In, Sign Up, or Admin access before browsing (no unauthorized guest browsing).
+- 🔐 **Strict Session Isolation & Secure Data Wipe**: Instant, complete eradication of tokens, cached carts, profile data, and orders on logout—preventing cross-user leakage.
+- 🗺️ **Interactive Live Delivery Tracking Map**: Real-time order tracking powered by **Leaflet** & **OpenStreetMap** with animated driver coordinates and store pinpoints.
+- 🤖 **Smart AI Assistant (Google Gemini 3.0)**: Context-aware recommendations and order help using `gemini-3.8-flash` with Indian Rupee (`₹`) pricing and formatted markdown responses.
+- 🍽️ **Dynamic Menu & Craving Filters**: Appetizing hero banner with one-click category filters (*Fresh & Crisp*, *Savory & Hearty*, *Sweet Treats*).
+- 🔍 **Real-Time Menu Search**: Instant fuzzy filtering by dish name and food category.
+- 🛒 **Persistent Shopping Cart**: Synchronized cart items with backend validation.
+- 💳 **Online Payment Gateway (Razorpay)**: Secure checkout with HMAC signature verification and order confirmation.
+- 📦 **Order History & Tracking**: Real-time status updates (*Food Processing*, *Out for Delivery*, *Delivered*).
+- 👤 **Refined User Profile**: Clean, distraction-free card design with profile photo upload, account management, and instant logout.
+- 🔔 **Toast Notifications**: Interactive feedback using React Toastify.
+- 📱 **Fully Responsive Design**: Optimized across mobile, tablet, and desktop screens.
 
 ---
 
 ## 🛠️ Admin Features
 
-- 🔑 Secure Admin Login
-- 🍕 Add New Food Items
-- 🗑️ Delete Food Items
-- ☁️ Cloudinary Image Upload
-- 📦 View Customer Orders
-- 🔄 Update Order Status
-- 📊 Restaurant Order Management Dashboard
+- 🔑 **Role-Based Admin Authentication**: Dedicated admin login protecting sensitive restaurant operations.
+- 🍕 **Food & Menu Management**: Add, update, and remove food items with Cloudinary image upload and INR pricing.
+- ☁️ **Cloudinary Image Integration**: Automated media upload and cloud hosting for dish thumbnails.
+- 📦 **Live Customer Orders Management**: Track all incoming customer orders with status updates (*Food Processing*, *Out for Delivery*, *Delivered*).
+- 🗺️ **Live Driver Tracking Coordinates**: Store and update live delivery coordinates for customer map tracking.
+- 🌐 **Dynamic Portal Navigation**: Instant links between the Admin dashboard and customer website (dynamically resolving for `localhost` and production).
 
 ---
 # 🛠 Tech Stack
 
 ## 🎨 Frontend
 
-- React 18
-- Vite
-- React Router DOM
-- Axios
-- React Toastify
-- Lucide React
-- CSS3
+- **React 18** & **Vite**
+- **React Router DOM**
+- **Leaflet** & **React-Leaflet** (Interactive OpenStreetMap delivery tracking)
+- **Axios**
+- **Lucide React** (Icons)
+- **React Toastify**
+- **CSS3** (Responsive design, animations)
 
 ---
 
 ## ⚙️ Backend
 
-- Node.js
-- Express.js
-- MongoDB Atlas
-- Mongoose
-- JWT Authentication
-- Razorpay Payment Gateway
-- Cloudinary
-- Multer
+- **Node.js** & **Express.js**
+- **MongoDB Atlas** & **Mongoose**
+- **JWT (JSON Web Tokens)** (Role-scoped authentication)
+- **Google Gemini 3.0 API** (`gemini-3.8-flash`)
+- **Razorpay Payment Gateway**
+- **Cloudinary** & **Multer** (Media uploads)
 
 ---
 
@@ -182,7 +175,7 @@ settings:
 | --- | --- |
 | Customer frontend | `VITE_BACKEND_URL`, `VITE_ADMIN_URL`, `VITE_RAZORPAY_KEY_ID`, `VITE_FORMSPREE_FORM_ID` |
 | Admin frontend | `VITE_BACKEND_URL`, `VITE_FRONTEND_URL` |
-| Backend | `PORT`, `MONGODB_URI`, `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `FRONTEND_URL`, `ADMIN_URL`, `CLOUDINARY_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_SECRET_KEY`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET` |
+| Backend | `PORT`, `MONGODB_URI`, `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `FRONTEND_URL`, `ADMIN_URL`, `CLOUDINARY_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_SECRET_KEY`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `GEMINI_API_KEY`, `GEMINI_MODEL` |
 
 The customer and admin `VITE_BACKEND_URL` values must point to the same backend
 base URL (for example, `https://your-api.onrender.com`, without `/api`). Set
@@ -325,16 +318,15 @@ npm run dev
 ---
 # 🚀 Future Improvements
 
-- ❤️ Wishlist Functionality
-- 🎟️ Coupon & Discount System
-- 📍 Live Order Tracking
-- 📧 Email Notifications
-- 🔔 Push Notifications
-- 🏠 Multiple Delivery Addresses
-- ⭐ Food Ratings & Reviews
-- 🌙 Dark Mode
-- 📱 Progressive Web App (PWA)
-- 🌍 Multi-language Support
+- ❤️ Wishlist & Favorites Functionality
+- 🎟️ Promotional Coupons & Promo Codes
+- 📧 Automated Order Confirmation Emails
+- 🔔 Real-time Web Push Notifications
+- 🏠 Multiple Saved Delivery Addresses
+- ⭐ Verified Dish Ratings & Reviews
+- 🌙 Dark Mode / Theme Toggle
+- 📱 Progressive Web App (PWA) Offline Support
+- 🌍 Multi-language & Localization Support
 
 ---
 
