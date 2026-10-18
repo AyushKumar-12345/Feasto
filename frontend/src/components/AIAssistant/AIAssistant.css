@@ -185,8 +185,38 @@
     color: var(--text);
     font-size: 13px;
     line-height: 1.55;
-    white-space: pre-wrap;
+    white-space: normal;
     overflow-wrap: anywhere;
+}
+
+.ai-bullet-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin: 3px 0;
+}
+
+.ai-bullet-dot {
+    color: var(--primary);
+    font-weight: 700;
+    line-height: 1.4;
+    user-select: none;
+}
+
+.ai-message.user .ai-bullet-dot {
+    color: #ffffff;
+}
+
+.ai-bullet-text {
+    flex: 1;
+}
+
+.ai-text-line {
+    margin: 1px 0;
+}
+
+.ai-empty-line {
+    height: 8px;
 }
 
 .ai-message.user {

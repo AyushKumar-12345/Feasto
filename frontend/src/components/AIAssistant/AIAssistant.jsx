@@ -9,6 +9,41 @@ const starterPrompts = [
     "Can you help me with my order?",
 ];
 
+const renderMessageContent = (content) => {
+    if (!content) return null;
+    const lines = content.split("\n");
+    return lines.map((line, lineIdx) => {
+        const isBullet = /^\s*[-*]\s+/.test(line);
+        const textToFormat = isBullet ? line.replace(/^\s*[-*]\s+/, "") : line;
+        const parts = textToFormat.split(/(\*\*.*?\*\*)/g);
+
+        const formatted = parts.map((part, partIdx) => {
+            if (part.startsWith("**") && part.endsWith("**")) {
+                return <strong key={partIdx}>{part.slice(2, -2)}</strong>;
+            }
+            return part;
+        });
+
+        if (isBullet) {
+            return (
+                <div key={lineIdx} className="ai-bullet-item">
+                    <span className="ai-bullet-dot">•</span>
+                    <span className="ai-bullet-text">{formatted}</span>
+                </div>
+            );
+        }
+
+        return (
+            <div
+                key={lineIdx}
+                className={line.trim() === "" ? "ai-empty-line" : "ai-text-line"}
+            >
+                {formatted}
+            </div>
+        );
+    });
+};
+
 const AIAssistant = () => {
     const { url, token } = useContext(StoreContext);
     const [isOpen, setIsOpen] = useState(false);
@@ -144,7 +179,7 @@ const AIAssistant = () => {
                                     className={`ai-message ${message.role}`}
                                     key={`${message.role}-${index}`}
                                 >
-                                    {message.content}
+                                    {renderMessageContent(message.content)}
                                 </div>
                             ))
                         )}
