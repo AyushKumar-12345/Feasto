@@ -6,27 +6,18 @@ The frontend of **Feasto**, a modern food delivery web application built using *
 
 ## ✨ Features
 
-- Welcome screen for customer login, sign-up, and guest browsing
-- Guest carts persist across refreshes and merge into the customer account after login
-- Admin dashboard link remains available from the customer site
-- Admin access remains login-only; public admin registration is disabled
-- Save dishes to a persistent favorites list (`/favorites`)
-- Optional delivery map pin and live rider location tracking on paid orders
-- AI assistant for menu recommendations, ordering help, and your own recent order summaries
-- Browse Food Menu
-- Search Food Items
-- Add & Remove Items from Cart
-- Shopping Cart Management
-- Secure Checkout Flow
-- Razorpay Payment Integration
-- Order History & Order Tracking
-- Profile Picture Upload
-- Contact and support page (`/contact`)
-- Privacy policy and terms of use (`/privacy`, `/terms`)
-- Responsive Design
-- Toast Notifications
-- Smooth Scrolling
-- Modern UI
+- 🚪 **Mandatory Welcome Gate (`WelcomeGate`)**: Dedicated entry screen requiring customer Sign In, Sign Up, or Admin access before entering the store (no unauthenticated guest browsing).
+- 🔐 **Strict Session Isolation & Complete Data Wipe**: Full wipe of token, user details, cart, and profile on logout—preventing cross-user data leakage.
+- 🗺️ **Interactive Live Delivery Tracking Map**: Real-time order tracking powered by **Leaflet** & **OpenStreetMap** with animated driver coordinates.
+- 🤖 **Smart AI Assistant (Google Gemini 3.0)**: Contextual dish recommendations powered by `gemini-3.8-flash` with Indian Rupee (`₹`) pricing and markdown bullet formatting.
+- 🍽️ **Appetizing Hero & Craving Filters**: Quick category filtering for *Fresh & Crisp*, *Savory & Hearty*, and *Sweet Treats*.
+- 🔍 **Real-Time Menu Search**: Instant fuzzy filtering by dish name and category.
+- 🛒 **Persistent Shopping Cart**: Synchronized cart items with backend validation.
+- 💳 **Secure Online Payments**: Integrated Razorpay checkout with server-side HMAC payment verification.
+- 📦 **Order History & Real-Time Tracking**: Full order lifecycle (*Food Processing*, *Out for Delivery*, *Delivered*).
+- 👤 **Minimalist User Profile**: Clean card design with photo upload and account details.
+- 📄 **Information & Support Pages**: Contact form, privacy policy, terms of use.
+- 📱 **Fully Responsive UI**: Mobile-first, tablet, and desktop optimized design.
 
 ---
 
