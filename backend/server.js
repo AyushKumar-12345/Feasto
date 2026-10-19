@@ -69,6 +69,14 @@ app.get("/", (req, res) => {
     res.send("API is Working");
 });
 
+app.get("/api/health", (req, res) => {
+    return res.status(200).json({
+        status: "ok",
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString(),
+    });
+});
+
 app.use((req, res) => {
     return res.status(404).json({
         success: false,
@@ -84,6 +92,8 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server started on http://localhost:${port}`);
+const host = process.env.HOST || "0.0.0.0";
+
+app.listen(port, host, () => {
+    console.log(`Server started on http://${host}:${port}`);
 });

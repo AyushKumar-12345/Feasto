@@ -231,28 +231,141 @@ Deploy the backend and both frontend apps from the same project revision so
 their token format and protected routes stay in sync. After deploying the
 scoped-token change, customers and admins must sign in again.
 
-## 7️⃣ Run the Project
+## 7️⃣ Run the Project Locally (Native Node.js)
 
-### Start Backend
+### Prerequisites
+- **Node.js**: v20.x or higher
+- **npm**: v10.x or higher
+- **MongoDB**: Local MongoDB instance or free MongoDB Atlas cluster
 
+### Start Backend API (Port 4000)
 ```bash
 cd backend
+npm install
 npm run server
 ```
 
-### Start Frontend
-
+### Start Customer Frontend (Port 5173)
 ```bash
 cd frontend
+npm install
 npm run dev
 ```
 
-### Start Admin Dashboard
-
+### Start Admin Dashboard (Port 5174)
 ```bash
 cd admin
+npm install
 npm run dev
 ```
+
+---
+
+## 8️⃣ Run with Docker & Docker Compose
+
+Feasto includes production-grade containerization with multi-stage Dockerfiles and a `compose.yaml` file for full-stack local development.
+
+### Option A: Run the Complete Stack with Docker Compose
+The Docker Compose configuration automatically spins up:
+- **`mongodb`**: Isolated local database with persistent named volume (`feasto_mongodb_data`).
+- **`backend`**: Node 20 Alpine container with health check on port `4000`.
+- **`frontend`**: Production-built Vite bundle served via high-performance Nginx on port `5173`.
+- **`admin`**: Production-built admin bundle served via Nginx on port `5174`.
+
+```bash
+# 1. Prepare environment variables
+cp .env.example .env
+
+# 2. Build and start all services in detached mode
+docker compose up --build -d
+
+# 3. View container health and logs
+docker compose ps
+docker compose logs -f backend
+
+# 4. Stop and tear down containers
+docker compose down
+```
+
+> **Note on MongoDB**: If `MONGODB_URI` is left unconfigured in `.env`, Compose automatically connects to the internal `mongodb` container (`mongodb://mongodb:27017/feasto`). If you provide a MongoDB Atlas URI in `.env`, the backend connects directly to your Atlas cluster.
+
+### Option B: Build and Run Individual Docker Containers
+
+#### Backend Container
+```bash
+# Build image
+docker build -t feasto-backend:latest -f backend/Dockerfile ./backend
+
+# Run container (injecting environment variables from .env)
+docker run -d --name feasto-backend -p 4000:4000 --env-file .env feasto-backend:latest
+
+# Check container health
+docker inspect --format='{{json .State.Health.Status}}' feasto-backend
+```
+
+#### Customer Frontend Container
+```bash
+docker build -t feasto-frontend:latest -f frontend/Dockerfile ./frontend
+docker run -d --name feasto-frontend -p 5173:80 feasto-frontend:latest
+```
+
+#### Admin Dashboard Container
+```bash
+docker build -t feasto-admin:latest -f admin/Dockerfile ./admin
+docker run -d --name feasto-admin -p 5174:80 feasto-admin:latest
+```
+
+---
+
+## 9️⃣ Automated Testing & Quality Checks
+
+Run all automated test suites and linting checks locally matching the CI pipeline:
+
+```bash
+# Backend unit & integration tests (18 tests via Node test runner)
+cd backend && npm test
+
+# Frontend linting and production build check
+cd ../frontend && npm run lint && npm run build
+
+# Admin linting and production build check
+cd ../admin && npm run lint && npm run build
+```
+
+---
+
+## 🔟 Continuous Integration & Deployment (GitHub Actions)
+
+The repository includes an automated CI/CD pipeline at `.github/workflows/ci-cd.yml` triggered on every push and pull request to `main`:
+
+1. **Lint, Test & Build**:
+   - Executes across Ubuntu Latest on Node.js 20 with npm caching.
+   - Runs all 18 backend tests (auth, assistant, cart, health, CORS).
+   - Validates ESLint flat-config linting across customer and admin codebases.
+   - Executes Vite production builds for both frontends.
+2. **Container Verification**:
+   - Configures Docker Buildx.
+   - Builds backend, frontend, and admin production Docker images to verify container compatibility.
+   - Uses GitHub Actions cache (`type=gha`) for fast, reproducible image builds.
+
+### Deployment Next Steps
+Feasto is configured for Render deployment via [`render.yaml`](./render.yaml). When pushing to `main`, Render automatically syncs static builds for the customer frontend and admin dashboard, and re-deploys the web service for the backend.
+
+---
+
+## 🛠️ Troubleshooting
+
+### 1. MongoDB Atlas SRV Connection Timeouts
+- **Symptom**: `MongooseError: querySrv ENODATA` or connection timeout.
+- **Solution**: Feasto's `backend/config/loadEnv.js` automatically sets Google (`8.8.8.8`) and Cloudflare (`1.1.1.1`) DNS servers for SRV resolution. If your local network or firewall blocks custom DNS, use the local MongoDB service via Docker Compose (`mongodb://mongodb:27017/feasto`) or specify a direct standard connection string.
+
+### 2. Missing Cloudinary / Razorpay Configuration
+- **Symptom**: `Missing Cloudinary environment variables.` on backend startup.
+- **Solution**: Ensure `CLOUDINARY_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_SECRET_KEY` are defined in `.env`. For local testing without image uploads, place dummy non-empty strings in `.env`.
+
+### 3. Port Already in Use (EADDRINUSE)
+- **Symptom**: `Error: listen EADDRINUSE: address already in use :::4000`.
+- **Solution**: A previous Node or Docker process is holding port 4000. Stop it via `docker compose down` or terminate the running Node process (`Stop-Process -Id (Get-NetTCPConnection -LocalPort 4000).OwningProcess -Force` on Windows).
 
 ---
 # 📸 Application Preview

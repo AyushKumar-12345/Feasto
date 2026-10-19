@@ -62,3 +62,16 @@ The Express.js REST API service powering the **Feasto** food delivery platform. 
    ```bash
    npm run server
    ```
+
+5. Health check endpoint:
+   ```bash
+   curl http://localhost:4000/api/health
+   ```
+
+6. Build and run via Docker:
+   ```bash
+   docker build -t feasto-backend:latest .
+   docker run -d --name feasto-backend -p 4000:4000 --env-file ../.env feasto-backend:latest
+   ```
+
+
