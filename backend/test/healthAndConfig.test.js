@@ -81,3 +81,4 @@ test("CORS validator logic permits local Vite dev origins and blocks untrusted d
     assert.equal(isLocalViteOrigin("http://localhost:3000"), false);
     assert.equal(isFeastoRenderOrigin("https://evil-feasto.attacker.com"), false);
 });
+
