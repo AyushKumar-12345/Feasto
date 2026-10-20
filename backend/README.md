@@ -329,3 +329,4 @@ Feasto is automatically tested and continuously deployed on every push to `main`
 <div align="center">
   <sub>Built with ❤️ by Ayush Kumar • Feasto Backend API</sub>
 </div>
+
