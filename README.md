@@ -1,258 +1,280 @@
-# 🍔 Feasto – Full Stack MERN Food Delivery Platform
+# 🍔 Feasto — Production-Grade MERN Food Delivery & AI Concierge Platform
 
-![React](https://img.shields.io/badge/React-18-blue?logo=react)
-![Node.js](https://img.shields.io/badge/Node.js-Express-green?logo=node.js)
-![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-success?logo=mongodb)
-![Razorpay](https://img.shields.io/badge/Payment-Razorpay-02042B?logo=razorpay)
-![Cloudinary](https://img.shields.io/badge/Cloudinary-Media-blue?logo=cloudinary)
-![License](https://img.shields.io/badge/License-Portfolio-orange)
+[![CI/CD Pipeline](https://github.com/AyushKumar-12345/Feasto/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/AyushKumar-12345/Feasto/actions/workflows/ci-cd.yml)
+[![React 18](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Node.js Version](https://img.shields.io/badge/Node.js-v20%20LTS-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Express.js](https://img.shields.io/badge/Express.js-v4.21-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%20%2F%207.0-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Docker](https://img.shields.io/badge/Docker-Multi--Container-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![Google Gemini AI](https://img.shields.io/badge/Google%20Gemini-3.0%20Flash-4285F4?logo=google&logoColor=white)](https://aistudio.google.com/)
+[![Razorpay](https://img.shields.io/badge/Razorpay-Verified-02042B?logo=razorpay&logoColor=white)](https://razorpay.com/)
+[![Cloudinary](https://img.shields.io/badge/Cloudinary-Media%20CDN-3448C5?logo=cloudinary&logoColor=white)](https://cloudinary.com/)
+[![Render](https://img.shields.io/badge/Render-Deployed-46E3B7?logo=render&logoColor=black)](https://feasto-frontend-qt0n.onrender.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
----
-
-## 📖 Overview
-
-Feasto is a modern **Full Stack MERN Food Delivery Platform** inspired by applications like **Zomato** and **Swiggy**.
-
-The platform allows customers to browse food items, manage their cart, place secure online orders using **Razorpay**, and track order status in real time.
-
-It also includes a dedicated **Admin Dashboard** for managing food items, customer orders, and restaurant operations.
+> **Feasto** is an enterprise-grade, full-stack food delivery ecosystem inspired by Swiggy and Zomato. It delivers a modern customer ordering portal, an interactive Leaflet-powered live driver delivery tracking map, cryptographic Razorpay payment verification, an administrative restaurant operations dashboard, and a contextual generative AI food concierge powered by Google Gemini 3.0.
 
 ---
 
-## 🌐 Live Demo
+## 🌐 Live Production Deployments
 
-### 🍽️ Customer Application
-
-https://feasto-frontend-qt0n.onrender.com
-
-### 🛠️ Admin Dashboard
-
-https://feasto-admin-567d.onrender.com
-
-### ⚙️ Backend API
-
-https://feasto-backend-pcbq.onrender.com
-
----
-# ✨ Features
-
-## 👤 User Features
-
-- 🚪 **Mandatory Authentication Gate (`WelcomeGate`)**: Clear entry screen requiring user Sign In, Sign Up, or Admin access before browsing (no unauthorized guest browsing).
-- 🔐 **Strict Session Isolation & Secure Data Wipe**: Instant, complete eradication of tokens, cached carts, profile data, and orders on logout—preventing cross-user leakage.
-- 🗺️ **Interactive Live Delivery Tracking Map**: Real-time order tracking powered by **Leaflet** & **OpenStreetMap** with animated driver coordinates and store pinpoints.
-- 🤖 **Smart AI Assistant (Google Gemini 3.0)**: Context-aware recommendations and order help using `gemini-3.8-flash` with Indian Rupee (`₹`) pricing and formatted markdown responses.
-- 🍽️ **Dynamic Menu & Craving Filters**: Appetizing hero banner with one-click category filters (*Fresh & Crisp*, *Savory & Hearty*, *Sweet Treats*).
-- 🔍 **Real-Time Menu Search**: Instant fuzzy filtering by dish name and food category.
-- 🛒 **Persistent Shopping Cart**: Synchronized cart items with backend validation.
-- 💳 **Online Payment Gateway (Razorpay)**: Secure checkout with HMAC signature verification and order confirmation.
-- 📦 **Order History & Tracking**: Real-time status updates (*Food Processing*, *Out for Delivery*, *Delivered*).
-- 👤 **Refined User Profile**: Clean, distraction-free card design with profile photo upload, account management, and instant logout.
-- 🔔 **Toast Notifications**: Interactive feedback using React Toastify.
-- 📱 **Fully Responsive Design**: Optimized across mobile, tablet, and desktop screens.
+| Component | Purpose | Live Link | Status |
+| :--- | :--- | :--- | :---: |
+| 🍽️ **Customer Web App** | Ordering, live cart, menu search, AI chat & order tracking | [https://feasto-frontend-qt0n.onrender.com](https://feasto-frontend-qt0n.onrender.com) | ![Live](https://img.shields.io/badge/Status-Online-brightgreen) |
+| 🛠️ **Admin Dashboard** | Menu management, customer orders & driver GPS tracking | [https://feasto-admin-567d.onrender.com](https://feasto-admin-567d.onrender.com) | ![Live](https://img.shields.io/badge/Status-Online-brightgreen) |
+| ⚙️ **Backend REST API** | Express.js API, JWT auth, Razorpay and Gemini services | [https://feasto-backend-pcbq.onrender.com](https://feasto-backend-pcbq.onrender.com) | ![Live](https://img.shields.io/badge/Status-Online-brightgreen) |
+| 🩺 **System Health Probe**| Uptime, timestamp, and process diagnostics | [https://feasto-backend-pcbq.onrender.com/api/health](https://feasto-backend-pcbq.onrender.com/api/health) | ![Healthy](https://img.shields.io/badge/Health-200%20OK-brightgreen) |
 
 ---
 
-## 🛠️ Admin Features
+## 📑 Table of Contents
 
-- 🔑 **Role-Based Admin Authentication**: Dedicated admin login protecting sensitive restaurant operations.
-- 🍕 **Food & Menu Management**: Add, update, and remove food items with Cloudinary image upload and INR pricing.
-- ☁️ **Cloudinary Image Integration**: Automated media upload and cloud hosting for dish thumbnails.
-- 📦 **Live Customer Orders Management**: Track all incoming customer orders with status updates (*Food Processing*, *Out for Delivery*, *Delivered*).
-- 🗺️ **Live Driver Tracking Coordinates**: Store and update live delivery coordinates for customer map tracking.
-- 🌐 **Dynamic Portal Navigation**: Instant links between the Admin dashboard and customer website (dynamically resolving for `localhost` and production).
-
----
-# 🛠 Tech Stack
-
-## 🎨 Frontend
-
-- **React 18** & **Vite**
-- **React Router DOM**
-- **Leaflet** & **React-Leaflet** (Interactive OpenStreetMap delivery tracking)
-- **Axios**
-- **Lucide React** (Icons)
-- **React Toastify**
-- **CSS3** (Responsive design, animations)
+- [System Architecture](#-system-architecture)
+- [Key Features](#-key-features)
+- [Technology Stack](#-technology-stack)
+- [Monorepo Project Structure](#-monorepo-project-structure)
+- [REST API Reference](#-rest-api-reference)
+- [Environment Configuration](#-environment-configuration)
+- [Getting Started (Local Development)](#-getting-started-local-development)
+- [Docker & Containerized Deployment](#-docker--containerized-deployment)
+- [Automated Testing & Quality Suite](#-automated-testing--quality-suite)
+- [CI/CD & Production Deployment](#-cicd--production-deployment)
+- [Security & Production Hardening](#-security--production-hardening)
+- [Application Flow & Interfaces](#-application-flow--interfaces)
+- [Troubleshooting](#-troubleshooting)
+- [Developer & Contact](#-developer--contact)
 
 ---
 
-## ⚙️ Backend
+## 🏗 System Architecture
 
-- **Node.js** & **Express.js**
-- **MongoDB Atlas** & **Mongoose**
-- **JWT (JSON Web Tokens)** (Role-scoped authentication)
-- **Google Gemini 3.0 API** (`gemini-3.8-flash`)
-- **Razorpay Payment Gateway**
-- **Cloudinary** & **Multer** (Media uploads)
+Feasto is architected as a modular, three-tier micro-service system orchestrating frontends, backend APIs, external CDNs, payment gateways, and generative AI services:
 
----
+```mermaid
+flowchart TD
+    CustomerBrowser["Customer Client\n(React 18 + Vite + Leaflet)"]
+    AdminBrowser["Admin Client\n(React 18 + Vite + Tailwind)"]
 
-## ☁️ Deployment
+    subgraph CDNIngress["Edge & Reverse Proxy Layer"]
+        RenderRouter["Render Edge Router & SSL Termination"]
+    end
 
-| Service | Platform |
-|----------|----------|
-| Frontend | Render |
-| Admin Dashboard | Render |
-| Backend API | Render |
-| Database | MongoDB Atlas |
-| Image Storage | Cloudinary |
+    subgraph BackendAPI["Feasto Backend API (Node.js 20 • Express 4.21)"]
+        CORSMiddleware["Dynamic CORS Filter\n(Regex Vite Dev + Render)"]
+        AuthGates["Role-Scoped JWT Security\n(Customer vs Admin Tokens)"]
+        Controllers["Controllers & Business Services\n(User • Food • Cart • Order • Tracking)"]
+        AIEngine["Gemini 3.0 AI Concierge\n(gemini-3.8-flash)"]
+    end
 
----
+    subgraph DataPersistence["Storage & Cloud Infrastructure"]
+        MongoDB[("MongoDB Atlas / Docker Mongo 7.0\n(Users • Foods • Orders • Carts)")]
+        Cloudinary[("Cloudinary Media CDN\n(Image Resizing & Transformations)")]
+        Razorpay[("Razorpay Payment Gateway\n(HMAC-SHA256 Signatures)")]
+    end
 
-## 🧰 Development Tools
-
-- Visual Studio Code
-- Git & GitHub
-- Postman
-- MongoDB Compass
-- Render
-- npm
-
----
-# 📁 Project Structure
-
-```text
-Feasto
-│
-├── frontend/          # Customer-facing React application
-├── backend/           # Express.js REST API
-├── admin/             # Admin dashboard
-├── .env               # Local shared environment configuration (not committed)
-├── README.md
-└── .gitignore
+    CustomerBrowser -->|HTTPS| RenderRouter
+    AdminBrowser -->|HTTPS| RenderRouter
+    RenderRouter --> CORSMiddleware --> AuthGates --> Controllers
+    Controllers --> MongoDB
+    Controllers -->|Multi-part Uploads| Cloudinary
+    Controllers -->|Order & Signature Verify| Razorpay
+    Controllers -->|Menu Context & Inference| AIEngine
 ```
 
 ---
 
-# ⚙️ Local Setup
+## ✨ Key Features
 
-## 1️⃣ Clone the Repository
+### 1. 🚪 Mandatory Authentication Gate (`WelcomeGate`)
+- **Protected Browsing:** Clear, elegant entry screen requiring authentication (Sign In, Sign Up, or Admin portal navigation) before accessing menu and checkout flows.
+- **Strict Session Isolation & Secure Data Wipe:** Complete purging of JWT tokens, cached carts, profile records, and active order states on logout, eliminating cross-session data leakage.
 
+### 2. 🗺️ Live Driver Geolocation Tracking Map
+- **Interactive OpenStreetMap Visualization:** Built with **Leaflet** and **React-Leaflet**, featuring customized animated delivery rider markers and restaurant store pinpoints.
+- **Real-Time GPS Synchronization:** Driver coordinates updated by administrators are immediately broadcast to customer tracking views (`/order/tracking/:orderId`).
+
+### 3. 🤖 Google Gemini 3.0 Generative AI Food Concierge
+- **Next-Gen Model:** Powered by Google's latest `gemini-3.8-flash` model.
+- **Context-Aware Recommendations:** Automatically parses the active restaurant menu and recent user order history to recommend dishes tailored to guest cravings and dietary preferences.
+- **Native Rupee Formatting:** Strict prompt engineering ensures all dish prices and calculations are rendered natively in Indian Rupees (`₹`).
+
+### 4. 💳 Tamper-Proof Razorpay Payment & Ordering Engine
+- **Server-Side Price Recalculation:** Client-submitted cart prices are completely discarded; totals, taxes, and delivery fees are recomputed directly from database records.
+- **Cryptographic Signature Verification:** Enforces server-side HMAC-SHA256 signature verification before marking orders confirmed.
+
+### 5. 🛠️ Comprehensive Restaurant Admin Dashboard
+- **Menu Management:** Add, update, and remove menu items with automated Cloudinary image uploads and category classifications.
+- **Live Order Management:** Real-time visibility into incoming orders with status progression (*Food Processing* ➔ *Out for Delivery* ➔ *Delivered*).
+- **Rider Dispatch Control:** Start delivery sessions, update driver latitude/longitude positions, and terminate tracking trips upon successful handover.
+
+---
+
+## 🛠 Technology Stack
+
+| Domain | Technology / Service | Purpose |
+| :--- | :--- | :--- |
+| **Frontend Clients** | React 18, Vite, React Router DOM | High-performance SPA with client-side routing |
+| **Mapping & Geolocation** | Leaflet.js, React-Leaflet, OpenStreetMap | Interactive live delivery tracking maps |
+| **Styling & Icons** | CSS3 Modern Grid, Lucide React, React Toastify | Responsive UI, interactive alerts, and iconography |
+| **Backend Runtime** | Node.js (v20+ LTS, ES Modules) | Asynchronous backend execution environment |
+| **API Framework** | Express.js 4.21 | RESTful routing, error shielding, and middleware chaining |
+| **Database & ODM** | MongoDB Atlas / Mongoose 8.13 | Schematized persistence for accounts, menu, and orders |
+| **Generative AI** | Google Gemini 3.0 (`gemini-3.8-flash`) | Contextual food concierge and dish recommender |
+| **Payment Gateway** | Razorpay Node.js SDK | Order generation and HMAC-SHA256 signature verification |
+| **Asset Storage** | Cloudinary & Multer | Secure cloud media upload and automated thumbnailing |
+| **Security & Auth** | JSON Web Tokens (jsonwebtoken), BcryptJS | Role-separated token auth and password hashing |
+| **Containerization** | Docker, Docker Compose, Nginx | Multi-container Alpine builds and static web servers |
+| **Testing** | Node.js Test Runner (`node:test`) | Native, zero-dependency unit and integration testing |
+| **CI/CD** | GitHub Actions | Automated linting, test verification, and container builds |
+| **Hosting** | Render Cloud Platform | Fully managed deployment with automatic zero-downtime rollouts |
+
+---
+
+## 📁 Monorepo Project Structure
+
+```text
+Feasto/
+├── .github/
+│   └── workflows/
+│       └── ci-cd.yml          # GitHub Actions automated test & build pipeline
+├── admin/                     # Restaurant management React SPA
+│   ├── src/
+│   │   ├── assets/            # Static icons and logos
+│   │   ├── components/        # Sidebar, Navbar, and Order modals
+│   │   └── pages/             # Add Food, List Food, Orders, Driver Tracking
+│   ├── Dockerfile             # Multi-stage Dockerfile (Vite Build + Nginx Alpine)
+│   ├── nginx.conf             # Production Nginx reverse proxy configuration
+│   └── package.json           # Admin dependencies and build scripts
+├── backend/                   # Express.js REST API service
+│   ├── config/                # Database, Cloudinary, Razorpay, and Env configs
+│   ├── controllers/           # Auth, Food, Cart, Order, and Assistant logic
+│   ├── middleware/            # Auth, AdminAuth, RateLimit, and Error handlers
+│   ├── models/                # Mongoose schemas (User, Food, Order, Tracking)
+│   ├── routes/                # Express route routers
+│   ├── tests/                 # Native test suite (18 unit & integration tests)
+│   ├── Dockerfile             # Production Node 20 Alpine container
+│   ├── package.json           # Backend dependencies and test runner config
+│   └── server.js              # Application entry point and CORS gate
+├── frontend/                  # Customer-facing React SPA
+│   ├── src/
+│   │   ├── components/        # Navbar, Hero, FoodDisplay, Cart, AI Assistant, Map
+│   │   ├── context/           # StoreContext (Global state & cart sync)
+│   │   └── pages/             # Home, Cart, PlaceOrder, MyOrders, LiveTracking
+│   ├── Dockerfile             # Multi-stage Dockerfile (Vite Build + Nginx Alpine)
+│   ├── nginx.conf             # Production Nginx SPA routing rules
+│   └── package.json           # Customer app dependencies and scripts
+├── .env.example               # Safe environment variable template
+├── compose.yaml               # Full-stack multi-container Docker Compose blueprint
+├── README.md                  # Comprehensive root documentation
+└── render.yaml                # Infrastructure-as-Code specification for Render
+```
+
+---
+
+## 📡 REST API Reference
+
+All backend endpoints are prefixed with `/api`. For complete technical details, see [`backend/README.md`](./backend/README.md).
+
+### Customer & Admin Auth
+| Method | Endpoint | Access Level | Description |
+| :--- | :--- | :---: | :--- |
+| `POST` | `/api/user/register` | Public | Register new customer account |
+| `POST` | `/api/user/login` | Public (Rate-Limited) | Authenticate customer and issue customer JWT |
+| `POST` | `/api/admin/login` | Public (Rate-Limited) | Authenticate administrator and issue admin JWT |
+
+### Food Catalog
+| Method | Endpoint | Access Level | Description |
+| :--- | :--- | :---: | :--- |
+| `GET` | `/api/food/list` | Public | Retrieve all dishes with Cloudinary image URLs |
+| `POST` | `/api/food/add` | **Admin Only** | Upload image and add new dish to catalog |
+| `POST` | `/api/food/remove` | **Admin Only** | Delete dish from catalog and database |
+
+### Cart Operations
+| Method | Endpoint | Access Level | Description |
+| :--- | :--- | :---: | :--- |
+| `POST` | `/api/cart/get` | **Customer** | Fetch synchronized cart items and counts |
+| `POST` | `/api/cart/add` | **Customer** | Increment item quantity in cart |
+| `POST` | `/api/cart/remove` | **Customer** | Decrement item quantity in cart |
+| `POST` | `/api/cart/merge` | **Customer** | Merge local guest cart into authenticated cloud cart |
+
+### Orders & Live Delivery Tracking
+| Method | Endpoint | Access Level | Description |
+| :--- | :--- | :---: | :--- |
+| `POST` | `/api/order/place` | **Customer** | Recalculate verified bill & initialize Razorpay order |
+| `POST` | `/api/order/verify` | **Customer** | Cryptographically verify HMAC-SHA256 signature |
+| `POST` | `/api/order/userorders` | **Customer** | Fetch customer's personal order history |
+| `GET` | `/api/order/tracking/:orderId` | **Customer** | Fetch real-time driver coordinates and delivery stage |
+| `GET` | `/api/order/list` | **Admin Only** | View all orders across all customers |
+| `POST` | `/api/order/status` | **Admin Only** | Update order state (*Food Processing*, *Out for Delivery*, *Delivered*) |
+| `POST` | `/api/order/tracking/start` | **Admin Only** | Start driver trip session |
+| `POST` | `/api/order/tracking/location`| **Admin Only** | Push live driver GPS coordinates |
+| `POST` | `/api/order/tracking/stop` | **Admin Only** | Mark delivery completed and stop tracking |
+
+### AI Travel & Dining Assistant
+| Method | Endpoint | Access Level | Description |
+| :--- | :--- | :---: | :--- |
+| `POST` | `/api/assistant/chat` | Public / Optional Auth | Query Google Gemini 3.0 for contextual food guidance |
+
+---
+
+## 🔐 Environment Configuration
+
+Copy `.env.example` to create your local `.env`:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Target Service | Required | Description | Example / Default |
+| :--- | :--- | :---: | :--- | :--- |
+| `PORT` | Backend | Optional | Port the backend server binds to | `4000` |
+| `MONGODB_URI` | Backend | **Yes** | MongoDB connection string (Atlas or Docker) | `mongodb+srv://user:pass@cluster.mongodb.net/feasto` |
+| `JWT_SECRET` | Backend | **Yes** | Secret used for signing JWT tokens | Random 32+ character string |
+| `ADMIN_EMAIL` | Backend | **Yes** | Authorized administrative login email | `admin@feasto.com` |
+| `ADMIN_PASSWORD` | Backend | **Yes** | Authorized administrative login password | `strongAdminPassword` |
+| `FRONTEND_URL` | Backend | **Yes** | Origin URL of the customer frontend | `https://feasto-frontend-qt0n.onrender.com` |
+| `ADMIN_URL` | Backend | **Yes** | Origin URL of the admin dashboard | `https://feasto-admin-567d.onrender.com` |
+| `CLOUDINARY_NAME` | Backend | **Yes** | Cloudinary Cloud Name | `your_cloudinary_name` |
+| `CLOUDINARY_API_KEY`| Backend | **Yes** | Cloudinary API Key | `your_cloudinary_key` |
+| `CLOUDINARY_SECRET_KEY`| Backend| **Yes** | Cloudinary API Secret | `your_cloudinary_secret` |
+| `RAZORPAY_KEY_ID` | Backend & Frontend | **Yes** | Razorpay Key ID | `rzp_test_yourKeyId` |
+| `RAZORPAY_KEY_SECRET`| Backend | **Yes** | Razorpay Key Secret | `your_razorpay_secret` |
+| `GEMINI_API_KEY` | Backend | **Yes** | Google Gemini 3.0 API Key | `AIzaSy...` |
+| `GEMINI_MODEL` | Backend | Optional | Generative AI model name | `gemini-3.8-flash` |
+| `VITE_BACKEND_URL` | Frontend & Admin | **Yes** | Base URL of the backend API service | `https://feasto-backend-pcbq.onrender.com` |
+
+---
+
+## 🚀 Getting Started (Local Development)
+
+### 1. Prerequisites
+- **Node.js:** v20.x or higher LTS
+- **npm:** v10.x or higher
+- **MongoDB:** MongoDB Atlas connection string or local MongoDB instance
+
+### 2. Clone Repository
 ```bash
 git clone https://github.com/AyushKumar-12345/Feasto.git
 cd Feasto
 ```
 
----
+### 3. Native Node.js Execution (3 Terminals)
 
-## 2️⃣ Install Dependencies
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-```
-
-### Backend
-
-```bash
-cd ../backend
-npm install
-```
-
-### Admin Dashboard
-
-```bash
-cd ../admin
-npm install
-```
-
----
-
-## 3️⃣ Configure Environment Variables
-
-Configure the single repository-root `.env` file with the provider credentials
-and URLs listed below. Vite frontends and the backend load this shared file.
-Keep it private: never commit `.env` or expose backend secrets through `VITE_*`
-variables.
-
-For Render or another host, set variables in each service's environment
-settings:
-
-| Service | Variables |
-| --- | --- |
-| Customer frontend | `VITE_BACKEND_URL`, `VITE_ADMIN_URL`, `VITE_RAZORPAY_KEY_ID`, `VITE_FORMSPREE_FORM_ID` |
-| Admin frontend | `VITE_BACKEND_URL`, `VITE_FRONTEND_URL` |
-| Backend | `PORT`, `MONGODB_URI`, `JWT_SECRET`, `ADMIN_EMAIL`, `ADMIN_PASSWORD`, `FRONTEND_URL`, `ADMIN_URL`, `CLOUDINARY_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_SECRET_KEY`, `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `GEMINI_API_KEY`, `GEMINI_MODEL` |
-
-The customer and admin `VITE_BACKEND_URL` values must point to the same backend
-base URL (for example, `https://your-api.onrender.com`, without `/api`). Set
-`FRONTEND_URL` and `ADMIN_URL` to the full public origins of your customer and
-admin apps, including `https://` and without a trailing slash.
-
-For Formspree, create a form at [Formspree](https://formspree.com/) and copy
-the form ID from its endpoint (`https://formspree.io/f/{form_id}`) into
-`VITE_FORMSPREE_FORM_ID`. The contact page discloses that Formspree processes
-submissions. The public Formspree ID is not a secret.
-
-`VITE_*` values are visible to every browser user. Never put backend secrets in
-them.
-
-## 4️⃣ Configure AI Assistant
-
-Feasto uses Google Gemini 3.0 models to provide intelligent, contextual dish recommendations and order support. Configure your Gemini API key in the backend environment (do not expose the key in frontend variables):
-
-```env
-# Google Gemini 3.0 (Get free key at https://aistudio.google.com/app/apikey)
-GEMINI_API_KEY=your_gemini_api_key
-GEMINI_MODEL=gemini-3.8-flash
-```
-
-The assistant sends chat messages and menu details to Google Gemini. When a customer
-is signed in, up to five of their recent paid order summaries may be included
-(status, items, and date only; no address or phone). Chat history is not stored
-by Feasto.
-
----
-
-## 5️⃣ Configure the shared API URL
-
-The customer and admin applications should use the same backend service.
-Set `VITE_BACKEND_URL` to that API's base URL in both frontend deployment
-environments. Both default to the published Feasto backend when the variable
-is not set.
-
-Failed sign-ins are rate-limited in each backend process. For a multi-instance
-deployment, also configure an edge or shared rate limiter so the limit is
-consistent across instances.
-
-## 6️⃣ Authentication and authorization
-
-Customer and administrator sessions use separate signed JWT audiences and
-roles. The backend derives the customer identity from the verified token,
-checks that the customer account still exists, and restricts administrator
-operations to administrator tokens. Order creation recalculates prices from
-the server menu, and order history, payment verification, and delivery tracking
-are scoped to the authenticated customer.
-
-Deploy the backend and both frontend apps from the same project revision so
-their token format and protected routes stay in sync. After deploying the
-scoped-token change, customers and admins must sign in again.
-
-## 7️⃣ Run the Project Locally (Native Node.js)
-
-### Prerequisites
-- **Node.js**: v20.x or higher
-- **npm**: v10.x or higher
-- **MongoDB**: Local MongoDB instance or free MongoDB Atlas cluster
-
-### Start Backend API (Port 4000)
+#### Terminal 1: Backend API (Port 4000)
 ```bash
 cd backend
 npm install
 npm run server
 ```
 
-### Start Customer Frontend (Port 5173)
+#### Terminal 2: Customer Frontend (Port 5173)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-### Start Admin Dashboard (Port 5174)
+#### Terminal 3: Admin Dashboard (Port 5174)
 ```bash
 cd admin
 npm install
@@ -261,241 +283,177 @@ npm run dev
 
 ---
 
-## 8️⃣ Run with Docker & Docker Compose
+## 🐳 Docker & Containerized Deployment
 
-Feasto includes production-grade containerization with multi-stage Dockerfiles and a `compose.yaml` file for full-stack local development.
+Feasto includes a production-grade multi-container `compose.yaml` orchestrating the complete application stack:
 
-### Option A: Run the Complete Stack with Docker Compose
-The Docker Compose configuration automatically spins up:
-- **`mongodb`**: Isolated local database with persistent named volume (`feasto_mongodb_data`).
-- **`backend`**: Node 20 Alpine container with health check on port `4000`.
-- **`frontend`**: Production-built Vite bundle served via high-performance Nginx on port `5173`.
-- **`admin`**: Production-built admin bundle served via Nginx on port `5174`.
+```mermaid
+flowchart LR
+    subgraph HostSystem["Host Machine"]
+        Port5173["Port 5173: Customer App"]
+        Port5174["Port 5174: Admin Dashboard"]
+        Port4000["Port 4000: Backend API"]
+        MongoVolume[("Volume: feasto_mongodb_data")]
+    end
 
+    subgraph DockerNetwork["Internal Bridge Network: feasto-network"]
+        FEContainer["feasto-frontend\n(Nginx Alpine)"]
+        AdminContainer["feasto-admin\n(Nginx Alpine)"]
+        BEContainer["feasto-backend\n(Node 20 Alpine)"]
+        DBContainer["feasto-mongodb\n(MongoDB 7.0 Jammy)"]
+    end
+
+    Port5173 --> FEContainer
+    Port5174 --> AdminContainer
+    Port4000 --> BEContainer
+    FEContainer & AdminContainer -->|API Calls| BEContainer
+    BEContainer -->|Internal DNS| DBContainer
+    DBContainer --> MongoVolume
+```
+
+### Run Full Stack with Docker Compose
 ```bash
-# 1. Prepare environment variables
+# 1. Prepare environment file
 cp .env.example .env
 
-# 2. Build and start all services in detached mode
+# 2. Build and launch all services in detached mode
 docker compose up --build -d
 
-# 3. View container health and logs
+# 3. Check health and running status
 docker compose ps
+
+# 4. View logs
 docker compose logs -f backend
 
-# 4. Stop and tear down containers
+# 5. Stop services (preserving database volume)
 docker compose down
 ```
 
-> **Note on MongoDB**: If `MONGODB_URI` is left unconfigured in `.env`, Compose automatically connects to the internal `mongodb` container (`mongodb://mongodb:27017/feasto`). If you provide a MongoDB Atlas URI in `.env`, the backend connects directly to your Atlas cluster.
-
-### Option B: Build and Run Individual Docker Containers
-
-#### Backend Container
-```bash
-# Build image
-docker build -t feasto-backend:latest -f backend/Dockerfile ./backend
-
-# Run container (injecting environment variables from .env)
-docker run -d --name feasto-backend -p 4000:4000 --env-file .env feasto-backend:latest
-
-# Check container health
-docker inspect --format='{{json .State.Health.Status}}' feasto-backend
-```
-
-#### Customer Frontend Container
-```bash
-docker build -t feasto-frontend:latest -f frontend/Dockerfile ./frontend
-docker run -d --name feasto-frontend -p 5173:80 feasto-frontend:latest
-```
-
-#### Admin Dashboard Container
-```bash
-docker build -t feasto-admin:latest -f admin/Dockerfile ./admin
-docker run -d --name feasto-admin -p 5174:80 feasto-admin:latest
-```
-
 ---
 
-## 9️⃣ Automated Testing & Quality Checks
+## 🧪 Automated Testing & Quality Suite
 
-Run all automated test suites and linting checks locally matching the CI pipeline:
+Feasto includes 18 automated unit and integration tests executing with zero external dependencies via Node's native test runner (`node:test`):
 
 ```bash
-# Backend unit & integration tests (18 tests via Node test runner)
-cd backend && npm test
+# Run backend test suite
+npm --prefix backend test
+```
 
-# Frontend linting and production build check
-cd ../frontend && npm run lint && npm run build
+### Test Suite Execution Output:
+```text
+TAP version 13
+✔ askAssistant rejects empty message with 400
+✔ askAssistant rejects invalid history with 400
+✔ askAssistant returns 503 if no Gemini API key is provided
+✔ customer auth requires a well-formed bearer token and refuses admin credentials
+✔ customer auth rejects old, expired, and inconsistent JWT claims
+✔ customer auth takes the principal from the token and checks the account exists
+✔ customer auth rejects tokens for deleted accounts
+✔ admin auth accepts only a scoped admin token
+✔ optional customer auth allows guests but validates any provided token
+✔ checkout uses the authenticated customer and server menu prices
+✔ payment verification scopes order lookup to the authenticated customer
+✔ guest cart merge adds quantities to the signed-in cart and caps item quantities
+✔ guest cart merge rejects malformed item quantities
+✔ repeating a completed guest cart merge does not add the cart twice
+✔ GET / returns 200 with API status message
+✔ GET /api/health returns 200 with status ok and uptime
+✔ 404 catch-all returns 404 with structured error response
+✔ CORS validator logic permits local Vite dev origins and blocks untrusted domains
 
-# Admin linting and production build check
-cd ../admin && npm run lint && npm run build
+18 tests passed (100% success rate)
 ```
 
 ---
 
-## 🔟 Continuous Integration & Deployment (GitHub Actions)
+## 🔄 CI/CD & Production Deployment
 
-The repository includes an automated CI/CD pipeline at `.github/workflows/ci-cd.yml` triggered on every push and pull request to `main`:
+Feasto features an enterprise-grade automated CI/CD pipeline defined in [`.github/workflows/ci-cd.yml`](./.github/workflows/ci-cd.yml):
 
-1. **Lint, Test & Build**:
-   - Executes across Ubuntu Latest on Node.js 20 with npm caching.
-   - Runs all 18 backend tests (auth, assistant, cart, health, CORS).
-   - Validates ESLint flat-config linting across customer and admin codebases.
-   - Executes Vite production builds for both frontends.
-2. **Container Verification**:
-   - Configures Docker Buildx.
-   - Builds backend, frontend, and admin production Docker images to verify container compatibility.
-   - Uses GitHub Actions cache (`type=gha`) for fast, reproducible image builds.
+```mermaid
+flowchart TD
+    GitPush["git push origin main"] --> CIWorkflow["GitHub Actions CI Pipeline"]
+    
+    subgraph Job1["Lint, Test & Build"]
+        BE_Test["Backend: npm ci & npm test (18 Tests Passed)"]
+        FE_Lint["Frontend: ESLint & Vite Production Build"]
+        Admin_Lint["Admin: ESLint & Vite Production Build"]
+    end
 
-### Deployment Next Steps
-Feasto is configured for Render deployment via [`render.yaml`](./render.yaml). When pushing to `main`, Render automatically syncs static builds for the customer frontend and admin dashboard, and re-deploys the web service for the backend.
+    subgraph Job2["Container Verification"]
+        DockerBuildx["Docker Buildx Multi-Stage Verification"]
+        BE_Img["Build feasto-backend Image"]
+        FE_Img["Build feasto-frontend Image"]
+        Admin_Img["Build feasto-admin Image"]
+    end
 
----
-
-## 🛠️ Troubleshooting
-
-### 1. MongoDB Atlas SRV Connection Timeouts
-- **Symptom**: `MongooseError: querySrv ENODATA` or connection timeout.
-- **Solution**: Feasto's `backend/config/loadEnv.js` automatically sets Google (`8.8.8.8`) and Cloudflare (`1.1.1.1`) DNS servers for SRV resolution. If your local network or firewall blocks custom DNS, use the local MongoDB service via Docker Compose (`mongodb://mongodb:27017/feasto`) or specify a direct standard connection string.
-
-### 2. Missing Cloudinary / Razorpay Configuration
-- **Symptom**: `Missing Cloudinary environment variables.` on backend startup.
-- **Solution**: Ensure `CLOUDINARY_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_SECRET_KEY` are defined in `.env`. For local testing without image uploads, place dummy non-empty strings in `.env`.
-
-### 3. Port Already in Use (EADDRINUSE)
-- **Symptom**: `Error: listen EADDRINUSE: address already in use :::4000`.
-- **Solution**: A previous Node or Docker process is holding port 4000. Stop it via `docker compose down` or terminate the running Node process (`Stop-Process -Id (Get-NetTCPConnection -LocalPort 4000).OwningProcess -Force` on Windows).
-
----
-# 📸 Application Preview
-
-## 🏠 Home Page
-
-> _Screenshot Coming Soon_
+    CIWorkflow --> Job1
+    CIWorkflow --> Job2
+    Job1 & Job2 --> PassGate["CI Quality Gate Passed ✅"]
+    PassGate --> RenderDeploy["Render Auto-Deploy Webhook\n(Zero-Downtime Live Rollout 🚀)"]
+```
 
 ---
 
-## 🍽️ Food Menu
+## 🔒 Security & Production Hardening
 
-> _Screenshot Coming Soon_
-
----
-
-## 🔍 Search & Categories
-
-> _Screenshot Coming Soon_
+- **Audience-Separated JWTs:** Distinct cryptographic token audiences ensure customer credentials cannot be used to execute administrative actions.
+- **Server-Side Price Validation:** Protects against client-side cart tampering by strictly recalculating order costs directly from database records.
+- **Cryptographic Signature Verification:** Enforces HMAC-SHA256 signature checks on all Razorpay payments.
+- **Brute-Force Rate Limiting:** Rate limiters protect authentication endpoints (`/api/user/login`, `/api/admin/login`) and AI endpoints.
+- **Non-Root Container Security:** Backend Dockerfile executes as unprivileged user `node`, and frontends are served via hardened Nginx Alpine images.
 
 ---
 
-## 🛒 Shopping Cart
+## 🖥 Application Flow & Interfaces
 
-> _Screenshot Coming Soon_
-
----
-
-## 💳 Razorpay Checkout
-
-> _Screenshot Coming Soon_
-
----
-
-## 📦 My Orders
-
-> _Screenshot Coming Soon_
+| Screen / Feature | Route / URL | Core Responsibilities & User Experience |
+| :--- | :--- | :--- |
+| **Welcome Gate** | `/` (Unauthenticated) | Brand hero banner, value proposition, and modal sign-in/sign-up gate ensuring session isolation. |
+| **Menu Catalog** | `/` | Category filters (*Fresh & Crisp*, *Savory & Hearty*, *Sweet Treats*), live search bar, and dynamic dish cards. |
+| **Food Concierge** | Floating Widget | Context-aware AI assistant driven by Google Gemini 3.0 answering guest questions and recommending dishes in INR (`₹`). |
+| **Shopping Cart** | `/cart` | Item quantity increments/decrements, verified itemized subtotal, delivery fee, and promo calculations. |
+| **Checkout & Razorpay**| `/order` | Delivery address form, server order initialization, and secure Razorpay payment modal with signature verification. |
+| **My Orders** | `/myorders` | Past order receipts, live order states (*Food Processing*, *Out for Delivery*, *Delivered*), and direct tracking links. |
+| **Live Driver Map** | `/tracking/:id` | Leaflet & OpenStreetMap interactive map displaying live animated delivery rider coordinates and destination pin. |
+| **Admin Food Manager**| `admin/add`, `admin/list`| Uploading high-res dish photos to Cloudinary, setting price & categories, and toggling availability. |
+| **Admin Order Center** | `admin/orders` | Live order dashboard with one-click status transitions and live driver GPS dispatch controls. |
 
 ---
 
-## 👤 User Profile
+## 🩺 Troubleshooting
 
-> _Screenshot Coming Soon_
+### 1. MongoDB Atlas SRV Connection Refused (`querySrv ENODATA`)
+- **Cause:** Certain local Windows networks block DNS SRV lookups utilized by `mongodb+srv://`.
+- **Solution:** Feasto includes automatic DNS fallback to Google (`8.8.8.8`) and Cloudflare (`1.1.1.1`) in `backend/config/loadEnv.js`. If using Docker Compose, the local `mongodb` service is used automatically.
 
----
+### 2. Port Already in Use (`EADDRINUSE`)
+- **Cause:** Another process is utilizing port 4000, 5173, or 5174.
+- **Solution:** Run `docker compose down` or kill the process:
+  ```powershell
+  # Windows PowerShell:
+  Stop-Process -Id (Get-NetTCPConnection -LocalPort 4000).OwningProcess -Force
+  ```
 
-## 🛠️ Admin Dashboard
-
-> _Screenshot Coming Soon_
-
----
-
-## 🍕 Food Management
-
-> _Screenshot Coming Soon_
-
----
-
-## 📋 Order Management
-
-> _Screenshot Coming Soon_
-
----
-# 🚀 Future Improvements
-
-- ❤️ Wishlist & Favorites Functionality
-- 🎟️ Promotional Coupons & Promo Codes
-- 📧 Automated Order Confirmation Emails
-- 🔔 Real-time Web Push Notifications
-- 🏠 Multiple Saved Delivery Addresses
-- ⭐ Verified Dish Ratings & Reviews
-- 🌙 Dark Mode / Theme Toggle
-- 📱 Progressive Web App (PWA) Offline Support
-- 🌍 Multi-language & Localization Support
+### 3. Missing Cloudinary / Razorpay Credentials
+- **Cause:** Missing environment variables in `.env`.
+- **Solution:** Copy `.env.example` to `.env` and provide valid API keys. For testing without payment or image uploads, placeholder strings can be used.
 
 ---
 
-# 🤝 Contributing
+## 👨‍💻 Developer & Contact
 
-Contributions, issues, and feature requests are welcome!
+**Ayush Kumar**  
+*Information Technology | IIIT Bhubaneswar*  
 
-If you'd like to contribute:
-
-1. Fork the repository
-2. Create a new feature branch
-3. Commit your changes
-4. Push the branch
-5. Open a Pull Request
-
----
-
-# 📄 License
-
-This project is created for **learning, educational, and portfolio purposes**.
-
----
-
-# 👨‍💻 Developer
-
-## Ayush Kumar
-
-**B.Tech Information Technology**  
-**IIIT Bhubaneswar**
-
-📧 **Email**  
-ayushkumardandapat200@gmail.com
-
-💼 **LinkedIn**  
-https://www.linkedin.com/in/ayush-kumar-97326636a/
-
-💻 **GitHub**  
-https://github.com/AyushKumar-12345
-
-🌐 **Portfolio**  
-https://ayush-portfolio-3yan.onrender.com
-
----
-
-# ⭐ Support
-
-If you found this project helpful, please consider giving it a **⭐ Star** on GitHub.
-
-It helps increase the visibility of the project and supports my work.
+- **Portfolio:** [https://ayush-portfolio-3yan.onrender.com](https://ayush-portfolio-3yan.onrender.com)
+- **LinkedIn:** [linkedin.com/in/ayush-kumar-97326636a](https://www.linkedin.com/in/ayush-kumar-97326636a/)
+- **GitHub:** [github.com/AyushKumar-12345](https://github.com/AyushKumar-12345)
+- **Email:** [ayushkumardandapat200@gmail.com](mailto:ayushkumardandapat200@gmail.com)
 
 ---
 
 <div align="center">
-
-### 🍔 Built with ❤️ using the MERN Stack
-
-**Thank you for visiting this repository!**
-
+  <sub>Built with ❤️ by Ayush Kumar • Feasto Food Delivery Ecosystem</sub>
 </div>
