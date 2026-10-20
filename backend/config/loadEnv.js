@@ -13,9 +13,10 @@ dotenv.config({ path: resolve(backendDirectory, ".env") });
 dotenv.config();
 
 // Ensure Google and Cloudflare DNS are set for MongoDB Atlas SRV resolution
-try {
-    dns.setServers(["8.8.8.8", "1.1.1.1"]);
-} catch {
-    // Ignore if system restricts custom DNS servers
+if (process.env.MONGODB_URI?.startsWith("mongodb+srv://")) {
+    try {
+        dns.setServers(["8.8.8.8", "1.1.1.1"]);
+    } catch {
+        // Ignore if system restricts custom DNS servers
+    }
 }
-

@@ -11,7 +11,13 @@ import orderRouter from "./routes/orderRoute.js";
 import userRouter from "./routes/userRoute.js";
 import assistantRouter from "./routes/assistantRoute.js";
 
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
+if (process.env.MONGODB_URI?.startsWith("mongodb+srv://")) {
+    try {
+        dns.setServers(["8.8.8.8", "1.1.1.1"]);
+    } catch {
+        // Ignore if system restricts custom DNS servers
+    }
+}
 
 const app = express();
 const port = process.env.PORT || 4000;
