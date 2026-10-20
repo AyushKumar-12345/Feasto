@@ -110,6 +110,22 @@ const callGemini = async ({
         }
     }
 
+    if (!response.ok && response.status === 404 && model !== DEFAULT_GEMINI_MODEL) {
+        console.warn(`Model ${model} returned 404; falling back to default ${DEFAULT_GEMINI_MODEL}`);
+        const defaultEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
+            DEFAULT_GEMINI_MODEL
+        )}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const fallbackResponse = await fetch(defaultEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+            signal,
+        });
+        if (fallbackResponse.ok) {
+            response = fallbackResponse;
+        }
+    }
+
     if (!response.ok) {
         let errorDetails = null;
         try {
